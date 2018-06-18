@@ -1,0 +1,39 @@
+{
+  "name": "RestaurantApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "lodash": "^4.17.10",
+    "prop-types": "^15.6.1",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-permissions": "^1.1.1",
+    "react-native-vector-icons": "^4.6.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.4",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.4",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
