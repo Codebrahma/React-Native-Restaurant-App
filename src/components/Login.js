@@ -2,14 +2,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import { Actions } from 'react-native-router-flux';
 
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
-import SecondaryText from '../base_components/SecondaryText';
 import RoundButton from '../base_components/RoundButton';
+import TextButton from '../base_components/TextButton';
 
 class LoginComponent extends Component {
   render() {
@@ -54,20 +55,23 @@ class LoginComponent extends Component {
           placeholder="Password"
         />
         <BR />
-        <SecondaryText
-          style={{
-            width: '80%',
+        <TextButton
+          onPress={() => {
           }}
-          align="right"
-        >
-          Forgot Password?
-        </SecondaryText>
+          title="Forgot Password?"
+        />
         <BR size={50} />
         <RoundButton
           title="Sign In"
           disabled={disableLogin}
           loading={loading}
           onPress={onLoginSubmit}
+        />
+        <BR size={50} />
+        <TextButton
+          primary
+          title="Skip Login"
+          onPress={() => Actions.homeScreen()}
         />
       </AppBase>
     );
