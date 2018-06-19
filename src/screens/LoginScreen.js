@@ -24,7 +24,6 @@ class LoginScreen extends Component {
     const token = await AsyncStorage.getItem('authToken');
     if (token !== null) {
       // We have data!!
-      console.log(token);
       Actions.replace('homeScreen');
     }
   };
@@ -52,7 +51,7 @@ class LoginScreen extends Component {
       const value = await AsyncStorage.setItem('authToken', loginMessage.token);
       Actions.replace('homeScreen');
     } catch (e) {
-
+      console.log(e);
     }
   };
 

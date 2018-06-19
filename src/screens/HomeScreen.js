@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { AsyncStorage } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
+
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
-import BR from '../base_components/BR';
-import TextInput from '../base_components/TextInput';
-import SecondaryText from '../base_components/SecondaryText';
-import RoundButton from '../base_components/RoundButton';
+import TextButton from '../base_components/TextButton';
 
 class HomeScreen extends Component {
+  handleSignOut = async () => {
+    await AsyncStorage.removeItem('authToken');
+    Actions.replace('loginScreen');
+  };
+
   render() {
     return (
       <AppBase>
         <PrimaryText bold size={26}>Home Screen</PrimaryText>
+        <TextButton title={'Sign Out'} onPress={this.handleSignOut} />
       </AppBase>
     );
   }
