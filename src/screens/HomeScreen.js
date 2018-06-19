@@ -17,7 +17,7 @@ class HomeScreen extends Component {
     return (
       <AppBase>
         <PrimaryText bold size={26}>Home Screen</PrimaryText>
-        <TextButton title={'Sign Out'} onPress={this.handleSignOut} />
+        <TextButton title="Sign Out" onPress={this.handleSignOut} />
       </AppBase>
     );
   }
