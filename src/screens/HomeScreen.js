@@ -10,7 +10,7 @@ import TextButton from '../base_components/TextButton';
 class HomeScreen extends Component {
   handleSignOut = async () => {
     await AsyncStorage.removeItem('authToken');
-    Actions.replace('loginScreen');
+    Actions.reset('loginScreen');
   };
 
   render() {

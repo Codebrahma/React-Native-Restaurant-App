@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+import { ActivityIndicator, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import { Actions } from 'react-native-router-flux';
 
 import { authLogin } from '../actions';
 import LoginComponent from '../components/Login';
+import LoadingView from '../base_components/LoadingView';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class LoginScreen extends Component {
     this.state = {
       email: null,
       password: null,
+      isLoadingToken: true,
     };
   }
 
@@ -23,8 +25,11 @@ class LoginScreen extends Component {
   componentDidMount = async () => {
     const token = await AsyncStorage.getItem('authToken');
     if (token !== null) {
-      // We have data!!
-      Actions.replace('homeScreen');
+      Actions.reset('homeScreen');
+    } else {
+      this.setState({
+        isLoadingToken: false,
+      });
     }
   };
 
@@ -49,7 +54,7 @@ class LoginScreen extends Component {
   handleRedirect = async (loginMessage) => {
     try {
       const value = await AsyncStorage.setItem('authToken', loginMessage.token);
-      Actions.replace('homeScreen');
+      Actions.reset('homeScreen');
     } catch (e) {
       console.log(e);
     }
@@ -57,6 +62,11 @@ class LoginScreen extends Component {
 
   render() {
     const { loginLoading, loginMessage } = this.props;
+    const { isLoadingToken } = this.state;
+
+    if (isLoadingToken) {
+      return (<LoadingView />);
+    }
 
     if (loginMessage !== null && loginMessage.success) {
       this.handleRedirect(loginMessage);
