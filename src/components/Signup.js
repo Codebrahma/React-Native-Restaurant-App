@@ -11,23 +11,34 @@ import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
 import TextButton from '../base_components/TextButton';
-import Colors from '../constants/colors';
 
-class LoginComponent extends Component {
+class SignupComponent extends Component {
   render() {
     const {
-      loading, onLoginSubmit, onEmailChange, onPasswordChange, loginError, disableLogin,
+      loading, onSignupSubmit,
+      onEmailChange, onPasswordChange,
+      registerError, disableSignUp,
+      registerMessage,
     } = this.props;
+
+    if (registerMessage && registerMessage.success) {
+      Actions.replace('loginScreen', {
+        loginError: {
+          message: 'Sign Up successful',
+        },
+      });
+    }
 
     return (
       <AppBase
         style={{
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
         }}
       >
-        <PrimaryText bold size={26}>Restaurant App</PrimaryText>
-        <BR size={50} />
-        {loginError && <PrimaryText>{loginError.message}</PrimaryText>}
+        <PrimaryText bold size={26}>Sign Up</PrimaryText>
+        <BR size={20} />
+        {registerError && <PrimaryText>{registerError.message}</PrimaryText>}
+        {registerMessage && <PrimaryText>{JSON.stringify(registerMessage)}</PrimaryText>}
         <BR size={50} />
 
         <TextInput
@@ -56,47 +67,30 @@ class LoginComponent extends Component {
           placeholder="Password"
         />
         <BR />
-        <TextButton
-          onPress={() => {
-          }}
-          title="Forgot Password?"
-        />
-        <BR />
         <RoundButton
-          title="Sign In"
-          disabled={disableLogin}
-          loading={loading}
-          onPress={onLoginSubmit}
-        />
-        <BR size={10} />
-        <RoundButton
-          primary
-          buttonColor={Colors.blue}
           title="Sign Up"
-          onPress={() => Actions.signupScreen()}
-        />
-        <BR size={20} />
-        <TextButton
-          primary
-          title="Skip Login"
-          onPress={() => Actions.homeScreen()}
+          disabled={disableSignUp}
+          loading={loading}
+          onPress={onSignupSubmit}
         />
       </AppBase>
     );
   }
 }
 
-LoginComponent.defaultProps = {
-  loginError: null,
+SignupComponent.defaultProps = {
+  registerMessage: null,
+  registerError: null,
 };
 
-LoginComponent.propTypes = {
-  disableLogin: PropTypes.bool.isRequired,
+SignupComponent.propTypes = {
+  disableSignUp: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
-  loginError: PropTypes.object,
+  registerMessage: PropTypes.object,
+  registerError: PropTypes.object,
   onEmailChange: PropTypes.func.isRequired,
   onPasswordChange: PropTypes.func.isRequired,
-  onLoginSubmit: PropTypes.func.isRequired,
+  onSignupSubmit: PropTypes.func.isRequired,
 };
 
-export default LoginComponent;
+export default SignupComponent;

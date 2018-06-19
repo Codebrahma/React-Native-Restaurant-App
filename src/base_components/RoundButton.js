@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Colors from '../constants/colors';
 
 const LoadingWrap = styled.View`
-  background-color: ${Colors.primaryColor};
+  background-color: ${props => props.buttonColor};
   margin: 10px auto;
   padding: 10px;
   width: 150px;
@@ -61,7 +61,7 @@ class RoundButton extends React.Component {
 
     const buttonStyles = disabled ? style.button :
       [{
-        shadowColor: Colors.primaryColor,
+        shadowColor: buttonColor,
         shadowRadius: 10,
         shadowOpacity: 0.4,
         shadowOffset: { width: 5, height: 5 },
@@ -69,7 +69,7 @@ class RoundButton extends React.Component {
 
     if (loading) {
       return (
-        <LoadingWrap>
+        <LoadingWrap buttonColor={buttonColor}>
           <ActivityIndicator size="large" color="#fff" />
         </LoadingWrap>
       );

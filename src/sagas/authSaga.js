@@ -10,7 +10,6 @@ function* loginTask(action) {
     const { payload } = action;
 
     const res = yield call(Auth.doLogin, payload.email, payload.password);
-    console.log(res);
 
     if (res.status === 200) {
       yield put({
@@ -34,10 +33,13 @@ function* loginTask(action) {
 
 function* registerTask(action) {
   try {
+    yield put({
+      type: 'AUTH_REGISTER_LOADING',
+    });
+
     const { payload } = action;
 
     const res = yield call(Auth.doRegister, payload.email, payload.password);
-    console.log(res);
 
     if (res.status === 200) {
       yield put({
