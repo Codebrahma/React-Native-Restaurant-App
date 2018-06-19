@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
+import debounce from 'lodash/debounce';
+
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
@@ -11,6 +13,10 @@ import RoundButton from '../base_components/RoundButton';
 
 class LoginComponent extends Component {
   render() {
+    const {
+      loading, onLoginSubmit, onEmailChange, onPasswordChange, loginError, disableLogin,
+    } = this.props;
+
     return (
       <AppBase
         style={{
@@ -18,10 +24,13 @@ class LoginComponent extends Component {
         }}
       >
         <PrimaryText bold size={26}>Restaurant App</PrimaryText>
-        <BR size={100} />
+        <BR size={50} />
+        {loginError && <PrimaryText>{loginError.message}</PrimaryText>}
+        <BR size={50} />
+
         <TextInput
-          onChangeText={(text) => {
-          }}
+          autoCorrect={false}
+          onChangeText={debounce(onEmailChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
@@ -32,8 +41,8 @@ class LoginComponent extends Component {
         />
         <BR />
         <TextInput
-          onChangeText={(text) => {
-          }}
+          autoCorrect={false}
+          onChangeText={debounce(onPasswordChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
@@ -41,6 +50,7 @@ class LoginComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           value=""
+          secureTextEntry
           placeholder="Password"
         />
         <BR />
@@ -55,13 +65,26 @@ class LoginComponent extends Component {
         <BR size={50} />
         <RoundButton
           title="Sign In"
-          onPress={() => Actions.homeScreen()}
+          disabled={disableLogin}
+          loading={loading}
+          onPress={onLoginSubmit}
         />
       </AppBase>
     );
   }
 }
 
-LoginComponent.propTypes = {};
+LoginComponent.defaultProps = {
+  loginError: null,
+};
+
+LoginComponent.propTypes = {
+  disableLogin: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  loginError: PropTypes.object,
+  onEmailChange: PropTypes.func.isRequired,
+  onPasswordChange: PropTypes.func.isRequired,
+  onLoginSubmit: PropTypes.func.isRequired,
+};
 
 export default LoginComponent;

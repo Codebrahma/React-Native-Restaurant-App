@@ -1,18 +1,30 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Colors from '../constants/colors';
 
+const LoadingWrap = styled.View`
+  background-color: ${Colors.primaryColor};
+  margin: 10px auto;
+  padding: 10px;
+  width: 150px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 80px;
+  elevation: 3;
+`;
+
 const ButtonWrap = styled.View`
-  background-color: ${props => props.buttonColor || '#000'};
+  background-color: ${props => (props.disabled ? '#ddd' : props.buttonColor || '#000')};
   margin: 10px auto;
   width: 90%;
   padding: 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 80;
+  border-radius: 80px;
   elevation: 3;
 `;
 
@@ -41,43 +53,66 @@ const ButtonText = styled.Text`
  * @returns {RoundButton}
  * @constructor
  */
-const RoundButton = ({
-  title, onPress, buttonColor, textColor, style,
-}) => (
-  <TouchableOpacity
-    onPress={onPress}
-    activeOpacity={0.8}
-    style={style.wrap}
-  >
-    <ButtonWrap
-      style={[{
+class RoundButton extends React.Component {
+  render() {
+    const {
+      title, onPress, buttonColor, textColor, style, loading, disabled,
+    } = this.props;
+
+    const buttonStyles = disabled ? style.button :
+      [{
         shadowColor: Colors.primaryColor,
         shadowRadius: 10,
         shadowOpacity: 0.4,
         shadowOffset: { width: 5, height: 5 },
-      }, style.button]}
-      buttonColor={buttonColor}
-    >
-      <ButtonText
-        style={style.text}
-        textColor={textColor}
+      }, style.button];
+
+    if (loading) {
+      return (
+        <LoadingWrap>
+          <ActivityIndicator size="large" color="#fff" />
+        </LoadingWrap>
+      );
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        activeOpacity={0.8}
+        disabled={disabled}
+        style={style.wrap}
       >
-        {title}
-      </ButtonText>
-    </ButtonWrap>
-  </TouchableOpacity>
-);
+        <ButtonWrap
+          disabled={disabled}
+          style={buttonStyles}
+          buttonColor={buttonColor}
+        >
+          <ButtonText
+            style={style.text}
+            textColor={textColor}
+          >
+            {title}
+          </ButtonText>
+        </ButtonWrap>
+      </TouchableOpacity>
+    );
+  }
+}
 
 
 RoundButton.defaultProps = {
   buttonColor: Colors.primaryColor,
   textColor: '#fff',
   style: {},
+  loading: false,
+  disabled: false,
 };
 
 RoundButton.propTypes = {
+  disabled: PropTypes.bool,
   buttonColor: PropTypes.string,
   textColor: PropTypes.string,
+  loading: PropTypes.bool,
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   style: PropTypes.shape({

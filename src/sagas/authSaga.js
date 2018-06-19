@@ -3,6 +3,10 @@ import Auth from '../service/login';
 
 function* loginTask(action) {
   try {
+    yield put({
+      type: 'AUTH_LOGIN_LOADING',
+    });
+
     const { payload } = action;
 
     const res = yield call(Auth.doLogin, payload.email, payload.password);
