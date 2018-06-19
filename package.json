@@ -21,6 +21,7 @@
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-permissions": "^1.1.1",
+    "react-native-router-flux": "^4.0.0-beta.31",
     "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
@@ -35,5 +36,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }
