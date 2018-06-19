@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
 
 
 import { authLogin } from '../actions';
@@ -39,7 +38,7 @@ class LoginScreen extends Component {
     const { loginLoading, loginError } = this.props;
     const { email, password } = this.state;
     const disableLogin = (!email || email.length === 0 || !password || password.length === 0);
-    console.log('disableLogin', disableLogin);
+
     return (
       <LoginComponent
         loading={loginLoading}
