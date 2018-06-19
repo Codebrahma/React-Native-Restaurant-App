@@ -1,67 +1,32 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
-import BR from '../base_components/BR';
-import TextInput from '../base_components/TextInput';
-import SecondaryText from '../base_components/SecondaryText';
-import RoundButton from '../base_components/RoundButton';
+import { authLogin } from '../actions';
+import LoginComponent from '../components/Login';
 
 class LoginScreen extends Component {
+  componentDidMount() {
+    this.props.authLogin('test', 'tata');
+  }
+
   render() {
-    return (
-      <AppBase
-        style={{
-          justifyContent: 'center',
-        }}
-      >
-        <PrimaryText bold size={26}>Restaurant App</PrimaryText>
-        <BR size={100} />
-        <TextInput
-          onChangeText={(text) => {
-          }}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Username"
-        />
-        <BR />
-        <TextInput
-          onChangeText={(text) => {
-          }}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          value=""
-          placeholder="Password"
-        />
-        <BR />
-        <SecondaryText
-          style={{
-            width: '80%',
-          }}
-          align="right"
-        >
-          Forgot Password?
-        </SecondaryText>
-        <BR size={50} />
-        <RoundButton
-          title="Sign In"
-          onPress={() => Actions.homeScreen()}
-        />
-      </AppBase>
-    );
+    return (<LoginComponent />);
   }
 }
 
 LoginScreen.propTypes = {};
 
-export default LoginScreen;
+function initMapStateToProps(state) {
+  return {
+    loginError: state.auth.loginError,
+  };
+}
+
+function initMapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    authLogin,
+  }, dispatch);
+}
+
+export default connect(initMapStateToProps, initMapDispatchToProps)(LoginScreen);

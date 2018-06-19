@@ -14,10 +14,7 @@ const AppRouter = () => (
         title="Restaurant App"
         backButtonTintColor="#fff"
         titleStyle={{
-          color: '#fff',
-        }}
-        navigationBarStyle={{
-          backgroundColor: Colors.primaryColor,
+          color: Colors.primaryColor,
         }}
       />
     </Scene>
