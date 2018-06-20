@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import Colors from './constants/colors';
 import SignupScreen from './screens/SignupScreen';
+import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
+
 
 const AppRouter = () => (
   <Router>
@@ -14,11 +17,21 @@ const AppRouter = () => (
         key="homeScreen"
         component={HomeScreen}
         title="Restaurant App"
-        backButtonTintColor="#fff"
         titleStyle={{
+          fontFamily: 'Roboto Slab',
           color: Colors.primaryColor,
         }}
       />
+      <Scene
+        key="homeScreen"
+        component={HomeScreen}
+        title="Restaurant App"
+        titleStyle={{
+          fontFamily: 'Roboto Slab',
+          color: Colors.primaryColor,
+        }}
+      />
+      <Scene key="restaurantScreen" component={RestaurantInfoScreen} title="" />
     </Scene>
   </Router>
 );

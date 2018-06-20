@@ -24,7 +24,7 @@ class LoginScreen extends Component {
 
   componentDidMount = async () => {
     const token = await AsyncStorage.getItem('authToken');
-    if (token !== null) {
+    if (token !== null && token !== undefined && token.length > 10) {
       Actions.reset('homeScreen');
     } else {
       this.setState({
@@ -68,7 +68,7 @@ class LoginScreen extends Component {
       return (<LoadingView />);
     }
 
-    if (loginMessage !== null && loginMessage.success) {
+    if (loginMessage !== null && loginMessage.success && loginMessage.token) {
       this.handleRedirect(loginMessage);
       return null;
     }

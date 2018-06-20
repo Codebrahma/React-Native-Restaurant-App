@@ -47,6 +47,8 @@ export default (state = initialState, { type, payload }) => {
         registerLoading: false,
         registerMessage: null,
       };
+    case 'AUTH_LOGOUT_RESET':
+      return initialState;
     default:
       return state;
   }

@@ -63,7 +63,7 @@ class RoundButton extends React.Component {
       [{
         shadowColor: buttonColor,
         shadowRadius: 10,
-        shadowOpacity: 0.4,
+        shadowOpacity: 0.2,
         shadowOffset: { width: 5, height: 5 },
       }, style.button];
 
