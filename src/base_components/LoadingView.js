@@ -22,12 +22,14 @@ class LoadingView extends React.Component {
     Animated.sequence([
       Animated.timing(this.state.spinValue, {
         toValue: 1,
-        duration: 3000,
+        duration: 2000,
+        useNativeDriver: true,
       }),
       Animated.timing(this.state.spinValue, {
         toValue: 0,
         delay: 0,
         duration: 0,
+        useNativeDriver: true,
       })]).start(() => this.spin());
   };
 

@@ -8,7 +8,7 @@ import PrimaryText from './PrimaryText';
 const SectionBase = styled.View`
   background: #fff;
   elevation: 2;
-  box-shadow: 2px 2px 4px #eee;
+  box-shadow: 2px 2px 2px #eee;
 `;
 const SectionTitle = styled(PrimaryText)`
   margin: 15px;

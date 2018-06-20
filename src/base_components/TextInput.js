@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components';
 
 const TextInput = styled.TextInput`
@@ -9,8 +10,7 @@ const TextInput = styled.TextInput`
   color: #989898;
   text-align: left;
   border: 0 solid #ddd;
-  border-bottom-width: 1px;
+  border-bottom-width: ${Platform.OS === 'ios' ? '1px' : '0px'};
   border-bottom-color: #ddd;
-`;
-
+  `;
 export default TextInput;
