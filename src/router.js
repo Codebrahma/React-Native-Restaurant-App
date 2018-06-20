@@ -15,6 +15,7 @@ const AppRouter = () => (
         component={HomeScreen}
         title="Restaurant App"
         titleStyle={{
+          fontFamily: 'Roboto Slab',
           color: Colors.primaryColor,
         }}
       />

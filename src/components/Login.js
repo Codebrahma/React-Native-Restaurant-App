@@ -38,8 +38,9 @@ class LoginComponent extends Component {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
+          defaultValue="Test@gmail.com"
           underlineColorAndroid="#B9B9B9"
-          placeholder="Username"
+          placeholder="Email Address"
         />
         <BR />
         <TextInput
@@ -50,8 +51,8 @@ class LoginComponent extends Component {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
+          defaultValue="test123"
           underlineColorAndroid="#B9B9B9"
-          value=""
           secureTextEntry
           placeholder="Password"
         />

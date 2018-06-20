@@ -9,7 +9,7 @@ import { Actions } from 'react-native-router-flux';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
-import { fetchRestaurant } from '../actions';
+import { authLogout, fetchRestaurant } from '../actions';
 import SecondaryText from '../base_components/SecondaryText';
 import Assets from '../constants/assets';
 import Section from '../base_components/Section';
@@ -25,7 +25,7 @@ class HomeScreen extends Component {
 
 
   handleSignOut = async () => {
-    await AsyncStorage.removeItem('authToken');
+    this.props.authLogout();
     Actions.reset('loginScreen');
   };
 
@@ -33,9 +33,9 @@ class HomeScreen extends Component {
     <Section
       title="Restaurants"
       style={{
-          width: '100%',
-          height: 340,
-        }}
+        width: '100%',
+        height: 340,
+      }}
     >
       <ScrollView
         horizontal
@@ -107,6 +107,7 @@ HomeScreen.defaultProps = {
 
 HomeScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
+  authLogout: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   restaurantList: PropTypes.array,
 };
@@ -120,6 +121,7 @@ function initMapStateToProps(state) {
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchRestaurant,
+    authLogout,
   }, dispatch);
 }
 
