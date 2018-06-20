@@ -1,9 +1,10 @@
 import { Platform } from 'react-native';
 import styled from 'styled-components';
+import Colors from '../constants/colors';
 
 
 const AppBase = styled.View`
-  background: #f5f5f5;
+  background: ${Colors.baseColor};
   flex: 1;
   padding: 10px;
   justify-content: flex-start;

@@ -3,6 +3,7 @@ import { Animated, Image, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import AppBase from './AppBase';
+import Assets from '../constants/assets';
 
 
 class LoadingView extends React.Component {
@@ -45,7 +46,7 @@ class LoadingView extends React.Component {
       }}
       >
         <Animated.Image
-          source={require('../../assets/images/pizza.png')}
+          source={Assets.Images.pizza}
           style={{
             width: 100,
             height: 100,
