@@ -30,23 +30,25 @@ class HomeScreen extends Component {
     Actions.reset('loginScreen');
   };
 
-  renderRestaurantSection = () => (
-    <Section
-      title="Restaurants"
+  renderHeader = () => (
+    <PrimaryText
+      size={20}
       style={{
-        width: '100%',
+        padding: 20,
       }}
     >
-      <FlatList
-        horizontal
-        data={this.props.restaurantList}
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        contentContainerStyle={{}}
-        renderItem={this.renderRestaurantList}
-        keyExtractor={item => item._id}
-      />
-    </Section>
+      Restaurants
+    </PrimaryText>);
+
+  renderRestaurantSection = () => (
+    <FlatList
+      data={this.props.restaurantList}
+      showsHorizontalScrollIndicator={false}
+      bounces={false}
+      ListHeaderComponent={this.renderHeader}
+      renderItem={this.renderRestaurantList}
+      keyExtractor={item => item._id}
+    />
   );
 
 
@@ -66,7 +68,11 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <AppBase>
+      <AppBase style={{
+        alignItems: 'stretch',
+        backgroundColor: '#fff',
+      }}
+      >
         <TextButton title="Sign Out" onPress={this.handleSignOut} />
         {this.renderRestaurantSection()}
       </AppBase>

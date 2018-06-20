@@ -7,7 +7,6 @@ import Assets from '../constants/assets';
 import PrimaryText from '../base_components/PrimaryText';
 import SecondaryText from '../base_components/SecondaryText';
 import API from '../service/food';
-import LoadingView from '../base_components/LoadingView';
 import LoadingFood from '../base_components/LoadingFood';
 
 class FoodItem extends React.Component {
@@ -15,7 +14,6 @@ class FoodItem extends React.Component {
     super(props);
     this.state = {
       info: null,
-      isLoading: true,
     };
   }
 
@@ -27,9 +25,8 @@ class FoodItem extends React.Component {
           setTimeout(() => {
             this.setState({
               info: res.data,
-              isLoading: false,
             });
-          }, 5000);
+          }, 1000);
         }
       });
     }

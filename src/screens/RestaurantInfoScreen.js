@@ -82,8 +82,8 @@ class RestaurantInfoScreen extends Component {
               padding: 15,
             }}
           >
-            <PrimaryText align="left" size={26}>{restaurantName}</PrimaryText>
-            <SecondaryText align="left" size={22}>{details}</SecondaryText>
+            <PrimaryText align="left" size={24}>{restaurantName}</PrimaryText>
+            <SecondaryText align="left" size={18}>{details}</SecondaryText>
           </View>
           {this.renderFoodList(foods)}
         </ScrollView>

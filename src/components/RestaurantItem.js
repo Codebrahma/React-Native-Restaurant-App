@@ -15,21 +15,23 @@ const RestaurantItem = ({ restaurant, onPress }) => (
     <View
       key={restaurant._id}
       style={{
-        width: 250,
+        width: '100%',
         minHeight: 220,
         backgroundColor: '#fff',
-        margin: 10,
         flexDirection: 'column',
         justifyContent: 'space-between',
+        marginBottom: 30,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
       }}
     >
       <Image
         source={Assets.Images.placeholderRestaurant}
         style={{
           width: '100%',
-          height: 150,
+          height: 200,
         }}
-        resizeMode="cover"
+        resizeMode="contain"
       />
       <View
         style={{
