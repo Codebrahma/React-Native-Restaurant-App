@@ -1,26 +1,26 @@
+# Restaurant App
+
 BoilerPlate Used [https://github.com/kaushiknishchay/React-Native-Boilerplate](https://github.com/kaushiknishchay/React-Native-Boilerplate)
 
-Restaurant App
+## Setup
 
-# Setup
-
-## Installation
+### Installation
 
 - run `npm install` or `yarn install`
 
-## Run on Device
+### Run on Device
 
 - run `yarn android` or `yarn ios` to run on device or emulator
 
 
 
-## Project info
+### Project info
 
 
 Main objective of this project was to have a single code base for both 
 web and mobile apps with the logic and view separated.
 
-### Project Structure
+#### Project Structure
 
 ```
     /assets                 - contains image and fonts
