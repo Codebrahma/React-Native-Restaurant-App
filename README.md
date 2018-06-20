@@ -1,30 +1,37 @@
-# React Native Boilerplate
+BoilerPlate Used [https://github.com/kaushiknishchay/React-Native-Boilerplate](https://github.com/kaushiknishchay/React-Native-Boilerplate)
 
-## Packages included and configured
-- `eslint` -> follows airbnb styling guide
-- `redux` -> store configured with reducers and actions and sagas
-- `redux-saga` -> redux saga integrate in store
-- `styled-components` -> for styling components
-- `react-native-permissions` -> cross platform permission request library
-- `react-native-vector-icons` -> icons library
+Restaurant App
 
-## Can be used
+# Setup
 
-- `react-native-router-flux` or `react-navigation` for routing in app (*not included*)
+## Installation
 
-## Steps
+- run `npm install` or `yarn install`
 
-### Setup
+## Run on Device
 
-- run `react-native init <project name> --package=<package identifier>` in your directory
-- let react native install and setup the code
-- delete `package.json`, `App.js` files & delete `src/*` folder in your generated project
-- copy all the files from repo folder (`/*` & `/src/*`) to your project
-- change `name` in package.json file to your own
-- run `npm install` or `yarn install` to install dependencies
-- run `react-native link react-native-vector-icons` to install vector icons library
+- run `yarn android` or `yarn ios` to run on device or emulator
 
 
-### Run
 
-- `yarn android` or `yarn ios` to run on a device
+## Project info
+
+
+Main objective of this project was to have a single code base for both 
+web and mobile apps with the logic and view separated.
+
+### Project Structure
+
+```
+    /assets - contains image and fonts
+    /src/actions - all redux actions
+    /src/base_components - react-native specific base components (reusable)
+    /src/components - App Specific components
+    /src/constants -  colors and Assets
+    /src/reducers -  all reducers 
+    /src/sagas -   all redux sagas
+    /src/screen -  connected components which access the store (containers from react perspective)  
+    /src/service -   API methods
+    /src/store -   store config
+    /src/router.js -   routes config
+```
