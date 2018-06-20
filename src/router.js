@@ -14,7 +14,6 @@ const AppRouter = () => (
         key="homeScreen"
         component={HomeScreen}
         title="Restaurant App"
-        backButtonTintColor="#fff"
         titleStyle={{
           color: Colors.primaryColor,
         }}
