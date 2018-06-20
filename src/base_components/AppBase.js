@@ -14,7 +14,7 @@ const AppBaseView = styled.View`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  ${Platform.OS === 'ios' ? 'padding-top: 20px;' : ''}
+  ${Platform.OS === 'ios' ? 'padding-top: 0px;' : ''}
 `;
 
 
