@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { AsyncStorage, Image, ScrollView, View } from 'react-native';
+import { AsyncStorage, FlatList, Image, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -13,6 +13,7 @@ import { authLogout, fetchRestaurant } from '../actions';
 import SecondaryText from '../base_components/SecondaryText';
 import Assets from '../constants/assets';
 import Section from '../base_components/Section';
+import RestaurantItem from '../components/RestaurantItem';
 
 class HomeScreen extends Component {
   async componentDidMount() {
@@ -34,59 +35,31 @@ class HomeScreen extends Component {
       title="Restaurants"
       style={{
         width: '100%',
-        height: 340,
       }}
     >
-      <ScrollView
+      <FlatList
         horizontal
+        data={this.props.restaurantList}
         showsHorizontalScrollIndicator={false}
         bounces={false}
         contentContainerStyle={{}}
-      >
-        {this.renderRestaurantList()}
-      </ScrollView>
+        renderItem={this.renderRestaurantList}
+        keyExtractor={item => item._id}
+      />
     </Section>
   );
 
 
-  renderRestaurantList = () => {
-    const { restaurantList } = this.props;
-    if (restaurantList) {
-      return restaurantList.map(restaurant => (
-        <View
-          key={restaurant._id}
-          style={{
-            width: 250,
-            minHeight: 250,
-            backgroundColor: '#fff',
-            margin: 10,
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Image
-            source={Assets.Images.placeholderRestaurant}
-            style={{
-              width: '100%',
-              height: 150,
-            }}
-            resizeMode="cover"
-          />
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              padding: 15,
-            }}
-          >
-            <PrimaryText size={18} style={{ marginBottom: 5 }}>
-              {restaurant.name}
-            </PrimaryText>
-            <SecondaryText>
-              {restaurant.details}
-            </SecondaryText>
-          </View>
-        </View>));
+  renderRestaurantList = ({ item: restaurant }) => {
+    if (restaurant) {
+      return (
+        <RestaurantItem
+          restaurant={restaurant}
+          onPress={() => Actions.restaurantScreen({
+            restaurant,
+          })}
+        />
+      );
     }
     return null;
   };
