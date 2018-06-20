@@ -18,6 +18,9 @@ export const authRegister = (email, password) => ({
     password,
   },
 });
+export const authLogout = () => ({
+  type: 'AUTH_LOGOUT',
+});
 
 export const fetchRestaurant = (id = null) => ({
   type: 'FETCH_RESTAURANT',
