@@ -18,3 +18,10 @@ export const authRegister = (email, password) => ({
     password,
   },
 });
+
+export const fetchRestaurant = (id = null) => ({
+  type: 'FETCH_RESTAURANT',
+  payload: {
+    id,
+  },
+});
