@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { AsyncStorage, FlatList, Image, ScrollView, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { FlatList, Image, ScrollView, View } from 'react-native';
 
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
-import TextButton from '../base_components/TextButton';
 import { authLogout, fetchRestaurant } from '../actions';
 import SecondaryText from '../base_components/SecondaryText';
 import Assets from '../constants/assets';
-import Section from '../base_components/Section';
-import RestaurantItem from '../components/RestaurantItem';
 import FoodItem from '../components/FoodItem';
 
 class RestaurantInfoScreen extends Component {
@@ -26,23 +22,28 @@ class RestaurantInfoScreen extends Component {
     this.props.fetchRestaurant();
   }
 
-
-  handleSignOut = async () => {
-    this.props.authLogout();
-    Actions.reset('loginScreen');
-  };
-
   renderFoodList = foods => (
     <FlatList
       data={foods}
       bounces={false}
-      style={{
-        flex: 1,
-      }}
+      ListHeaderComponent={this.renderHeader}
+      keyExtractor={item => item._id}
       renderItem={this.renderFoodItem}
     />
   );
 
+  renderHeader = () => (
+    <View style={{
+      backgroundColor: '#fff',
+      borderColor: '#eee',
+      padding: 20,
+      borderBottomWidth: 1,
+      marginTop: 2,
+    }}
+    >
+      <PrimaryText size={20}>Menu</PrimaryText>
+    </View>
+  );
 
   renderFoodItem = ({ item }) => {
     if (item) {
@@ -66,39 +67,37 @@ class RestaurantInfoScreen extends Component {
           alignItems: 'stretch',
         }}
       >
-        <Image
-          source={Assets.Images.placeholderRestaurant}
-          style={{
-            width: '100%',
-            height: 200,
-          }}
-          resizeMode="cover"
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#fff',
-            padding: 15,
-          }}
-        >
-          <PrimaryText align="left" size={26}>{restaurantName}</PrimaryText>
-          <SecondaryText align="left" size={22}>{details}</SecondaryText>
+        <ScrollView>
+          <Image
+            source={Assets.Images.placeholderRestaurant}
+            style={{
+              width: '100%',
+              height: 200,
+            }}
+            resizeMode="cover"
+          />
+          <View
+            style={{
+              backgroundColor: '#fff',
+              padding: 15,
+            }}
+          >
+            <PrimaryText align="left" size={26}>{restaurantName}</PrimaryText>
+            <SecondaryText align="left" size={22}>{details}</SecondaryText>
+          </View>
           {this.renderFoodList(foods)}
-        </View>
+        </ScrollView>
       </AppBase>
     );
   }
 }
 
-RestaurantInfoScreen.defaultProps = {
-  restaurantList: [],
-};
+RestaurantInfoScreen.defaultProps = {};
 
 RestaurantInfoScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
   authLogout: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
-  restaurantList: PropTypes.array,
 };
 
 function initMapStateToProps(state) {

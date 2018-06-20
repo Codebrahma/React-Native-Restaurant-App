@@ -7,17 +7,6 @@ import Colors from './constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 
-const CustomScene = ({ component, key, title }) => (
-  <Scene
-    key={key}
-    component={component}
-    title={title}
-    titleStyle={{
-      fontFamily: 'Roboto Slab',
-      color: Colors.primaryColor,
-    }}
-  />
-);
 
 const AppRouter = () => (
   <Router>
@@ -33,7 +22,16 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
       />
-      <CustomScene key="restaurantScreen" component={RestaurantInfoScreen} title="" />
+      <Scene
+        key="homeScreen"
+        component={HomeScreen}
+        title="Restaurant App"
+        titleStyle={{
+          fontFamily: 'Roboto Slab',
+          color: Colors.primaryColor,
+        }}
+      />
+      <Scene key="restaurantScreen" component={RestaurantInfoScreen} title="" />
     </Scene>
   </Router>
 );

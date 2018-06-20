@@ -25,7 +25,7 @@ class LoginScreen extends Component {
   componentDidMount = async () => {
     const token = await AsyncStorage.getItem('authToken');
     console.log('token', token);
-    if (token !== null) {
+    if (token !== null && token !== undefined && token.length > 10) {
       Actions.reset('homeScreen');
     } else {
       this.setState({
