@@ -14,8 +14,18 @@ import SecondaryText from '../base_components/SecondaryText';
 import Assets from '../constants/assets';
 import Section from '../base_components/Section';
 import RestaurantItem from '../components/RestaurantItem';
+import FilterModal from '../components/FilterModal';
+import ViewRow from '../base_components/ViewRow';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import RippleIcon from '../base_components/RippleIcon';
+import FilterRadioModal from '../components/FilterRadioModal';
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.filterModalRef = React.createRef();
+  }
+
   async componentDidMount() {
     // const value = await AsyncStorage.getItem('authToken');
     // if (!value) {
@@ -31,14 +41,32 @@ class HomeScreen extends Component {
   };
 
   renderHeader = () => (
-    <PrimaryText
-      size={20}
+    <ViewRow
+      jc="space-between"
+      ai="center"
       style={{
         padding: 20,
       }}
     >
-      Restaurants
-    </PrimaryText>);
+      <PrimaryText
+        size={20}
+        align="left"
+        style={{
+          flex: 1,
+        }}
+      >
+        Restaurants
+      </PrimaryText>
+      <RippleIcon
+        style={{
+          flex: 0,
+        }}
+        dark
+        onPress={() => this.filterModalRef.open()}
+        name="md-funnel"
+        size={30}
+      />
+    </ViewRow>);
 
   renderRestaurantSection = () => (
     <FlatList
@@ -67,12 +95,37 @@ class HomeScreen extends Component {
   };
 
   render() {
+    const filterData = [
+      {
+        label: 'Chinese',
+        value: 'chinese',
+      },
+      {
+        label: 'North Indian',
+        value: 'north-indian',
+      },
+      {
+        label: 'Biryani',
+        value: 'biryani',
+      }];
+
     return (
       <AppBase style={{
         alignItems: 'stretch',
         backgroundColor: '#fff',
       }}
       >
+        <FilterRadioModal
+          heading="Cuisine Type"
+          data={filterData}
+          // eslint-disable-next-line no-return-assign
+          pRef={el => (this.filterModalRef = el)}
+          close={() => this.filterModalRef.close()}
+          onClose={(array) => {
+            // return array of selected values in same format as input
+            console.log(array);
+          }}
+        />
         <TextButton title="Sign Out" onPress={this.handleSignOut} />
         {this.renderRestaurantSection()}
       </AppBase>

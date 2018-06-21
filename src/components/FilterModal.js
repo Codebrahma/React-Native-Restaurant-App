@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
+import filter from 'lodash/filter';
 import styled from 'styled-components';
+import indexOf from 'lodash/indexOf';
 import Modal from 'react-native-modalbox';
-import { RadioButton, RadioGroup } from 'react-native-flexi-radio-button';
-import { Dimensions, Text } from 'react-native';
+import CheckBox from 'react-native-check-box';
+import { Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import RoundButton from '../base_components/RoundButton';
-import BR from '../base_components/BR';
+import Colors from '../constants/colors';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -39,24 +40,18 @@ const CheckWrap = styled.ScrollView`
   margin: 10px;
 `;
 
-const RadioText = styled.Text`
-  font-size: 16px;
-  margin-left: 10px;
-`;
-
-class FilterRadioModal extends Component {
+class FilterModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       swipeToClose: true,
       filterData: this.props.data,
-      selectedValue: null,
     };
   }
 
   onClose = () => {
-    const { selectedValue } = this.state;
-    this.props.onClose(selectedValue);
+    const selectedValues = filter(this.state.filterData, item => item.checked);
+    this.props.onClose(selectedValues);
   };
 
   onOpen = () => {
@@ -67,10 +62,16 @@ class FilterRadioModal extends Component {
     this.props.onClosingState();
   };
 
-  onSelect = (index, item) => {
-    this.setState((s, p) => ({
-      selectedValue: item,
-    }));
+  onClick = (item) => {
+    const newItem = { ...item, ...{ checked: !item.checked } };
+    this.setState((s, p) => {
+      const { filterData } = s;
+      const idx = indexOf(filterData, item);
+      filterData[idx] = newItem;
+      return {
+        filterData,
+      };
+    });
   };
 
   closeModal = () => {
@@ -104,30 +105,25 @@ class FilterRadioModal extends Component {
             />
           </FilterHeadWrap>
           <CheckWrap>
-            <RadioGroup
-              onSelect={(index, value) => this.onSelect(index, value)}
-            >
-              {
-                map(filterData, (item, index) => (
-                  <RadioButton
-                    style={{
-                      padding: 15,
-                    }}
-                    disabled={item.disabled}
-                    key={index}
-                    value={item.value}
-                  >
-                    <RadioText>{item.label}</RadioText>
-                  </RadioButton>
-                ))
-              }
-            </RadioGroup>
-            <BR />
-            <RoundButton
-              small
-              title="Apply"
-              onPress={this.closeModal}
-            />
+            {
+              map(filterData, (item, index) => (
+                <CheckBox
+                  key={index}
+                  checkBoxColor={Colors.primaryColor}
+                  style={{
+                    padding: 10,
+                    height: 50,
+                  }}
+                  leftTextStyle={{
+                    color: item.disabled ? '#bbb' : '#111',
+                  }}
+                  onClick={() => this.onClick(item)}
+                  isChecked={item.disabled ? false : item.checked}
+                  disabled={item.disabled}
+                  leftText={item.label}
+                />
+              ))
+            }
           </CheckWrap>
         </ModalBase>
       </Modal>
@@ -135,7 +131,7 @@ class FilterRadioModal extends Component {
   }
 }
 
-FilterRadioModal.defaultProps = {
+FilterModal.defaultProps = {
   heading: 'Filter',
   onOpen: () => {
   },
@@ -145,12 +141,13 @@ FilterRadioModal.defaultProps = {
   },
 };
 
-FilterRadioModal.propTypes = {
+FilterModal.propTypes = {
   heading: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
+    checked: PropTypes.bool.isRequired,
   })).isRequired,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
@@ -159,4 +156,4 @@ FilterRadioModal.propTypes = {
   pRef: PropTypes.func.isRequired,
 };
 
-export default FilterRadioModal;
+export default FilterModal;
