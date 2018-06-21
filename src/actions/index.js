@@ -35,3 +35,10 @@ export const fetchRestaurant = (id = null) => ({
     id,
   },
 });
+
+export const fetchRestaurantByType = (type = null) => ({
+  type: 'FETCH_RESTAURANT_TYPE',
+  payload: {
+    type,
+  },
+});

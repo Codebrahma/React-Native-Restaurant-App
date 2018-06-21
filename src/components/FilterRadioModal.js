@@ -51,6 +51,7 @@ class FilterRadioModal extends Component {
       swipeToClose: true,
       filterData: this.props.data,
       selectedValue: null,
+      selectedIndex: null,
     };
   }
 
@@ -70,6 +71,7 @@ class FilterRadioModal extends Component {
   onSelect = (index, item) => {
     this.setState((s, p) => ({
       selectedValue: item,
+      selectedIndex: index,
     }));
   };
 
@@ -105,8 +107,19 @@ class FilterRadioModal extends Component {
           </FilterHeadWrap>
           <CheckWrap>
             <RadioGroup
+              selectedIndex={this.state.selectedIndex}
               onSelect={(index, value) => this.onSelect(index, value)}
             >
+              <RadioButton
+                style={{
+                  padding: 15,
+                }}
+                key={-1}
+                value={null}
+              >
+                <RadioText>All</RadioText>
+              </RadioButton>
+
               {
                 map(filterData, (item, index) => (
                   <RadioButton

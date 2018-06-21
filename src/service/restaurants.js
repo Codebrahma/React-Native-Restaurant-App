@@ -13,6 +13,13 @@ function getRestaurant(id = null, headers = null) {
   });
 }
 
+function getRestaurantByType(type, headers = null) {
+  return request({
+    url: `${RESTAURANT_URL}/${type}`, method: 'GET', headers,
+  });
+}
+
 export default {
   getRestaurant,
+  getRestaurantByType,
 };
