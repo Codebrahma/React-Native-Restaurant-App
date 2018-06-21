@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 
 
-import { authLogin } from '../actions';
+import { authHydrateTokenFromStorage, authLogin } from '../actions';
 import LoginComponent from '../components/Login';
 import LoadingView from '../base_components/LoadingView';
 
@@ -25,6 +25,7 @@ class LoginScreen extends Component {
   componentDidMount = async () => {
     const token = await AsyncStorage.getItem('authToken');
     if (token !== null && token !== undefined && token.length > 10) {
+      this.props.authHydrateTokenFromStorage(token);
       Actions.reset('homeScreen');
     } else {
       this.setState({
@@ -117,6 +118,7 @@ function initMapStateToProps(state) {
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     authLogin,
+    authHydrateTokenFromStorage,
   }, dispatch);
 }
 

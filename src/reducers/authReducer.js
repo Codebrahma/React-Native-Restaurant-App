@@ -14,6 +14,13 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loginLoading: true,
       };
+    case 'AUTH_HYDRATE_TOKEN':
+      return {
+        ...state,
+        loginLoading: false,
+        loginError: null,
+        loginMessage: payload,
+      };
     case 'AUTH_LOGIN_SUCCESS':
       return {
         ...state,

@@ -10,7 +10,7 @@ import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 
 const AppRouter = () => (
   <Router>
-    <Scene key="root">
+    <Scene key="root" title="">
       <Scene key="loginScreen" component={LoginScreen} initial hideNavBar />
       <Scene key="signupScreen" component={SignupScreen} />
       <Scene

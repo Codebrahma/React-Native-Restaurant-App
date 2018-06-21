@@ -1,11 +1,17 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import API from '../service/restaurants';
+
+const authTokenSelector = state => state.auth.loginMessage.token;
 
 function* restaurantTask(action) {
   try {
     const { payload } = action;
 
-    const res = yield call(API.getRestaurant, payload.id);
+    const authToken = yield select(authTokenSelector);
+
+    const res = yield call(API.getRestaurant, payload.id, {
+      Authorization: `Bearer ${authToken}`,
+    });
 
 
     if (res.status === 200) {
