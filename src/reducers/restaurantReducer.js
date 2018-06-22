@@ -2,6 +2,8 @@ const initialState = {
   fullList: null,
   restaurantInfo: null,
   error: null,
+  cuisineRestaurants: [],
+  cuisineRestaurantError: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -14,11 +16,23 @@ export default (state = initialState, { type, payload }) => {
         restaurantInfo: null,
         error: null,
       };
+    case 'FETCH_CUISINE_RESTAURANT_SUCCESS':
+      return {
+        ...state,
+        cuisineRestaurants: payload,
+        error: null,
+        cuisineRestaurantError: null,
+      };
     case 'FETCH_RESTAURANT_INFO_SUCCESS':
       return {
         ...state,
         error: null,
         restaurantInfo: payload,
+      };
+    case 'FETCH_CUISINE_RESTAURANT_ERROR':
+      return {
+        ...state,
+        cuisineRestaurantError: payload,
       };
     case 'FETCH_RESTAURANT_ERROR':
     case 'FETCH_RESTAURANT_TYPE_ERROR':
