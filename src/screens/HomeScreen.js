@@ -2,21 +2,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { AsyncStorage, FlatList, Image, ScrollView, View } from 'react-native';
+import { FlatList, Image, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-
+import startCase from 'lodash/startCase';
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
-import { authLogout, fetchRestaurant, fetchRestaurantByType } from '../actions';
-import SecondaryText from '../base_components/SecondaryText';
+import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
 import Assets from '../constants/assets';
-import Section from '../base_components/Section';
 import RestaurantItem from '../components/RestaurantItem';
-import FilterModal from '../components/FilterModal';
 import ViewRow from '../base_components/ViewRow';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import RippleIcon from '../base_components/RippleIcon';
 import FilterRadioModal from '../components/FilterRadioModal';
 import BR from '../base_components/BR';
@@ -33,6 +29,7 @@ class HomeScreen extends Component {
     //   Actions.replace('loginScreen');
     // }
     this.props.fetchRestaurant();
+    this.props.fetchCuisineTypes();
   }
 
 
@@ -100,7 +97,7 @@ class HomeScreen extends Component {
             />
             <BR />
             <PrimaryText>
-              We couldn't find anything.
+              {'We couldn\'t find anything.'}
             </PrimaryText>
             <BR />
             <PrimaryText>
@@ -143,43 +140,10 @@ class HomeScreen extends Component {
   };
 
   render() {
-    const filterData = [
-      {
-        label: 'Chinese',
-        value: 'chinese',
-      },
-      {
-        label: 'Pizza',
-        value: 'pizza',
-      },
-      {
-        label: 'Desserts',
-        value: 'desserts',
-      },
-      {
-        label: 'Mexican',
-        value: 'mexican',
-      },
-      {
-        label: 'Beverages',
-        value: 'beverages',
-      },
-      {
-        label: 'Ice Cream',
-        value: 'ice-cream',
-      },
-      {
-        label: 'South Indian',
-        value: 'south-indian',
-      },
-      {
-        label: 'North Indian',
-        value: 'north-indian',
-      },
-      {
-        label: 'Biryani',
-        value: 'biryanis',
-      }];
+    const filterData = this.props.cuisineTypes.map(type => ({
+      value: type,
+      label: startCase(type),
+    }));
 
     return (
       <AppBase style={{
@@ -187,14 +151,17 @@ class HomeScreen extends Component {
         backgroundColor: '#fff',
       }}
       >
-        <FilterRadioModal
-          heading="Cuisine Type"
-          data={filterData}
-          // eslint-disable-next-line no-return-assign
-          pRef={el => (this.filterModalRef = el)}
-          close={() => this.filterModalRef.close()}
-          onClose={this.handleFilter}
-        />
+        {
+          filterData.length > 0 &&
+          <FilterRadioModal
+            heading="Cuisine Type"
+            data={filterData}
+            // eslint-disable-next-line no-return-assign
+            pRef={el => (this.filterModalRef = el)}
+            close={() => this.filterModalRef.close()}
+            onClose={this.handleFilter}
+          />
+        }
         <TextButton title="Sign Out" onPress={this.handleSignOut} />
         {this.renderRestaurantSection()}
       </AppBase>
@@ -204,17 +171,23 @@ class HomeScreen extends Component {
 
 HomeScreen.defaultProps = {
   restaurantList: [],
+  cuisineTypes: [],
 };
 
 HomeScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
   authLogout: PropTypes.func.isRequired,
+  fetchRestaurantByType: PropTypes.func.isRequired,
+  fetchCuisineTypes: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   restaurantList: PropTypes.array,
+  // eslint-disable-next-line react/forbid-prop-types
+  cuisineTypes: PropTypes.array,
 };
 
 function initMapStateToProps(state) {
   return {
+    cuisineTypes: state.food.cuisineTypes,
     restaurantList: state.restaurant.fullList,
   };
 }
@@ -224,6 +197,7 @@ function initMapDispatchToProps(dispatch) {
     fetchRestaurant,
     fetchRestaurantByType,
     authLogout,
+    fetchCuisineTypes,
   }, dispatch);
 }
 

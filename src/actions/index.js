@@ -29,6 +29,10 @@ export const authLogout = () => ({
   type: 'AUTH_LOGOUT',
 });
 
+export const fetchCuisineTypes = () => ({
+  type: 'FETCH_CUISINE_TYPES',
+});
+
 export const fetchRestaurant = (id = null) => ({
   type: 'FETCH_RESTAURANT',
   payload: {

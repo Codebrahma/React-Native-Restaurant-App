@@ -1,5 +1,5 @@
 import request from './request';
-import { FOOD_INFO_URL, RESTAURANT_URL } from './api_constants';
+import { FOOD_INFO_URL, FOOD_TYPES_URL, RESTAURANT_URL } from './api_constants';
 
 function getFood(id = null, headers = null) {
   let params = {};
@@ -13,6 +13,15 @@ function getFood(id = null, headers = null) {
   });
 }
 
+
+function getAllCuisineTypes(headers = null) {
+  return request({
+    url: FOOD_TYPES_URL, method: 'GET', headers,
+  });
+}
+
+
 export default {
   getFood,
+  getAllCuisineTypes,
 };

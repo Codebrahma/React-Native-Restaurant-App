@@ -8,6 +8,7 @@ import { Dimensions, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoundButton from '../base_components/RoundButton';
 import BR from '../base_components/BR';
+import Colors from '../constants/colors';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -130,13 +131,14 @@ class FilterRadioModal extends Component {
                     key={index}
                     value={item.value}
                   >
-                    <RadioText>{item.label}</RadioText>
+                    <RadioText>{item.label || item.value}</RadioText>
                   </RadioButton>
                 ))
               }
             </RadioGroup>
             <BR />
             <RoundButton
+              buttonColor={Colors.moneyColor}
               small
               title="Apply"
               onPress={this.closeModal}
