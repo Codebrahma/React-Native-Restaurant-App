@@ -6,35 +6,15 @@ import PropTypes from 'prop-types';
 import Assets from '../constants/assets';
 import PrimaryText from '../base_components/PrimaryText';
 import SecondaryText from '../base_components/SecondaryText';
-import API from '../service/food';
 import LoadingFood from '../base_components/LoadingFood';
+import ViewRow from '../base_components/ViewRow';
+import Colors from '../constants/colors';
+import FlatButton from '../base_components/FlatButton';
 
 class FoodItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      info: null,
-    };
-  }
-
-
-  componentDidMount() {
-    if (this.props.food && this.props.food.food) {
-      API.getFood(this.props.food.food).then((res) => {
-        if (res.status === 200) {
-          setTimeout(() => {
-            this.setState({
-              info: res.data,
-            });
-          }, 1000);
-        }
-      });
-    }
-  }
-
   render() {
     const { food, onPress } = this.props;
-    const { info } = this.state;
+    const { food: info } = food;
     if (!info) {
       return <LoadingFood />;
     }
@@ -46,7 +26,7 @@ class FoodItem extends React.Component {
         <View
           key={food._id}
           style={{
-            elevation: 2,
+            elevation: 3,
             minHeight: 220,
             backgroundColor: '#fff',
             margin: 10,
@@ -54,6 +34,7 @@ class FoodItem extends React.Component {
             borderBottomColor: '#eee',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            alignItems: 'stretch',
           }}
         >
           <Image
@@ -64,20 +45,42 @@ class FoodItem extends React.Component {
             }}
             resizeMode="contain"
           />
-          <View
+          <ViewRow
+            jc="space-between"
+            ai="flex-start"
             style={{
-              flex: 1,
-              flexDirection: 'column',
               padding: 15,
             }}
           >
-            <PrimaryText size={18} align="left" style={{ marginBottom: 5 }}>
-              {info.name}
-            </PrimaryText>
-            <SecondaryText>
-              {info.type}
-            </SecondaryText>
-          </View>
+            <View
+              style={{
+                flex: 3,
+                flexDirection: 'column',
+              }}
+            >
+              <PrimaryText size={18} align="left" style={{ marginBottom: 5 }}>
+                {info.name}
+              </PrimaryText>
+              <SecondaryText>
+                {info.type}
+              </SecondaryText>
+            </View>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <PrimaryText size={20} color={Colors.moneyColor}>
+                &#8377; {food.price}
+              </PrimaryText>
+            </View>
+          </ViewRow>
+          <FlatButton
+            key="add2Cart"
+            title="Add to Cart"
+            onPress={() => {
+            }}
+          />
         </View>
       </TouchableOpacity>
     );

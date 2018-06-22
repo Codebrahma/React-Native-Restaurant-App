@@ -9,40 +9,33 @@ function* restaurantTask(action) {
 
     const authToken = yield select(authTokenSelector);
 
-    const res = yield call(API.getRestaurant, payload.id, {
+    const res = yield call(API.getRestaurantByType, payload.type, {
       Authorization: `Bearer ${authToken}`,
     });
 
 
     if (res.status === 200) {
-      if (payload.id === null) {
-        yield put({
-          type: 'FETCH_RESTAURANT_SUCCESS',
-          payload: res.data,
-        });
-      } else {
-        yield put({
-          type: 'FETCH_RESTAURANT_INFO_SUCCESS',
-          payload: res.data,
-        });
-      }
+      yield put({
+        type: 'FETCH_RESTAURANT_TYPE_SUCCESS',
+        payload: res.data,
+      });
     } else {
       yield put({
-        type: 'FETCH_RESTAURANT_ERROR',
+        type: 'FETCH_RESTAURANT_TYPE_ERROR',
         payload: res.data,
       });
     }
   } catch (e) {
     console.log(e);
     yield put({
-      type: 'FETCH_RESTAURANT_ERROR',
+      type: 'FETCH_RESTAURANT_TYPE_ERROR',
       payload: e.data,
     });
   }
 }
 
-function* restaurantSaga() {
-  yield takeLatest('FETCH_RESTAURANT', restaurantTask);
+function* restaurantByTypeSaga() {
+  yield takeLatest('FETCH_RESTAURANT_TYPE', restaurantTask);
 }
 
-export default restaurantSaga;
+export default restaurantByTypeSaga;

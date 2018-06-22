@@ -3,6 +3,13 @@ export const myAction = () => ({
   payload: 'aa',
 });
 
+export const authHydrateTokenFromStorage = token => ({
+  type: 'AUTH_HYDRATE_TOKEN',
+  payload: {
+    token,
+  },
+});
+
 export const authLogin = (email, password) => ({
   type: 'AUTH_LOGIN',
   payload: {
@@ -22,9 +29,20 @@ export const authLogout = () => ({
   type: 'AUTH_LOGOUT',
 });
 
+export const fetchCuisineTypes = () => ({
+  type: 'FETCH_CUISINE_TYPES',
+});
+
 export const fetchRestaurant = (id = null) => ({
   type: 'FETCH_RESTAURANT',
   payload: {
     id,
+  },
+});
+
+export const fetchRestaurantByType = (type = null) => ({
+  type: 'FETCH_RESTAURANT_TYPE',
+  payload: {
+    type,
   },
 });

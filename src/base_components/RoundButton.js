@@ -19,7 +19,7 @@ const LoadingWrap = styled.View`
 const ButtonWrap = styled.View`
   background-color: ${props => (props.disabled ? '#ddd' : props.buttonColor || '#000')};
   margin: 10px auto;
-  width: 90%;
+  width: ${props => (props.small ? '100px' : '90%')};
   padding: 0;
   flex-direction: row;
   justify-content: center;
@@ -31,10 +31,10 @@ const ButtonWrap = styled.View`
 const ButtonText = styled.Text`
   font-family: 'Roboto Slab';
   color: ${props => props.textColor || '#fff'};
-  font-size: 19px;
+  font-size: ${props => (props.small ? '16px' : '19px;')};
   text-align: center;
   width: 100%;
-  padding: 20px;
+  padding: ${props => (props.small ? '10px;' : '20px;')}
 `;
 
 /**
@@ -56,6 +56,7 @@ const ButtonText = styled.Text`
 class RoundButton extends React.Component {
   render() {
     const {
+      small,
       title, onPress, buttonColor, textColor, style, loading, disabled,
     } = this.props;
 
@@ -83,11 +84,13 @@ class RoundButton extends React.Component {
         style={style.wrap}
       >
         <ButtonWrap
+          small={small}
           disabled={disabled}
           style={buttonStyles}
           buttonColor={buttonColor}
         >
           <ButtonText
+            small={small}
             style={style.text}
             textColor={textColor}
           >
@@ -106,9 +109,11 @@ RoundButton.defaultProps = {
   style: {},
   loading: false,
   disabled: false,
+  small: false,
 };
 
 RoundButton.propTypes = {
+  small: PropTypes.bool,
   disabled: PropTypes.bool,
   buttonColor: PropTypes.string,
   textColor: PropTypes.string,

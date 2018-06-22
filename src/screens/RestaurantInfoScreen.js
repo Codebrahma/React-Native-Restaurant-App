@@ -8,10 +8,12 @@ import { FlatList, Image, ScrollView, View } from 'react-native';
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
-import { authLogout, fetchRestaurant } from '../actions';
+import { fetchRestaurant } from '../actions';
 import SecondaryText from '../base_components/SecondaryText';
 import Assets from '../constants/assets';
 import FoodItem from '../components/FoodItem';
+import ViewRow from '../base_components/ViewRow';
+import BR from '../base_components/BR';
 
 class RestaurantInfoScreen extends Component {
   async componentDidMount() {
@@ -33,16 +35,25 @@ class RestaurantInfoScreen extends Component {
   );
 
   renderHeader = () => (
-    <View style={{
-      backgroundColor: '#fff',
-      borderColor: '#eee',
-      padding: 20,
-      borderBottomWidth: 1,
-      marginTop: 2,
-    }}
+    <ViewRow
+      jc="space-between"
+      style={{
+        backgroundColor: '#fff',
+        borderColor: '#eee',
+        padding: 20,
+        borderBottomWidth: 1,
+        marginTop: 2,
+      }}
     >
-      <PrimaryText size={20}>Menu</PrimaryText>
-    </View>
+      <PrimaryText
+        style={{
+          flex: 1,
+        }}
+        size={20}
+      >
+        Menu
+      </PrimaryText>
+    </ViewRow>
   );
 
   renderFoodItem = ({ item }) => {
@@ -83,7 +94,8 @@ class RestaurantInfoScreen extends Component {
             }}
           >
             <PrimaryText align="left" size={24}>{restaurantName}</PrimaryText>
-            <SecondaryText align="left" size={18}>{details}</SecondaryText>
+            <BR size={5} />
+            <SecondaryText align="left" size={16}>{details}</SecondaryText>
           </View>
           {this.renderFoodList(foods)}
         </ScrollView>
@@ -96,7 +108,7 @@ RestaurantInfoScreen.defaultProps = {};
 
 RestaurantInfoScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
-  authLogout: PropTypes.func.isRequired,
+  // authLogout: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
 
@@ -109,7 +121,7 @@ function initMapStateToProps(state) {
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchRestaurant,
-    authLogout,
+    // authLogout,
   }, dispatch);
 }
 
