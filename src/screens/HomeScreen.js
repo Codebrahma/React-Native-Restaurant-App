@@ -1,14 +1,14 @@
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, AsyncStorage, Image, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
-import TextButton from '../base_components/TextButton';
 import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
 import Assets from '../constants/assets';
 import RestaurantItem from '../components/RestaurantItem';
@@ -16,20 +16,31 @@ import ViewRow from '../base_components/ViewRow';
 import RippleIcon from '../base_components/RippleIcon';
 import FilterRadioModal from '../components/FilterRadioModal';
 import BR from '../base_components/BR';
+import CuisineGrid from '../components/CuisineGrid';
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.filterModalRef = React.createRef();
+    if (props.rightTitle !== 'Sign Out') {
+      Actions.refresh({
+        rightTitle: 'Sign Out',
+        onRight: () => this.handleSignOut(),
+        ...props,
+      });
+    }
   }
 
   async componentDidMount() {
-    // const value = await AsyncStorage.getItem('authToken');
-    // if (!value) {
-    //   Actions.replace('loginScreen');
-    // }
-    this.props.fetchRestaurant();
-    this.props.fetchCuisineTypes();
+    const value = await AsyncStorage.getItem('authToken');
+    if (!value) {
+      Actions.replace('loginScreen');
+    }
+
+    if (this.props.rightTitle === 'Sign Out') {
+      this.props.fetchRestaurant();
+      this.props.fetchCuisineTypes();
+    }
   }
 
 
@@ -131,6 +142,10 @@ class HomeScreen extends Component {
         <RestaurantItem
           restaurant={restaurant}
           onPress={() => Actions.restaurantScreen({
+            title: startCase(restaurant.name),
+            backTitle: 'Back',
+            rightTitle: 'Sign Out',
+            onRight: () => this.handleSignOut(),
             restaurant,
           })}
         />
@@ -162,8 +177,10 @@ class HomeScreen extends Component {
             onClose={this.handleFilter}
           />
         }
-        <TextButton title="Sign Out" onPress={this.handleSignOut} />
-        {this.renderRestaurantSection()}
+        <ScrollView>
+          <CuisineGrid data={this.props.cuisineTypes} onPress={value => console.log(value)} />
+          {this.renderRestaurantSection()}
+        </ScrollView>
       </AppBase>
     );
   }
@@ -179,9 +196,7 @@ HomeScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
   fetchCuisineTypes: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   restaurantList: PropTypes.array,
-  // eslint-disable-next-line react/forbid-prop-types
   cuisineTypes: PropTypes.array,
 };
 

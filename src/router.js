@@ -31,7 +31,7 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
       />
-      <Scene key="restaurantScreen" component={RestaurantInfoScreen} title="" />
+      <Scene key="restaurantScreen" component={RestaurantInfoScreen} />
     </Scene>
   </Router>
 );
