@@ -1,5 +1,5 @@
 const initialState = {
-  fullList: null,
+  fullList: [],
   restaurantInfo: null,
   error: null,
   cuisineRestaurants: [],

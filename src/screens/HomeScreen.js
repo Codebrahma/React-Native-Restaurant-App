@@ -17,6 +17,7 @@ import RippleIcon from '../base_components/RippleIcon';
 import FilterRadioModal from '../components/FilterRadioModal';
 import BR from '../base_components/BR';
 import CuisineGrid from '../components/CuisineGrid';
+import RestaurantList from '../components/RestaurantList';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -57,103 +58,6 @@ class HomeScreen extends Component {
     }
   };
 
-  renderHeader = () => (
-    <ViewRow
-      jc="space-between"
-      ai="center"
-      style={{
-        padding: 20,
-      }}
-    >
-      <PrimaryText
-        size={20}
-        align="left"
-        style={{
-          flex: 1,
-        }}
-      >
-        Restaurants
-      </PrimaryText>
-      <RippleIcon
-        style={{
-          flex: 0,
-        }}
-        dark
-        onPress={() => this.filterModalRef.open()}
-        name="md-funnel"
-        size={30}
-      />
-    </ViewRow>);
-
-  renderEmptySection = () => {
-    if (!this.props.restaurantList || this.props.restaurantList.length === 0) {
-      return (
-        <View>
-          {this.renderHeader()}
-          <View
-            style={{
-              backgroundColor: '#fdfdfd',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 20,
-              flexDirection: 'column',
-            }}
-          >
-            <Image
-              source={Assets.Images.banana}
-              style={{
-                width: 150,
-                height: 150,
-              }}
-            />
-            <BR />
-            <PrimaryText>
-              {'We couldn\'t find anything.'}
-            </PrimaryText>
-            <BR />
-            <PrimaryText>
-              Please try again...
-            </PrimaryText>
-          </View>
-        </View>
-      );
-    }
-    return null;
-  };
-
-  renderRestaurantSection = () => (
-    (this.props.restaurantList && this.props.restaurantList.length > 0)
-      ?
-        <FlatList
-          data={this.props.restaurantList}
-          showsHorizontalScrollIndicator={false}
-          bounces={false}
-          ListHeaderComponent={this.renderHeader}
-          renderItem={this.renderRestaurantList}
-          keyExtractor={item => item._id}
-        />
-      : this.renderEmptySection()
-  );
-
-
-  renderRestaurantList = ({ item: restaurant }) => {
-    if (restaurant) {
-      return (
-        <RestaurantItem
-          restaurant={restaurant}
-          onPress={() => Actions.restaurantScreen({
-            title: startCase(restaurant.name),
-            backTitle: 'Back',
-            rightTitle: 'Sign Out',
-            onRight: () => this.handleSignOut(),
-            restaurant,
-          })}
-        />
-      );
-    }
-    return null;
-  };
-
   render() {
     const filterData = this.props.cuisineTypes.map(type => ({
       value: type,
@@ -179,7 +83,10 @@ class HomeScreen extends Component {
         }
         <ScrollView>
           <CuisineGrid data={this.props.cuisineTypes} onPress={value => console.log(value)} />
-          {this.renderRestaurantSection()}
+          <RestaurantList
+            restaurantList={this.props.restaurantList}
+            handleFilter={this.handleFilter}
+          />
         </ScrollView>
       </AppBase>
     );
