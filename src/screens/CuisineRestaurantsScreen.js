@@ -19,29 +19,22 @@ import BR from '../base_components/BR';
 import CuisineGrid from '../components/CuisineGrid';
 import RestaurantList from '../components/RestaurantList';
 
-class HomeScreen extends Component {
+class CuisineRestaurantScreen extends Component {
   constructor(props) {
     super(props);
     this.filterModalRef = React.createRef();
-    if (props.rightTitle !== 'Sign Out') {
-      Actions.refresh({
-        rightTitle: 'Sign Out',
-        onRight: () => this.handleSignOut(),
-        ...props,
-      });
-    }
   }
 
   async componentDidMount() {
+    console.log('in cdm');
+
     const value = await AsyncStorage.getItem('authToken');
     if (!value) {
       Actions.replace('loginScreen');
     }
 
-    if (this.props.rightTitle === 'Sign Out') {
-      this.props.fetchRestaurant();
-      this.props.fetchCuisineTypes();
-    }
+    console.log('in');
+      this.props.fetchRestaurantByType(this.props.cuisineType, true);
   }
 
 
@@ -51,54 +44,19 @@ class HomeScreen extends Component {
   };
 
   handleFilter = (type) => {
-    if (type !== null) {
-      this.props.fetchRestaurantByType(type);
-    } else {
-      this.props.fetchRestaurant();
-    }
-  };
-
-  openCuisineScreen = (value) => {
-    Actions.cuisineRestaurants({
-      cuisineType: value,
-      backTitle: 'Back',
-      title: startCase(value),
-      rightTitle: 'Sign Out',
-      onRight: () => this.handleSignOut(),
-    });
   };
 
   render() {
-    const filterData = this.props.cuisineTypes.map(type => ({
-      value: type,
-      label: startCase(type),
-    }));
-
     return (
       <AppBase style={{
         alignItems: 'stretch',
         backgroundColor: '#fff',
       }}
       >
-        {
-          filterData.length > 0 &&
-          <FilterRadioModal
-            heading="Cuisine Type"
-            data={filterData}
-            // eslint-disable-next-line no-return-assign
-            pRef={el => (this.filterModalRef = el)}
-            close={() => this.filterModalRef.close()}
-            onClose={this.handleFilter}
-          />
-        }
         <ScrollView>
-          <CuisineGrid
-            data={this.props.cuisineTypes}
-            onPress={this.openCuisineScreen}
-          />
           <RestaurantList
-            hideFilter
             restaurantList={this.props.restaurantList}
+            handleFilter={this.handleFilter}
           />
         </ScrollView>
       </AppBase>
@@ -106,34 +64,28 @@ class HomeScreen extends Component {
   }
 }
 
-HomeScreen.defaultProps = {
+CuisineRestaurantScreen.defaultProps = {
   restaurantList: [],
-  cuisineTypes: [],
 };
 
-HomeScreen.propTypes = {
-  fetchRestaurant: PropTypes.func.isRequired,
+CuisineRestaurantScreen.propTypes = {
+  cuisineType: PropTypes.string.isRequired,
   authLogout: PropTypes.func.isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
-  fetchCuisineTypes: PropTypes.func.isRequired,
   restaurantList: PropTypes.array,
-  cuisineTypes: PropTypes.array,
 };
 
 function initMapStateToProps(state) {
   return {
-    cuisineTypes: state.food.cuisineTypes,
-    restaurantList: state.restaurant.fullList,
+    restaurantList: state.restaurant.cuisineRestaurants,
   };
 }
 
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchRestaurant,
     fetchRestaurantByType,
     authLogout,
-    fetchCuisineTypes,
   }, dispatch);
 }
 
-export default connect(initMapStateToProps, initMapDispatchToProps)(HomeScreen);
+export default connect(initMapStateToProps, initMapDispatchToProps)(CuisineRestaurantScreen);

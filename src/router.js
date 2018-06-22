@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import Colors from './constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
+import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 
 
 const AppRouter = () => (
@@ -26,6 +27,15 @@ const AppRouter = () => (
         key="homeScreen"
         component={HomeScreen}
         title="Restaurant App"
+        titleStyle={{
+          fontFamily: 'Roboto Slab',
+          color: Colors.primaryColor,
+        }}
+      />
+
+      <Scene
+        key="cuisineRestaurants"
+        component={CuisineRestaurantsScreen}
         titleStyle={{
           fontFamily: 'Roboto Slab',
           color: Colors.primaryColor,
