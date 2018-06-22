@@ -34,15 +34,18 @@ class RestaurantList extends Component {
       >
         Restaurants
       </PrimaryText>
-      <RippleIcon
-        style={{
-          flex: 0,
-        }}
-        dark
-        onPress={() => this.filterModalRef.open()}
-        name="md-funnel"
-        size={30}
-      />
+      {
+        this.props.hideFilter &&
+        <RippleIcon
+          style={{
+            flex: 0,
+          }}
+          dark
+          onPress={() => this.filterModalRef.open()}
+          name="md-funnel"
+          size={30}
+        />
+      }
     </ViewRow>);
 
   renderEmptySection = () => {
@@ -121,9 +124,18 @@ class RestaurantList extends Component {
   }
 }
 
+RestaurantList.defaultProps = {
+  handleFilter: () => {
+
+  },
+  hideFilter: false,
+};
+
+
 RestaurantList.propTypes = {
+  hideFilter: PropTypes.bool,
   restaurantList: PropTypes.array.isRequired,
-  handleFilter: PropTypes.func.isRequired,
+  handleFilter: PropTypes.func,
 };
 
 export default RestaurantList;
