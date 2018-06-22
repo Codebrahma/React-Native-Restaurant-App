@@ -7,6 +7,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'FETCH_RESTAURANT_SUCCESS':
+    case 'FETCH_RESTAURANT_TYPE_SUCCESS':
       return {
         ...state,
         fullList: payload,
@@ -20,6 +21,7 @@ export default (state = initialState, { type, payload }) => {
         restaurantInfo: payload,
       };
     case 'FETCH_RESTAURANT_ERROR':
+    case 'FETCH_RESTAURANT_TYPE_ERROR':
       return {
         ...state,
         error: payload,
