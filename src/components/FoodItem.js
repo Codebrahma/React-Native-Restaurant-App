@@ -20,7 +20,6 @@ class FoodItem extends React.Component {
     }
     return (
       <TouchableOpacity
-        onPress={onPress}
         activeOpacity={0.6}
       >
         <View
@@ -30,6 +29,7 @@ class FoodItem extends React.Component {
             minHeight: 220,
             backgroundColor: '#fff',
             margin: 10,
+            borderRadius: 5,
             borderBottomWidth: 1,
             borderBottomColor: '#eee',
             flexDirection: 'column',
@@ -78,8 +78,7 @@ class FoodItem extends React.Component {
           <FlatButton
             key="add2Cart"
             title="Add to Cart"
-            onPress={() => {
-            }}
+            onPress={onPress}
           />
         </View>
       </TouchableOpacity>

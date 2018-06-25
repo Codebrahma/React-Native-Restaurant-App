@@ -3,26 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { FlatList, AsyncStorage, Image, ScrollView, View } from 'react-native';
+import { AsyncStorage, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
 import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
 import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
-import Assets from '../constants/assets';
-import RestaurantItem from '../components/RestaurantItem';
-import ViewRow from '../base_components/ViewRow';
-import RippleIcon from '../base_components/RippleIcon';
 import FilterRadioModal from '../components/FilterRadioModal';
-import BR from '../base_components/BR';
 import CuisineGrid from '../components/CuisineGrid';
 import RestaurantList from '../components/RestaurantList';
+import { fetchCartItems } from '../actions/cart';
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.filterModalRef = React.createRef();
+    // eslint-disable-next-line react/prop-types
     if (props.rightTitle !== 'Sign Out') {
       Actions.refresh({
         rightTitle: 'Sign Out',
@@ -41,6 +37,7 @@ class HomeScreen extends Component {
     if (this.props.rightTitle === 'Sign Out') {
       this.props.fetchRestaurant();
       this.props.fetchCuisineTypes();
+      this.props.fetchCartItems();
     }
   }
 
@@ -116,6 +113,7 @@ HomeScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
   fetchCuisineTypes: PropTypes.func.isRequired,
+  fetchCartItems: PropTypes.func.isRequired,
   restaurantList: PropTypes.array,
   cuisineTypes: PropTypes.array,
 };
@@ -133,6 +131,7 @@ function initMapDispatchToProps(dispatch) {
     fetchRestaurantByType,
     authLogout,
     fetchCuisineTypes,
+    fetchCartItems,
   }, dispatch);
 }
 
