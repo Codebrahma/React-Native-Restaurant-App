@@ -37,18 +37,28 @@ class CartScreen extends Component {
   );
 
   render() {
+    const { cartData } = this.props;
+
+    const totalBill = parseFloat(cartData.reduce(
+      (total, item) => total + (item.price * item.qty),
+      0,
+    ));
+    const taxPercent = 8;
+
+    const tax = +(totalBill * (taxPercent / 100)).toFixed(2);
+
     const billInfo = [
       {
         name: 'Items Total',
-        total: 480,
+        total: totalBill,
       },
       {
         name: 'Offer Discount',
         total: 18,
       },
       {
-        name: 'Taxes',
-        total: 12,
+        name: `Taxes (${taxPercent}%)`,
+        total: tax,
       },
       {
         name: 'Delivery Charges',
@@ -65,7 +75,7 @@ class CartScreen extends Component {
         <ScrollView>
           <SectionGap />
           {
-            this.props.cartData.map((item, index) => (
+            cartData.map((item, index) => (
               this._renderItem({ item })
             ))
           }

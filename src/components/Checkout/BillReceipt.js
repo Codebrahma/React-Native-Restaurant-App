@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import TearLines from 'react-native-tear-lines';
 
 const Container = styled.View`
@@ -44,7 +46,7 @@ class BillReceipt extends Component {
             this.props.billInfo.map((item, index) => {
               total += item.total;
               return (
-                <BillRow>
+                <BillRow key={item.name}>
                   <Text>{item.name}</Text>
                   <Text>{item.total} ₹</Text>
                 </BillRow>
@@ -54,7 +56,7 @@ class BillReceipt extends Component {
           <HorizontalLine />
           <BillRow>
             <Text>Total Pay</Text>
-            <Text>{total} ₹</Text>
+            <Text>{parseFloat(total).toFixed(2)} ₹</Text>
           </BillRow>
         </Container>
         <TearLines
@@ -65,5 +67,10 @@ class BillReceipt extends Component {
     );
   }
 }
+
+BillReceipt.propTypes = {
+  billInfo: PropTypes.array.isRequired,
+};
+
 
 export default BillReceipt;

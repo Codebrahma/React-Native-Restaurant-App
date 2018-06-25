@@ -44,6 +44,7 @@ const AppRouter = () => (
       />
       <Scene key="restaurantScreen" component={RestaurantInfoScreen} />
       <Scene
+        initial
         key="cartScreen"
         component={CartScreen}
         navigationBarStyle={{
