@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import { ActivityIndicator, AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -54,7 +54,7 @@ class LoginScreen extends Component {
 
   handleRedirect = async (loginMessage) => {
     try {
-      const value = await AsyncStorage.setItem('authToken', loginMessage.token);
+      await AsyncStorage.setItem('authToken', loginMessage.token);
       Actions.reset('homeScreen');
     } catch (e) {
       console.log(e);
@@ -105,6 +105,7 @@ LoginScreen.propTypes = {
   loginError: PropTypes.object,
   loginMessage: PropTypes.object,
   authLogin: PropTypes.func.isRequired,
+  authHydrateTokenFromStorage: PropTypes.func.isRequired,
 };
 
 function initMapStateToProps(state) {

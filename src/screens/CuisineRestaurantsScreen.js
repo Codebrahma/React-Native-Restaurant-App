@@ -3,38 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { FlatList, AsyncStorage, Image, ScrollView, View } from 'react-native';
+import { AsyncStorage, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import startCase from 'lodash/startCase';
 
 import AppBase from '../../app/base_components/AppBase';
-import PrimaryText from '../../app/base_components/PrimaryText';
-import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
-import Assets from '../constants/assets';
-import RestaurantItem from '../../app/components/RestaurantItem';
-import ViewRow from '../../app/base_components/ViewRow';
-import RippleIcon from '../../app/base_components/RippleIcon';
-import FilterRadioModal from '../../app/components/FilterRadioModal';
-import BR from '../../app/base_components/BR';
-import CuisineGrid from '../../app/components/CuisineGrid';
+import { authLogout, fetchRestaurantByType } from '../actions';
 import RestaurantList from '../../app/components/RestaurantList';
 
 class CuisineRestaurantScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.filterModalRef = React.createRef();
-  }
-
   async componentDidMount() {
-    console.log('in cdm');
-
     const value = await AsyncStorage.getItem('authToken');
     if (!value) {
       Actions.replace('loginScreen');
     }
 
-    console.log('in');
-      this.props.fetchRestaurantByType(this.props.cuisineType, true);
+    this.props.fetchRestaurantByType(this.props.cuisineType, true);
   }
 
 

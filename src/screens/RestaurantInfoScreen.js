@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { FlatList, Image, ScrollView, View } from 'react-native';
-
+import { AsyncStorage, FlatList, Image, ScrollView, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import AppBase from '../../app/base_components/AppBase';
 import PrimaryText from '../../app/base_components/PrimaryText';
@@ -18,10 +18,10 @@ import { updateCartItems } from '../actions/cart';
 
 class RestaurantInfoScreen extends Component {
   async componentDidMount() {
-    // const value = await AsyncStorage.getItem('authToken');
-    // if (!value) {
-    //   Actions.replace('loginScreen');
-    // }
+    const value = await AsyncStorage.getItem('authToken');
+    if (!value) {
+      Actions.replace('loginScreen');
+    }
     this.props.fetchRestaurant();
   }
 
