@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styles from './web/index.scss';
+import App from './web/App';
 
-const Index = () => (
-  <div className={styles.cb}>
-    Hello React!
-  </div>
-);
 
-ReactDOM.render(<Index />, document.getElementById('index'));
+ReactDOM.render(<App />, document.getElementById('index'));

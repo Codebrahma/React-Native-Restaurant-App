@@ -9,7 +9,7 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  entry: 'index.web.js',
+  entry: './index.web.js',
   module: {
     rules: [
       {
