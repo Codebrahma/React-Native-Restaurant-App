@@ -94,7 +94,7 @@ class HomeScreen extends Component {
             onPress={this.openCuisineScreen}
           />
           <RestaurantList
-            hideFilter
+            onFilterIconPress={() => this.filterModalRef.open()}
             restaurantList={this.props.restaurantList}
           />
         </ScrollView>
