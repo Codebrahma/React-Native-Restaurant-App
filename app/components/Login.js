@@ -11,7 +11,7 @@ import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
 import TextButton from '../base_components/TextButton';
-import Colors from '../constants/colors';
+import Colors from '../../src/constants/colors';
 
 class LoginComponent extends Component {
   render() {

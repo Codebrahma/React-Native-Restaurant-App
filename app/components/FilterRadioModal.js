@@ -8,7 +8,7 @@ import { Dimensions, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoundButton from '../base_components/RoundButton';
 import BR from '../base_components/BR';
-import Colors from '../constants/colors';
+import Colors from '../../src/constants/colors';
 
 
 const windowWidth = Dimensions.get('window').width;

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import styled from 'styled-components';
 
-import Colors from '../constants/colors';
-import Assets from '../constants/assets';
+import Colors from '../../src/constants/colors';
+import Assets from '../../src/constants/assets';
 
 
 const AppBaseView = styled.View`

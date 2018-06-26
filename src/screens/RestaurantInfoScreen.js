@@ -6,14 +6,14 @@ import { bindActionCreators } from 'redux';
 import { FlatList, Image, ScrollView, View } from 'react-native';
 
 
-import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
+import AppBase from '../../app/base_components/AppBase';
+import PrimaryText from '../../app/base_components/PrimaryText';
 import { fetchRestaurant } from '../actions';
-import SecondaryText from '../base_components/SecondaryText';
+import SecondaryText from '../../app/base_components/SecondaryText';
 import Assets from '../constants/assets';
-import FoodItem from '../components/FoodItem';
-import ViewRow from '../base_components/ViewRow';
-import BR from '../base_components/BR';
+import FoodItem from '../../app/components/FoodItem';
+import ViewRow from '../../app/base_components/ViewRow';
+import BR from '../../app/base_components/BR';
 import { updateCartItems } from '../actions/cart';
 
 class RestaurantInfoScreen extends Component {

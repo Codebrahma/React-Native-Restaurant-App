@@ -3,12 +3,12 @@ import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import Assets from '../constants/assets';
+import Assets from '../../src/constants/assets';
 import PrimaryText from '../base_components/PrimaryText';
 import SecondaryText from '../base_components/SecondaryText';
 import LoadingFood from '../base_components/LoadingFood';
 import ViewRow from '../base_components/ViewRow';
-import Colors from '../constants/colors';
+import Colors from '../../src/constants/colors';
 import FlatButton from '../base_components/FlatButton';
 
 class FoodItem extends React.Component {

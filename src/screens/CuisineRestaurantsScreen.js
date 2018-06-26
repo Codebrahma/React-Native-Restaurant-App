@@ -7,17 +7,17 @@ import { FlatList, AsyncStorage, Image, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
-import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
+import AppBase from '../../app/base_components/AppBase';
+import PrimaryText from '../../app/base_components/PrimaryText';
 import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
 import Assets from '../constants/assets';
-import RestaurantItem from '../components/RestaurantItem';
-import ViewRow from '../base_components/ViewRow';
-import RippleIcon from '../base_components/RippleIcon';
-import FilterRadioModal from '../components/FilterRadioModal';
-import BR from '../base_components/BR';
-import CuisineGrid from '../components/CuisineGrid';
-import RestaurantList from '../components/RestaurantList';
+import RestaurantItem from '../../app/components/RestaurantItem';
+import ViewRow from '../../app/base_components/ViewRow';
+import RippleIcon from '../../app/base_components/RippleIcon';
+import FilterRadioModal from '../../app/components/FilterRadioModal';
+import BR from '../../app/base_components/BR';
+import CuisineGrid from '../../app/components/CuisineGrid';
+import RestaurantList from '../../app/components/RestaurantList';
 
 class CuisineRestaurantScreen extends Component {
   constructor(props) {

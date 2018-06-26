@@ -3,10 +3,10 @@ import { Animated, Image, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import AppBase from './AppBase';
-import Assets from '../constants/assets';
+import Assets from '../../src/constants/assets';
 
 
-class LoadingView extends React.Component {
+class LoadingFood extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,44 +44,35 @@ class LoadingView extends React.Component {
       <AppBase style={{
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#feffeb',
+        backgroundColor: '#fff',
       }}
       >
         <Animated.Image
-          source={Assets.Images.pizza}
+          source={Assets.Images.placeholderFood}
           style={{
-            width: 100,
-            height: 100,
+            width: 120,
+            height: 120,
             transform: [{ rotate: spin }],
           }}
         />
         <View
           style={{
             width: 80,
-            minHeight: 20,
+            minHeight: 10,
             borderRadius: 5,
-            backgroundColor: '#feffeb',
+            backgroundColor: '#fff',
             shadowColor: '#dcddcc',
             shadowRadius: 0,
             shadowOpacity: 0.2,
             shadowOffset: { width: 0, height: 10 },
           }}
         />
-        <Text
-          style={{
-            marginTop: 30,
-            fontSize: 20,
-            fontFamily: 'Roboto Slab',
-          }}
-        >
-          Hang on. we will be right back…
-        </Text>
       </AppBase>
     );
   }
 }
 
-LoadingView.propTypes = {};
+LoadingFood.propTypes = {};
 
 
-export default LoadingView;
+export default LoadingFood;

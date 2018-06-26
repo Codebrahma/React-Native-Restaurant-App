@@ -6,7 +6,7 @@ import { FlatList, Image, View } from 'react-native';
 import startCase from 'lodash/startCase';
 import { Actions } from 'react-native-router-flux';
 import RestaurantItem from './RestaurantItem';
-import Assets from '../constants/assets';
+import Assets from '../../src/constants/assets';
 import ViewRow from '../base_components/ViewRow';
 import PrimaryText from '../base_components/PrimaryText';
 import RippleIcon from '../base_components/RippleIcon';

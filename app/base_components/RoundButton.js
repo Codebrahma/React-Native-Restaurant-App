@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Colors from '../constants/colors';
+import Colors from '../../src/constants/colors';
 
 const LoadingWrap = styled.View`
   background-color: ${props => props.buttonColor};

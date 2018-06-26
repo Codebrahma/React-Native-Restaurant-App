@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Color from '../constants/colors';
+import Color from '../../src/constants/colors';
 
 const SecondaryText = styled.Text`
   color: ${Color.secondaryColor};

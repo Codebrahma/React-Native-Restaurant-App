@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import Colors from './constants/colors';
-import SignupScreen from './screens/SignupScreen';
-import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
-import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
-import CartScreen from './screens/CartScreen';
+import LoginScreen from '../src/screens/LoginScreen';
+import HomeScreen from '../src/screens/HomeScreen';
+import Colors from '../src/constants/colors';
+import SignupScreen from '../src/screens/SignupScreen';
+import RestaurantInfoScreen from '../src/screens/RestaurantInfoScreen';
+import CuisineRestaurantsScreen from '../src/screens/CuisineRestaurantsScreen';
+import CartScreen from '../src/screens/CartScreen';
 
 
 const AppRouter = () => (

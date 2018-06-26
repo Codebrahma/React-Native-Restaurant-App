@@ -8,7 +8,7 @@ import Modal from 'react-native-modalbox';
 import CheckBox from 'react-native-check-box';
 import { Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/colors';
+import Colors from '../../src/constants/colors';
 
 
 const windowWidth = Dimensions.get('window').width;

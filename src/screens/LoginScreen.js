@@ -8,8 +8,8 @@ import { Actions } from 'react-native-router-flux';
 
 
 import { authHydrateTokenFromStorage, authLogin } from '../actions';
-import LoginComponent from '../components/Login';
-import LoadingView from '../base_components/LoadingView';
+import LoginComponent from '../../app/components/Login';
+import LoadingView from '../../app/base_components/LoadingView';
 
 class LoginScreen extends Component {
   constructor(props) {

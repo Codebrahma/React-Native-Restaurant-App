@@ -7,11 +7,11 @@ import { AsyncStorage, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
-import AppBase from '../base_components/AppBase';
+import AppBase from '../../app/base_components/AppBase';
 import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
-import FilterRadioModal from '../components/FilterRadioModal';
-import CuisineGrid from '../components/CuisineGrid';
-import RestaurantList from '../components/RestaurantList';
+import FilterRadioModal from '../../app/components/FilterRadioModal';
+import CuisineGrid from '../../app/components/CuisineGrid';
+import RestaurantList from '../../app/components/RestaurantList';
 import { fetchCartItems } from '../actions/cart';
 
 class HomeScreen extends Component {

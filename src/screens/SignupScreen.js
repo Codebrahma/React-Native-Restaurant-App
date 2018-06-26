@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 
 import { authLogin, authRegister } from '../actions';
-import LoginComponent from '../components/Login';
-import SignupComponent from '../components/Signup';
+import LoginComponent from '../../app/components/Login';
+import SignupComponent from '../../app/components/Signup';
 
 class SignupScreen extends Component {
   constructor(props) {

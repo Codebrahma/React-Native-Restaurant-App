@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import startCase from 'lodash/startCase';
 
 
-import Assets from '../constants/assets';
+import Assets from '../../src/constants/assets';
 import PrimaryText from '../base_components/PrimaryText';
 import ViewRow from '../base_components/ViewRow';
 
