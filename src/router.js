@@ -7,6 +7,7 @@ import Colors from './constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
+import CartScreen from './screens/CartScreen';
 
 
 const AppRouter = () => (
@@ -42,6 +43,21 @@ const AppRouter = () => (
         }}
       />
       <Scene key="restaurantScreen" component={RestaurantInfoScreen} />
+      <Scene
+        key="cartScreen"
+        component={CartScreen}
+        navigationBarStyle={{
+          backgroundColor: '#fff',
+          elevation: 2,
+          borderBottomWidth: 1,
+          borderBottomColor: '#eee',
+        }}
+        titleStyle={{
+          fontFamily: 'Roboto Slab',
+          color: Colors.primaryColor,
+        }}
+        title="Cart"
+      />
     </Scene>
   </Router>
 );

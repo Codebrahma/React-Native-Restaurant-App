@@ -14,6 +14,7 @@ import Assets from '../constants/assets';
 import FoodItem from '../components/FoodItem';
 import ViewRow from '../base_components/ViewRow';
 import BR from '../base_components/BR';
+import { updateCartItems } from '../actions/cart';
 
 class RestaurantInfoScreen extends Component {
   async componentDidMount() {
@@ -61,8 +62,7 @@ class RestaurantInfoScreen extends Component {
       return (
         <FoodItem
           food={item}
-          onPress={() => {
-          }}
+          onPress={() => this.props.updateCartItems(item, 1)}
         />
       );
     }
@@ -108,6 +108,7 @@ RestaurantInfoScreen.defaultProps = {};
 
 RestaurantInfoScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
+  updateCartItems: PropTypes.func.isRequired,
   // authLogout: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
@@ -121,6 +122,7 @@ function initMapStateToProps(state) {
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchRestaurant,
+    updateCartItems,
     // authLogout,
   }, dispatch);
 }
