@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 
-import { authRegister } from '../actions';
-import SignupComponent from '../../app/components/Signup';
+import { authRegister } from '../../src/actions/index';
+import SignupComponent from '../components/Signup';
 
 class SignupScreen extends Component {
   constructor(props) {

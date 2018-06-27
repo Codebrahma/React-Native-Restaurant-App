@@ -7,13 +7,13 @@ import { ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
-import SignOutButton from '../../app/components/SignOutButton';
-import AppBase from '../../app/base_components/AppBase';
-import CuisineGrid from '../../app/components/CuisineGrid';
-import PrimaryText from '../../app/base_components/PrimaryText';
-import RestaurantList from '../../app/components/RestaurantList';
-import FilterRadioModal from '../../app/components/FilterRadioModal';
-import { fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
+import SignOutButton from '../components/SignOutButton';
+import AppBase from '../base_components/AppBase';
+import CuisineGrid from '../components/CuisineGrid';
+import PrimaryText from '../base_components/PrimaryText';
+import RestaurantList from '../components/RestaurantList';
+import FilterRadioModal from '../components/FilterRadioModal';
+import { fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../../src/actions/index';
 
 class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

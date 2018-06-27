@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { ScrollView } from 'react-native';
 
-import AppBase from '../../app/base_components/AppBase';
-import { authLogout, fetchRestaurantByType } from '../actions';
-import RestaurantList from '../../app/components/RestaurantList';
-import PrimaryText from '../../app/base_components/PrimaryText';
-import SignOutButton from '../../app/components/SignOutButton';
+import AppBase from '../base_components/AppBase';
+import { authLogout, fetchRestaurantByType } from '../../src/actions/index';
+import RestaurantList from '../components/RestaurantList';
+import PrimaryText from '../base_components/PrimaryText';
+import SignOutButton from '../components/SignOutButton';
 
 class CuisineRestaurantScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

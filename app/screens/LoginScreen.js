@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 
 
-import { authLogin } from '../actions';
-import LoginComponent from '../../app/components/Login';
+import { authLogin } from '../../src/actions/index';
+import LoginComponent from '../components/Login';
 
 class LoginScreen extends Component {
   displayName = 'LoginScreen';
