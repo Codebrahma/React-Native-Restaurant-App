@@ -3,49 +3,39 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { AsyncStorage, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
-import AppBase from '../../app/base_components/AppBase';
-import { authLogout, fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../actions';
-import FilterRadioModal from '../../app/components/FilterRadioModal';
-import CuisineGrid from '../../app/components/CuisineGrid';
-import RestaurantList from '../../app/components/RestaurantList';
-import { fetchCartItems } from '../actions/cart';
+import SignOutButton from '../components/SignOutButton';
+import AppBase from '../base_components/AppBase';
+import CuisineGrid from '../components/CuisineGrid';
+import PrimaryText from '../base_components/PrimaryText';
+import RestaurantList from '../components/RestaurantList';
+import FilterRadioModal from '../components/FilterRadioModal';
+import { fetchCuisineTypes, fetchRestaurant, fetchRestaurantByType } from '../../src/actions/index';
 
 class HomeScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: <PrimaryText>Restaurant App</PrimaryText>,
+    headerRight: <SignOutButton />,
+  });
+
   constructor(props) {
     super(props);
     this.filterModalRef = React.createRef();
-    // eslint-disable-next-line react/prop-types
-    if (props.rightTitle !== 'Sign Out') {
-      Actions.refresh({
-        rightTitle: 'Sign Out',
-        onRight: () => this.handleSignOut(),
-        ...props,
-      });
-    }
   }
 
-  async componentDidMount() {
-    const value = await AsyncStorage.getItem('authToken');
-    if (!value) {
-      Actions.replace('loginScreen');
-    }
-
-    if (this.props.rightTitle === 'Sign Out') {
+  componentDidMount() {
+    const { restaurantList, cuisineTypes } = this.props;
+    if (!restaurantList || restaurantList.length === 0) {
       this.props.fetchRestaurant();
+    }
+
+    if (!cuisineTypes || cuisineTypes.length === 0) {
       this.props.fetchCuisineTypes();
-      this.props.fetchCartItems();
     }
   }
-
-
-  handleSignOut = async () => {
-    this.props.authLogout();
-    Actions.reset('loginScreen');
-  };
 
   handleFilter = (type) => {
     if (type !== null) {
@@ -110,10 +100,9 @@ HomeScreen.defaultProps = {
 
 HomeScreen.propTypes = {
   fetchRestaurant: PropTypes.func.isRequired,
-  authLogout: PropTypes.func.isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
   fetchCuisineTypes: PropTypes.func.isRequired,
-  fetchCartItems: PropTypes.func.isRequired,
+  // fetchCartItems: PropTypes.func.isRequired,
   restaurantList: PropTypes.array,
   cuisineTypes: PropTypes.array,
 };
@@ -129,9 +118,8 @@ function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchRestaurant,
     fetchRestaurantByType,
-    authLogout,
     fetchCuisineTypes,
-    fetchCartItems,
+    // fetchCartItems,
   }, dispatch);
 }
 
