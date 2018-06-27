@@ -20,6 +20,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['env', 'react', 'stage-2'],
+            plugins: ['transform-runtime'],
           },
         },
       },
@@ -29,7 +30,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
+            presets: ['env', 'react', 'stage-2'],
+            plugins: ['transform-runtime'],
           },
         },
       },

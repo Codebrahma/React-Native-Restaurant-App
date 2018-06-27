@@ -3,63 +3,32 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Colors from '../../src/constants/colors';
-import { PrimaryText, Button } from '../base_components/sharedComponents';
+import { PrimaryText, FormField, FormContainer, BR } from '../base_components/sharedComponents';
+import Button from '../base_components/Button';
 import { authLogin } from '../../src/actions';
-
-const FormContainer = styled.div`
-  width: 45vw;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-self: center;
-  align-items: center;
-`;
-
-const FormField = styled.input`
-  width: 40%;
-  margin: auto;
-  padding: 1%;
-`;
-
-const LoginButton = styled.button`
-  background-color: ${Colors.blue};
-  width: 40%;
-  margin: auto;
-  padding: 2%;
-  border-radius: 25px;
-  border: none;
-`;
-
-const SignupButton = styled.button`
-  width: 40%;
-  margin: auto;
-  padding: 2%;
-  border-radius: 25px;
-  border: none;
-`;
-
-const BR = styled.div`
-  height: 20px;
-`;
-
-const Signin = styled.div`
-  color: ${Colors.white};
-`;
+import Loader from '../base_components/Loader';
 
 class LoginForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+  }
+
   login = () => {
-    // this.props.authLogin(this.state.username, this.state.password);
+    this.props.authLogin(this.state.email, this.state.password);
   }
 
   render() {
+    const { email, password } = this.state;
+    const disableLogin = (!email || email.length === 0 || !password || password.length === 0);
+
+    if (this.props.loginLoading) { return <Loader />; }
     return (
       <FormContainer>
         <BR />
@@ -68,7 +37,7 @@ class LoginForm extends React.Component {
           name="username"
           placeholder="Test@example.com"
           value={this.state.username}
-          onChange={username => this.setState({ username })}
+          onChange={event => this.setState({ email: event.target.value })}
         />
         <BR />
         <FormField
@@ -76,16 +45,25 @@ class LoginForm extends React.Component {
           name="password"
           placeholder="password"
           value={this.state.password}
-          onChange={password => this.setState({ password })}
+          onChange={event => this.setState({ password: event.target.value })}
         />
         <BR />
         <PrimaryText>Forgot Password?</PrimaryText>
         <BR />
-        <LoginButton onPress={this.login}>
-          <Signin>Sign In</Signin>
-        </LoginButton>
+        <Button
+          onClick={this.login}
+          disabled={disableLogin}
+          text="Sign In"
+          textColor={disableLogin ? '' : Colors.white}
+          buttonColor={Colors.primaryColor}
+        />
         <BR />
-        <SignupButton>Sign Up</SignupButton>
+        <Button
+          text="Sign Up"
+          textColor={Colors.white}
+          buttonColor={Colors.blue}
+          disabled={false}
+        />
         <BR />
       </FormContainer>
     );
@@ -96,10 +74,15 @@ const mapDispatchToProps = {
   authLogin,
 };
 
+const mapStateToProps = ({ auth }) => ({
+  loginLoading: auth.loginLoading,
+  loginError: auth.loginError,
+  loginMessage: auth.loginMessage,
+});
+
 LoginForm.propTypes = {
   authLogin: PropTypes.func.isRequired,
+  loginLoading: PropTypes.bool.isRequired,
 };
 
-export default LoginForm;
-
-// export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

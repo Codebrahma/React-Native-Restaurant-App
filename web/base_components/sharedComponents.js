@@ -10,13 +10,21 @@ export const PrimaryText = styled.div`
   font-size: ${props => (props.size ? props.size : '16px')};
 `;
 
-export const Button = color => (
-  styled.button`
-  background-color: ${color};
+export const FormContainer = styled.div`
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-self: center;
+  align-items: center;
+`;
+
+export const FormField = styled.input`
   width: 40%;
   margin: auto;
-  padding: 2%;
-  border-radius: 25px;
-  border: none;`
-);
+  padding: 1%;
+`;
 
+export const BR = styled.div`
+  height: 20px;
+`;
