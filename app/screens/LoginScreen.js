@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+import storage from 'redux-persist/lib/storage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -53,7 +53,7 @@ class LoginScreen extends Component {
   handleRedirect = async (loginMessage) => {
     if (loginMessage && loginMessage.token) {
       try {
-        await AsyncStorage.setItem('authToken', loginMessage.token);
+        await storage.setItem('authToken', loginMessage.token);
         Actions.reset('homeScreen');
       } catch (e) {
         console.log(e);
