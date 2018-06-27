@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { ScrollView } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -9,22 +8,26 @@ import PropTypes from 'prop-types';
 
 import Item from '../components/Checkout/Item';
 import Footer from '../components/Checkout/Footer';
-import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
 import AppBase from '../base_components/AppBase';
 import BillReceipt from '../components/Checkout/BillReceipt';
+import BR from '../base_components/BR';
+import ViewRow from '../base_components/ViewRow';
+import PrimaryText from '../base_components/PrimaryText';
+import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
 
-const SectionGap = styled.View`
-  margin-top: 2%;
-`;
-
-const BillReceiptContainer = styled.View`
-  margin-bottom: 10%;
-`;
 
 class CartScreen extends Component {
   componentDidMount() {
     this.props.fetchCartItems();
   }
+
+  handleItemValueChange = (item, qty) => {
+    if (qty === 0) {
+      this.props.deleteCartItem(item._id);
+    } else {
+      this.props.updateCartItemQty(item._id, qty);
+    }
+  };
 
   _renderItem = ({ item }) => (
     <Item
@@ -32,9 +35,29 @@ class CartScreen extends Component {
       name={item.food.name}
       price={`₹${item.price * item.qty}`}
       qty={item.qty}
-      onChange={value => this.props.updateCartItemQty(item._id, value)}
+      onChange={qty => this.handleItemValueChange(item, qty)}
     />
   );
+
+  renderCartItems = (cartData) => {
+    if (cartData.length > 0) {
+      return (
+        <FlatList
+          data={cartData}
+          renderItem={this._renderItem}
+          keyExtractor={item => item._id}
+        />
+      );
+    }
+
+    return (
+      <ViewRow>
+        <PrimaryText>
+          Your Cart is empty.
+        </PrimaryText>
+      </ViewRow>
+    );
+  };
 
   render() {
     const { cartData } = this.props;
@@ -73,20 +96,22 @@ class CartScreen extends Component {
         }}
       >
         <ScrollView>
-          <SectionGap />
+          <BR />
+          {this.renderCartItems(cartData)}
+          <BR />
           {
-            cartData.map((item, index) => (
-              this._renderItem({ item })
-            ))
-          }
-          <SectionGap />
-          <BillReceiptContainer>
+            cartData.length > 0
+            &&
             <BillReceipt
               billInfo={billInfo}
             />
-          </BillReceiptContainer>
+          }
         </ScrollView>
-        <Footer totalAmount="184 ₹" />
+        {
+          cartData.length > 0
+          &&
+          <Footer totalAmount={`${totalBill} ₹`} />
+        }
       </AppBase>
     );
   }
@@ -94,6 +119,7 @@ class CartScreen extends Component {
 
 CartScreen.propTypes = {
   cartData: PropTypes.array.isRequired,
+  deleteCartItem: PropTypes.func.isRequired,
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
 };
