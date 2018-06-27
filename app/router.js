@@ -25,16 +25,6 @@ const AppRouter = () => (
         }}
       />
       <Scene
-        key="homeScreen"
-        component={HomeScreen}
-        title="Restaurant App"
-        titleStyle={{
-          fontFamily: 'Roboto Slab',
-          color: Colors.primaryColor,
-        }}
-      />
-
-      <Scene
         key="cuisineRestaurants"
         component={CuisineRestaurantsScreen}
         titleStyle={{
