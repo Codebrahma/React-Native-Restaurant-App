@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import startCase from 'lodash/startCase';
 
-import SignOutButton from '../components/SignOutButton';
+import SignOutButton from '../components/RightHeaderButtons';
 import AppBase from '../base_components/AppBase';
 import CuisineGrid from '../components/CuisineGrid';
 import PrimaryText from '../base_components/PrimaryText';

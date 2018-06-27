@@ -14,7 +14,7 @@ import FoodItem from '../components/FoodItem';
 import ViewRow from '../base_components/ViewRow';
 import BR from '../base_components/BR';
 import { updateCartItems } from '../../src/actions/cart';
-import SignOutButton from '../components/SignOutButton';
+import SignOutButton from '../components/RightHeaderButtons';
 
 class RestaurantInfoScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

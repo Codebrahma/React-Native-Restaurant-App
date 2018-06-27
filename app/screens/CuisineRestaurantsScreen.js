@@ -9,7 +9,7 @@ import AppBase from '../base_components/AppBase';
 import { authLogout, fetchRestaurantByType } from '../../src/actions/index';
 import RestaurantList from '../components/RestaurantList';
 import PrimaryText from '../base_components/PrimaryText';
-import SignOutButton from '../components/SignOutButton';
+import SignOutButton from '../components/RightHeaderButtons';
 
 class CuisineRestaurantScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
