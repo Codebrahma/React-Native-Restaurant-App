@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AsyncStorage } from 'react-native';
+import storage from 'redux-persist/lib/storage';
 
 function* cartItemsClean(action) {
   try {
     const newCart = [];
 
-    yield call(AsyncStorage.removeItem, 'userCart');
+    yield call(storage.removeItem, 'userCart');
 
     yield put({ type: 'SAVE_NEW_CART', payload: JSON.stringify(newCart) });
   } catch (e) {

@@ -3,28 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { AsyncStorage, ScrollView } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { ScrollView } from 'react-native';
 
-import AppBase from '../../app/base_components/AppBase';
-import { authLogout, fetchRestaurantByType } from '../actions';
-import RestaurantList from '../../app/components/RestaurantList';
+import AppBase from '../base_components/AppBase';
+import { authLogout, fetchRestaurantByType } from '../../src/actions/index';
+import RestaurantList from '../components/RestaurantList';
+import PrimaryText from '../base_components/PrimaryText';
+import SignOutButton from '../components/SignOutButton';
 
 class CuisineRestaurantScreen extends Component {
-  async componentDidMount() {
-    const value = await AsyncStorage.getItem('authToken');
-    if (!value) {
-      Actions.replace('loginScreen');
-    }
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: <PrimaryText>Restaurant App</PrimaryText>,
+    headerRight: <SignOutButton />,
+  });
 
+  componentDidMount() {
     this.props.fetchRestaurantByType(this.props.cuisineType, true);
   }
-
-
-  handleSignOut = async () => {
-    this.props.authLogout();
-    Actions.reset('loginScreen');
-  };
 
   handleFilter = (type) => {
   };
@@ -53,7 +48,6 @@ CuisineRestaurantScreen.defaultProps = {
 
 CuisineRestaurantScreen.propTypes = {
   cuisineType: PropTypes.string.isRequired,
-  authLogout: PropTypes.func.isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
   restaurantList: PropTypes.array,
 };

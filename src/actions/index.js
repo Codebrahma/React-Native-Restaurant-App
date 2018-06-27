@@ -1,15 +1,3 @@
-export const myAction = () => ({
-  type: 'ACTION_CODE',
-  payload: 'aa',
-});
-
-export const authHydrateTokenFromStorage = token => ({
-  type: 'AUTH_HYDRATE_TOKEN',
-  payload: {
-    token,
-  },
-});
-
 export const authLogin = (email, password) => ({
   type: 'AUTH_LOGIN',
   payload: {

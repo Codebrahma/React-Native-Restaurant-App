@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import LoginScreen from '../src/screens/LoginScreen';
-import HomeScreen from '../src/screens/HomeScreen';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
-import SignupScreen from '../src/screens/SignupScreen';
-import RestaurantInfoScreen from '../src/screens/RestaurantInfoScreen';
-import CuisineRestaurantsScreen from '../src/screens/CuisineRestaurantsScreen';
-import CartScreen from '../src/screens/CartScreen';
+import SignupScreen from './screens/SignupScreen';
+import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
+import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
+import CartScreen from './screens/CartScreen';
 
 
 const AppRouter = () => (
@@ -24,16 +24,6 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
       />
-      <Scene
-        key="homeScreen"
-        component={HomeScreen}
-        title="Restaurant App"
-        titleStyle={{
-          fontFamily: 'Roboto Slab',
-          color: Colors.primaryColor,
-        }}
-      />
-
       <Scene
         key="cuisineRestaurants"
         component={CuisineRestaurantsScreen}

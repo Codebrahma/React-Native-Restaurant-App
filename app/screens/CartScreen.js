@@ -7,11 +7,11 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 
-import Item from '../../app/components/Checkout/Item';
-import Footer from '../../app/components/Checkout/Footer';
-import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../actions/cart';
-import AppBase from '../../app/base_components/AppBase';
-import BillReceipt from '../../app/components/Checkout/BillReceipt';
+import Item from '../components/Checkout/Item';
+import Footer from '../components/Checkout/Footer';
+import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
+import AppBase from '../base_components/AppBase';
+import BillReceipt from '../components/Checkout/BillReceipt';
 
 const SectionGap = styled.View`
   margin-top: 2%;
