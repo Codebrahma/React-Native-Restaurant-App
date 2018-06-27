@@ -33,7 +33,6 @@ const AppBase = ({ image, children, ...props }) => (
   image ?
     <AppBaseImage
       source={Assets.Images.foodBg}
-      resizeMode="repeat"
       {...props}
     >
       {children}
