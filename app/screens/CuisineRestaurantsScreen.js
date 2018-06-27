@@ -33,8 +33,9 @@ class CuisineRestaurantScreen extends Component {
       >
         <ScrollView>
           <RestaurantList
+            hideFilter
             restaurantList={this.props.restaurantList}
-            handleFilter={this.handleFilter}
+            // handleFilter={this.handleFilter}
           />
         </ScrollView>
       </AppBase>
