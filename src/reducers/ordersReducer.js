@@ -27,6 +27,11 @@ export default (state = initialState, { type, payload }) => {
         createdOrder: null,
         createdOrderError: payload,
       };
+    case 'CANCEL_ORDER':
+      return {
+        createdOrder: null,
+        createdOrderError: null,
+      };
     default:
       return state;
   }

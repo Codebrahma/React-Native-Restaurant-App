@@ -40,6 +40,10 @@ export const fetchOrders = () => ({
   type: 'FETCH_ORDERS',
 });
 
+export const doCancelOrder = () => ({
+  type: 'CANCEL_ORDER',
+});
+
 export const createOrder = (items, total) => ({
   type: 'CREATE_ORDER',
   payload: {

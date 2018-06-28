@@ -4,13 +4,14 @@ import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 import Stripe from 'react-native-stripe-api';
 import { CreditCardInput } from 'react-native-credit-card-input';
-import { Dimensions, KeyboardAvoidingView, ScrollView, View, Platform } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
 import RoundButton from '../../base_components/RoundButton';
 import AppBase from '../../base_components/AppBase';
 import BR from '../../base_components/BR';
+import Colors from '../../../src/constants/colors';
 
 const windowWidth = Dimensions.get('window').width - 18;
 
@@ -54,6 +55,7 @@ class PaymentHome extends Component {
       fontWeight: 'bold',
     },
     headerBackTitle: 'Home',
+    headerLeft: null,
   };
 
   constructor(props) {
@@ -66,7 +68,6 @@ class PaymentHome extends Component {
   }
 
   _onChange = (form) => {
-    console.log(form);
     this.setState((s, p) => ({
       cardData: form,
       validData: form.valid,
@@ -107,6 +108,14 @@ class PaymentHome extends Component {
         totalAmount,
       });
     }
+  };
+
+  handleCancelOrder = () => {
+    Actions.pop({
+      refresh: {
+        cancelOrder: true,
+      },
+    });
   };
 
   render() {
@@ -178,8 +187,19 @@ class PaymentHome extends Component {
             <RoundButton
               loading={this.state.loadingPayment}
               title="Make Payment"
+              buttonColor={Colors.green}
               onPress={() => this.doPayment()}
               disabled={!this.state.validData}
+              baseStyle={{
+                marginTop: 30,
+                marginBottom: Platform.OS === 'ios' ? 100 : 20,
+              }}
+            />
+
+            <RoundButton
+              loading={this.state.loadingPayment}
+              title="Cancel Order"
+              onPress={() => this.handleCancelOrder()}
               baseStyle={{
                 marginTop: 30,
                 marginBottom: Platform.OS === 'ios' ? 100 : 20,
@@ -192,10 +212,6 @@ class PaymentHome extends Component {
     );
   }
 }
-
-PaymentHome.defaultProps = {
-  orderId: 'SDDJ233-675DG21',
-};
 
 PaymentHome.propTypes = {
   orderId: PropTypes.string.isRequired,

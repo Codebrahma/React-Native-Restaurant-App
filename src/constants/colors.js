@@ -4,4 +4,5 @@ export default {
   secondaryColor: '#a7801e',
   blue: '#3F51B5',
   moneyColor: '#005508',
+  green: '#007a0b',
 };

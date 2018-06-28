@@ -14,7 +14,7 @@ import BR from '../base_components/BR';
 import ViewRow from '../base_components/ViewRow';
 import PrimaryText from '../base_components/PrimaryText';
 import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
-import { createOrder } from '../../src/actions';
+import { createOrder, doCancelOrder } from '../../src/actions';
 
 
 const FooterContainer = styled.View`
@@ -55,7 +55,11 @@ class CartScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.createdOrder !== null) {
+    if (nextProps.cancelOrder) {
+      this.props.doCancelOrder();
+    }
+
+    if (nextProps.createdOrder !== null && nextProps.cancelOrder === false) {
       const { createdOrder } = nextProps;
       Actions.paymentHome({
         orderId: createdOrder._id,
@@ -183,7 +187,6 @@ class CartScreen extends Component {
 
     totalBill += (tax + 30) - 18;
 
-
     return (
       <AppBase
         style={{
@@ -205,6 +208,7 @@ class CartScreen extends Component {
 
 CartScreen.defaultProps = {
   createdOrder: null,
+  cancelOrder: false,
 };
 
 CartScreen.propTypes = {
@@ -213,6 +217,8 @@ CartScreen.propTypes = {
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
+  doCancelOrder: PropTypes.func.isRequired,
+  cancelOrder: PropTypes.bool,
   createdOrder: PropTypes.object,
 };
 
@@ -230,6 +236,7 @@ function initMapDispatchToProps(dipatch) {
     fetchCartItems,
     updateCartItemQty,
     createOrder,
+    doCancelOrder,
   }, dipatch);
 }
 
