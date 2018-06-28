@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import storage from 'redux-persist/lib/storage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -50,10 +49,9 @@ class LoginScreen extends Component {
     });
   };
 
-  handleRedirect = async (loginMessage) => {
+  handleRedirect = (loginMessage) => {
     if (loginMessage && loginMessage.token) {
       try {
-        await storage.setItem('authToken', loginMessage.token);
         Actions.reset('homeScreen');
       } catch (e) {
         console.log(e);
