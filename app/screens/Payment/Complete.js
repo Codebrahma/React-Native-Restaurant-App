@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import RoundButton from '../../base_components/RoundButton';
 import AppBase from '../../base_components/AppBase';
 import Assets from '../../../src/constants/assets';
+import PrimaryText from '../../base_components/PrimaryText';
 
 const ImageSection = styled.View`
   flex-direction: column;
@@ -46,6 +47,11 @@ const Currency = styled.Text`
 `;
 
 class PaymentComplete extends Component {
+  static navigationOptions = {
+    title: (<PrimaryText style={{ flex: 1 }}>Payment Complete</PrimaryText>),
+    headerLeft: null,
+  };
+
   render() {
     const { totalAmount } = this.props;
     const rupee = (`${totalAmount}`).split('.')[0];

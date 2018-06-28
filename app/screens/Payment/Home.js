@@ -61,8 +61,7 @@ class PaymentHome extends Component {
     },
     headerBackTitle: 'Home',
     headerLeft: null,
-  }
-  ;
+  };
 
   constructor(props) {
     super(props);
@@ -207,7 +206,6 @@ class PaymentHome extends Component {
             />
 
             <RoundButton
-              loading={this.state.loadingPayment}
               title="Cancel Order"
               onPress={() => this.handleCancelOrder()}
               baseStyle={{
