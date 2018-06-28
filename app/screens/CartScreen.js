@@ -54,6 +54,16 @@ class CartScreen extends Component {
     this.props.fetchCartItems();
   }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextProps.createdOrder !== null) {
+      const { createdOrder } = nextProps;
+      Actions.paymentHome({
+        orderId: createdOrder._id,
+        totalAmount: createdOrder.totalCost,
+      });
+    }
+  }
+
   handleItemValueChange = (item, qty) => {
     if (qty === 0) {
       this.props.deleteCartItem(item._id);
@@ -73,10 +83,6 @@ class CartScreen extends Component {
       }));
 
       this.props.createOrder(postData, totalAmount);
-
-      Actions.paymentHome({
-        totalAmount,
-      });
     }
   };
 
@@ -185,7 +191,7 @@ class CartScreen extends Component {
         }}
       >
         <ScrollView>
-          <BR />
+          <BR size={10} />
           {this.renderCartItems(cartData)}
           <BR />
           {this.renderBillReceipt(billInfo)}
@@ -197,18 +203,24 @@ class CartScreen extends Component {
   }
 }
 
+CartScreen.defaultProps = {
+  createdOrder: null,
+};
+
 CartScreen.propTypes = {
   cartData: PropTypes.array.isRequired,
   deleteCartItem: PropTypes.func.isRequired,
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
+  createdOrder: PropTypes.object,
 };
 
 
 function initMapStateToProps(state) {
   return {
     cartData: state.cart.cartData,
+    createdOrder: state.orders.createdOrder,
   };
 }
 

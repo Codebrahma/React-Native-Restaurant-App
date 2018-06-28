@@ -1,6 +1,15 @@
 import request from './request';
 import { ORDER_URL } from './api_constants';
 
+function getOrders(userId, headers) {
+  const params = {
+    userId,
+  };
+  return request({
+    url: ORDER_URL, method: 'GET', params, headers,
+  });
+}
+
 function createOrder(userId, cartItems, totalAmount, headers) {
   const data = {
     userId,
@@ -14,5 +23,6 @@ function createOrder(userId, cartItems, totalAmount, headers) {
 
 
 export default {
+  getOrders,
   createOrder,
-}
+};

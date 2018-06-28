@@ -50,7 +50,7 @@ class PaymentFailed extends Component {
   render() {
     const { totalAmount } = this.props;
     const rupee = (`${totalAmount}`).split('.')[0];
-    const paise = (`${totalAmount}`).split('.')[1] || '00';
+    const paise = (`${totalAmount}`).split('.')[1].padEnd(2, '0') || '00';
 
     return (
       <AppBase

@@ -10,18 +10,19 @@ import { Actions } from 'react-native-router-flux';
 
 import RoundButton from '../../base_components/RoundButton';
 import AppBase from '../../base_components/AppBase';
+import BR from '../../base_components/BR';
 
 const windowWidth = Dimensions.get('window').width - 18;
 
 const Heading = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   color: #9DA8BA;
   text-align: center;
   margin-bottom: 10px;
 `;
 
 const SubHeading = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: #213052;
   text-align: center;
 `;
@@ -112,16 +113,15 @@ class PaymentHome extends Component {
     const { orderId, totalAmount } = this.props;
 
     return (
-      <AppBase
-        style={{
-          backgroundColor: '#EFF2F5',
-        }}
-      >
+      <AppBase>
 
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : ''}
         >
-          <ScrollView>
+          <ScrollView
+            bounces={false}
+          >
+            <BR size={10} />
             <Section>
               <SectionItem>
                 <Heading>{'Order Id'.toUpperCase()}</Heading>
