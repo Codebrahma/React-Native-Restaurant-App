@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
@@ -6,12 +7,16 @@ import Stripe from 'react-native-stripe-api';
 import { CreditCardInput } from 'react-native-credit-card-input';
 import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 
 import RoundButton from '../../base_components/RoundButton';
 import AppBase from '../../base_components/AppBase';
 import BR from '../../base_components/BR';
 import Colors from '../../../src/constants/colors';
+import PrimaryText from '../../base_components/PrimaryText';
+import { doCancelOrder } from '../../../src/actions';
 
 const windowWidth = Dimensions.get('window').width - 18;
 
@@ -43,7 +48,7 @@ const SectionItem = styled.View`
 
 class PaymentHome extends Component {
   static navigationOptions = {
-    title: 'Make Payment',
+    title: (<PrimaryText style={{ flex: 1 }}> Make Payment</PrimaryText>),
     headerStyle: {
       backgroundColor: '#f5f5f5',
       borderBottomWidth: 1,
@@ -56,7 +61,8 @@ class PaymentHome extends Component {
     },
     headerBackTitle: 'Home',
     headerLeft: null,
-  };
+  }
+  ;
 
   constructor(props) {
     super(props);
@@ -66,6 +72,14 @@ class PaymentHome extends Component {
       loadingPayment: false,
     };
   }
+
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.createdOrder === null) {
+      Actions.pop();
+    }
+  }
+
 
   _onChange = (form) => {
     this.setState((s, p) => ({
@@ -111,11 +125,7 @@ class PaymentHome extends Component {
   };
 
   handleCancelOrder = () => {
-    Actions.pop({
-      refresh: {
-        cancelOrder: true,
-      },
-    });
+    this.props.doCancelOrder();
   };
 
   render() {
@@ -150,7 +160,7 @@ class PaymentHome extends Component {
             </Section>
 
             <Section style={{
-              elevation: 3,
+              elevation: 2,
               borderBottomWidth: 2,
               borderBottomColor: '#eee',
             }}
@@ -213,9 +223,28 @@ class PaymentHome extends Component {
   }
 }
 
+PaymentHome.defaultProps = {
+  createdOrder: null,
+};
+
 PaymentHome.propTypes = {
   orderId: PropTypes.string.isRequired,
   totalAmount: PropTypes.number.isRequired,
+  doCancelOrder: PropTypes.func.isRequired,
+  createdOrder: PropTypes.object,
 };
 
-export default PaymentHome;
+function initMapStateToProps(state) {
+  return {
+    createdOrder: state.orders.createdOrder,
+  };
+}
+
+function initMapDispatchToProps(dipatch) {
+  return bindActionCreators({
+    doCancelOrder,
+  }, dipatch);
+}
+
+
+export default connect(initMapStateToProps, initMapDispatchToProps)(PaymentHome);

@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/forbid-prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { View, Text } from 'react-native';
@@ -33,7 +33,7 @@ class BillReceipt extends Component {
   render() {
     let total = 0;
     return (
-      <View>
+      <View style={this.props.style}>
         <Container
           onLayout={(e) => {
             this.refs.bottom.onLayout(e);
@@ -68,7 +68,13 @@ class BillReceipt extends Component {
   }
 }
 
+
+BillReceipt.defaultProps = {
+  style: {},
+};
+
 BillReceipt.propTypes = {
+  style: PropTypes.object,
   billInfo: PropTypes.array.isRequired,
 };
 

@@ -14,7 +14,7 @@ import BR from '../base_components/BR';
 import ViewRow from '../base_components/ViewRow';
 import PrimaryText from '../base_components/PrimaryText';
 import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
-import { createOrder, doCancelOrder } from '../../src/actions';
+import { createOrder } from '../../src/actions';
 
 
 const FooterContainer = styled.View`
@@ -42,7 +42,7 @@ const PayButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const FooterText = styled.Text`
+const FooterText = styled(PrimaryText)`
   font-weight: bold;
   color: #eee;
   font-size: 16px;
@@ -55,11 +55,7 @@ class CartScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.cancelOrder) {
-      this.props.doCancelOrder();
-    }
-
-    if (nextProps.createdOrder !== null && nextProps.cancelOrder === false) {
+    if (nextProps.createdOrder !== null) {
       const { createdOrder } = nextProps;
       Actions.paymentHome({
         orderId: createdOrder._id,
@@ -104,6 +100,11 @@ class CartScreen extends Component {
     if (cartData.length > 0) {
       return (
         <FlatList
+          style={{
+            elevation: 2,
+            borderWidth: 1,
+            borderColor: '#fcfcfc',
+          }}
           data={cartData}
           renderItem={this._renderItem}
           keyExtractor={item => item._id}
@@ -126,6 +127,10 @@ class CartScreen extends Component {
     if (cartData.length > 0) {
       return (
         <BillReceipt
+          style={{
+            borderTopWidth: 4,
+            borderTopColor: '#eee',
+          }}
           billInfo={billInfo}
         />
       );
@@ -208,7 +213,6 @@ class CartScreen extends Component {
 
 CartScreen.defaultProps = {
   createdOrder: null,
-  cancelOrder: false,
 };
 
 CartScreen.propTypes = {
@@ -217,8 +221,6 @@ CartScreen.propTypes = {
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
-  doCancelOrder: PropTypes.func.isRequired,
-  cancelOrder: PropTypes.bool,
   createdOrder: PropTypes.object,
 };
 
@@ -236,7 +238,6 @@ function initMapDispatchToProps(dipatch) {
     fetchCartItems,
     updateCartItemQty,
     createOrder,
-    doCancelOrder,
   }, dipatch);
 }
 
