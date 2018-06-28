@@ -8,13 +8,26 @@ import SignupScreen from './screens/SignupScreen';
 import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 import CartScreen from './screens/CartScreen';
+import PaymentHome from './screens/Payment/Home';
+import PaymentComplete from './screens/Payment/Complete';
+import PaymentFailed from './screens/Payment/Failed';
 
 
 const AppRouter = () => (
   <Router>
     <Scene key="root" title="">
-      <Scene key="loginScreen" component={LoginScreen} initial hideNavBar />
-      <Scene key="signupScreen" component={SignupScreen} />
+      <Scene
+        key="loginScreen"
+        component={LoginScreen}
+        initial
+        hideNavBar
+      />
+
+      <Scene
+        key="signupScreen"
+        component={SignupScreen}
+      />
+
       <Scene
         key="homeScreen"
         component={HomeScreen}
@@ -24,6 +37,7 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
       />
+
       <Scene
         key="cuisineRestaurants"
         component={CuisineRestaurantsScreen}
@@ -32,7 +46,12 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
       />
-      <Scene key="restaurantScreen" component={RestaurantInfoScreen} />
+
+      <Scene
+        key="restaurantScreen"
+        component={RestaurantInfoScreen}
+      />
+
       <Scene
         key="cartScreen"
         component={CartScreen}
@@ -47,6 +66,21 @@ const AppRouter = () => (
           color: Colors.primaryColor,
         }}
         title="Cart"
+      />
+
+      <Scene
+        key="paymentHome"
+        component={PaymentHome}
+      />
+
+      <Scene
+        key="paymentSuccess"
+        component={PaymentComplete}
+      />
+
+      <Scene
+        key="paymentFailed"
+        component={PaymentFailed}
       />
     </Scene>
   </Router>
