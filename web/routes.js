@@ -1,10 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './screens/HomeScreen';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import LoginScreen from './screens/LoginScreen';
+import CuisineGrid from './components/cuisinesAndRestaurants/CuisineGrid';
 
 const Routes = () => (
   <BrowserRouter>
-    <Route exact path="/" component={Home} />
+    <Switch>
+      <Route exact path="/" component={LoginScreen} />
+      <Route path="/allCuisinesAndRestaurants" component={CuisineGrid} />
+    </Switch>
   </BrowserRouter>
 );
 

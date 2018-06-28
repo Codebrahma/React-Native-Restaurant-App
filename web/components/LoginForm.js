@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link, Route, Redirect, withRouter } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Colors from '../../src/constants/colors';
 import { PrimaryText, FormField, FormContainer, BR } from '../base_components/sharedComponents';
@@ -17,7 +19,18 @@ class LoginForm extends React.Component {
     };
   }
 
+  componentWillMount() {
+    if (this.props.loginMessage) {
+      this.props.history.push('/allCuisinesAndRestaurants');
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
+    if (nextProps.loginMessage) {
+      nextProps.history.push('/allCuisinesAndRestaurants');
+    } else {
+      nextProps.history.push('/');
+    }
   }
 
   login = () => {
@@ -83,6 +96,12 @@ const mapStateToProps = ({ auth }) => ({
 LoginForm.propTypes = {
   authLogin: PropTypes.func.isRequired,
   loginLoading: PropTypes.bool.isRequired,
+  loginMessage: PropTypes.instanceOf(Object),
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+LoginForm.defaultProps = {
+  loginMessage: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginForm));
