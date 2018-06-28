@@ -48,6 +48,9 @@ const Currency = styled.Text`
 class PaymentComplete extends Component {
   render() {
     const { totalAmount } = this.props;
+    const rupee = (`${totalAmount}`).split('.')[0];
+    const paise = (`${totalAmount}`).split('.')[1] || '00';
+
     return (
       <AppBase
         style={{
@@ -79,7 +82,7 @@ class PaymentComplete extends Component {
           }}
         >
           <Currency>₹</Currency>
-          <PriceText>{totalAmount}<CentText>.00</CentText></PriceText>
+          <PriceText>{rupee}<CentText>.{paise}</CentText></PriceText>
         </View>
 
         <RoundButton
