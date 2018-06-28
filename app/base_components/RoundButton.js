@@ -7,7 +7,7 @@ import Colors from '../../src/constants/colors';
 const LoadingWrap = styled.View`
   background-color: ${props => props.buttonColor};
   margin: 10px auto;
-  padding: 10px;
+  padding: 15px;
   width: 150px;
   flex-direction: row;
   justify-content: center;
