@@ -6,4 +6,5 @@ export default {
   moneyColor: '#005508',
   lightGrey: '#D3D3D3',
   white: '#FFFFFF',
+  black: '#000000',
 };
