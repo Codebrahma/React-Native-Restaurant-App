@@ -1,19 +1,51 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import { FlatList, ScrollView } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import Item from '../components/Checkout/Item';
-import Footer from '../components/Checkout/Footer';
 import AppBase from '../base_components/AppBase';
 import BillReceipt from '../components/Checkout/BillReceipt';
 import BR from '../base_components/BR';
 import ViewRow from '../base_components/ViewRow';
 import PrimaryText from '../base_components/PrimaryText';
 import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
+
+
+const FooterContainer = styled.View`
+  height: 10%;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AmountContainer = styled.View`
+  flex: 0.5;
+  align-items: center;
+  height: 100%;
+  background-color: #d9d9d9;
+  justify-content: center;
+`;
+
+const PayButton = styled.TouchableOpacity`
+  height: 100%;
+  background-color: green;
+  flex: 0.5;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FooterText = styled.Text`
+  font-weight: bold;
+  color: #eee;
+  font-size: 16px;
+`;
 
 
 class CartScreen extends Component {
@@ -59,6 +91,43 @@ class CartScreen extends Component {
     );
   };
 
+  renderBillReceipt = (billInfo) => {
+    const { cartData } = this.props;
+
+    if (cartData.length > 0) {
+      return (
+        <BillReceipt
+          billInfo={billInfo}
+        />
+      );
+    }
+    return null;
+  };
+
+  renderFooter = (totalAmount) => {
+    const { cartData } = this.props;
+
+    if (cartData.length > 0) {
+      return (
+        <FooterContainer>
+          <AmountContainer>
+            <PrimaryText>₹ {totalAmount}</PrimaryText>
+          </AmountContainer>
+          <PayButton
+            onPress={() => Actions.paymentHome({
+              totalAmount,
+            })}
+          >
+            <FooterText>
+              Proceed To Pay
+            </FooterText>
+          </PayButton>
+        </FooterContainer>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { cartData } = this.props;
 
@@ -99,19 +168,10 @@ class CartScreen extends Component {
           <BR />
           {this.renderCartItems(cartData)}
           <BR />
-          {
-            cartData.length > 0
-            &&
-            <BillReceipt
-              billInfo={billInfo}
-            />
-          }
+          {this.renderBillReceipt(billInfo)}
+          <BR />
         </ScrollView>
-        {
-          cartData.length > 0
-          &&
-          <Footer totalAmount={`${totalBill} ₹`} />
-        }
+        {this.renderFooter(totalBill)}
       </AppBase>
     );
   }

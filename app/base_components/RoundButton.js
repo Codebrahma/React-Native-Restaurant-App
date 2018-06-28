@@ -79,7 +79,7 @@ class RoundButton extends React.Component {
     return (
       <TouchableOpacity
         onPress={onPress}
-        activeOpacity={0.8}
+        activeOpacity={0.7}
         disabled={disabled}
         style={style.wrap}
       >
