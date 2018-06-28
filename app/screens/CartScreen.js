@@ -14,6 +14,7 @@ import BR from '../base_components/BR';
 import ViewRow from '../base_components/ViewRow';
 import PrimaryText from '../base_components/PrimaryText';
 import { deleteCartItem, fetchCartItems, updateCartItemQty } from '../../src/actions/cart';
+import { createOrder } from '../../src/actions';
 
 
 const FooterContainer = styled.View`
@@ -58,6 +59,24 @@ class CartScreen extends Component {
       this.props.deleteCartItem(item._id);
     } else {
       this.props.updateCartItemQty(item._id, qty);
+    }
+  };
+
+  handlePayment = (totalAmount) => {
+    const { cartData } = this.props;
+
+    if (cartData.length > 0) {
+      const postData = cartData.map(item => ({
+        id: item.food._id,
+        quantity: item.qty,
+        price: item.price,
+      }));
+
+      this.props.createOrder(postData, totalAmount);
+
+      Actions.paymentHome({
+        totalAmount,
+      });
     }
   };
 
@@ -114,9 +133,7 @@ class CartScreen extends Component {
             <PrimaryText>₹ {totalAmount}</PrimaryText>
           </AmountContainer>
           <PayButton
-            onPress={() => Actions.paymentHome({
-              totalAmount,
-            })}
+            onPress={() => this.handlePayment(totalAmount)}
           >
             <FooterText>
               Proceed To Pay
@@ -131,7 +148,7 @@ class CartScreen extends Component {
   render() {
     const { cartData } = this.props;
 
-    const totalBill = parseFloat(cartData.reduce(
+    let totalBill = parseFloat(cartData.reduce(
       (total, item) => total + (item.price * item.qty),
       0,
     ));
@@ -146,7 +163,7 @@ class CartScreen extends Component {
       },
       {
         name: 'Offer Discount',
-        total: 18,
+        total: -18,
       },
       {
         name: `Taxes (${taxPercent}%)`,
@@ -157,6 +174,9 @@ class CartScreen extends Component {
         total: 30,
       },
     ];
+
+    totalBill += (tax + 30) - 18;
+
 
     return (
       <AppBase
@@ -182,6 +202,7 @@ CartScreen.propTypes = {
   deleteCartItem: PropTypes.func.isRequired,
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
+  createOrder: PropTypes.func.isRequired,
 };
 
 
@@ -196,6 +217,7 @@ function initMapDispatchToProps(dipatch) {
     deleteCartItem,
     fetchCartItems,
     updateCartItemQty,
+    createOrder,
   }, dipatch);
 }
 

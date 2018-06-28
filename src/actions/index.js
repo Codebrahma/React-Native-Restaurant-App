@@ -35,3 +35,12 @@ export const fetchRestaurantByType = (type = null, isFromCuisine = false) => ({
     isFromCuisine,
   },
 });
+
+export const createOrder = (items, total) => ({
+  type: 'CREATE_ORDER',
+  payload: {
+    items,
+    total,
+  },
+});
+
