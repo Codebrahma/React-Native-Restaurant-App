@@ -25,6 +25,7 @@ export default class RestaurantGrid extends React.Component {
   ))
 
   render() {
+    console.log('**************************', this.props.restaurants);
     return (
       <Container>
         <PrimaryText size="20px" align="center">Restaurants</PrimaryText>
