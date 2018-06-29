@@ -77,11 +77,6 @@ class LoginComponent extends Component {
           onPress={() => Actions.signupScreen()}
         />
         <BR size={20} />
-        <TextButton
-          primary
-          title="Skip Login"
-          onPress={() => Actions.homeScreen()}
-        />
       </AppBase>
     );
   }
