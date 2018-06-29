@@ -21,7 +21,6 @@ class LoginComponent extends Component {
 
     return (
       <AppBase
-        image
         style={{
           justifyContent: 'center',
         }}
