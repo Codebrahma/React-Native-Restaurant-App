@@ -4,6 +4,12 @@ BoilerPlate Used [https://github.com/kaushiknishchay/React-Native-Boilerplate](h
 
 ## Setup
 
+## Prerequisites
+
+- Install and  setup the backend server
+ 
+[https://github.com/Codebrahma/RestaurantApp-Express](https://github.com/Codebrahma/RestaurantApp-Express)
+
 ### Installation
 
 - run `npm install` or `yarn install`
@@ -12,7 +18,9 @@ BoilerPlate Used [https://github.com/kaushiknishchay/React-Native-Boilerplate](h
 
 - run `yarn android` or `yarn ios` to run on device or emulator
 
+### Start the web version
 
+- run `yarn start:web`
 
 ### Project info
 
