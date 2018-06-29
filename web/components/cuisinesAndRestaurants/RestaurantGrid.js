@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { PrimaryText } from '../../base_components/sharedComponents';
-import FoodItem from '../../base_components/FoodItem';
+import RestaurantItem from '../../base_components/RestaurantItem';
+import RestaurantInfo from '../../screens/RestaurantInfoScreen';
 
 const Container = styled.div`
   width: 80vw;
@@ -19,13 +21,23 @@ const FoodContainer = styled.div`
   align-items: center;
 `;
 
-export default class RestaurantGrid extends React.Component {
+class RestaurantGrid extends React.Component {
+  onClick = restaurant => (
+    <Route
+      path="/restaurantInfo"
+      render={routeProps => <RestaurantInfo {...routeProps} restaurant={restaurant} />}
+    />
+  )
+
   displayRestaurantList = () => this.props.restaurants.map(restaurant => (
-    <FoodItem name={restaurant.name} key={restaurant.id} />
+    <RestaurantItem
+      name={restaurant.name}
+      key={restaurant._id}
+      onClick={() => this.props.history.push(`/restaurantInfo/${restaurant._id}`)}
+    />
   ))
 
   render() {
-    console.log('**************************', this.props.restaurants);
     return (
       <Container>
         <PrimaryText size="20px" align="center">Restaurants</PrimaryText>
@@ -39,5 +51,7 @@ export default class RestaurantGrid extends React.Component {
 
 RestaurantGrid.propTypes = {
   restaurants: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
+export default withRouter(RestaurantGrid);

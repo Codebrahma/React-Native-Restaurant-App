@@ -2,16 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { fetchRestaurant, fetchCuisineTypes } from '../../../src/actions';
 import colors from '../../../src/constants/colors';
 import { PrimaryText } from '../../base_components/sharedComponents';
-import StatusBar from '../../base_components/StatusBar';
-import RestaurantGrid from './RestaurantGrid';
-
-const BaseLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import slugify from '../utils/slugify';
 
 const CuisineContainer = styled.div`
   padding: 1%;
@@ -44,7 +37,7 @@ const Heading = styled.div`
 class CuisineGrid extends React.Component {
   displayCuisineList = () => this.props.cuisineTypes.map(cuisine =>
     (
-      <KeyContainer>
+      <KeyContainer index={cuisine}>
         <input type="checkbox" name="checkbox" />
         <li key={cuisine}>
           <PrimaryText color={colors.black}>{cuisine}</PrimaryText>
@@ -54,15 +47,10 @@ class CuisineGrid extends React.Component {
 
   render() {
     return (
-      <div>
-        <StatusBar />
-        <BaseLayout>
-          <CuisineContainer>
-            <PrimaryText size="20px" align="left">Cuisines</PrimaryText>
-            <ListStyle>{this.displayCuisineList()}</ListStyle>
-          </CuisineContainer>
-        </BaseLayout>
-      </div>
+      <CuisineContainer>
+        <PrimaryText size="20px" align="left">Cuisines</PrimaryText>
+        <ListStyle>{this.displayCuisineList()}</ListStyle>
+      </CuisineContainer>
     );
   }
 }
