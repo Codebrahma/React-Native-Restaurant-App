@@ -25,6 +25,7 @@
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-dom": "^16.3.2",
+    "react-modal": "^3.4.5",
     "react-native": "0.55.4",
     "react-native-check-box": "^2.1.0",
     "react-native-credit-card-input": "^0.4.1",

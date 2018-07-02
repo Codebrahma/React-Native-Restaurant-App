@@ -22,13 +22,6 @@ const FoodContainer = styled.div`
 `;
 
 class RestaurantGrid extends React.Component {
-  onClick = restaurant => (
-    <Route
-      path="/restaurantInfo"
-      render={routeProps => <RestaurantInfo {...routeProps} restaurant={restaurant} />}
-    />
-  )
-
   displayRestaurantList = () => this.props.restaurants.map(restaurant => (
     <RestaurantItem
       name={restaurant.name}

@@ -43,3 +43,15 @@ export const StatusBarView = styled.div`
   padding: 1%;
   align-items: center;
 `;
+
+export const CartQuantity = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: ${Color.white};
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  display: flex;
+  justify-content: center;
+`;

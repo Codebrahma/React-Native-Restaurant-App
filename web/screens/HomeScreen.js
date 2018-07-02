@@ -7,6 +7,7 @@ import { PrimaryText } from '../base_components/sharedComponents';
 import StatusBar from '../base_components/StatusBar';
 import RestaurantGrid from '../components/cuisinesAndRestaurants/RestaurantGrid';
 import CuisineGrid from '../components/cuisinesAndRestaurants/CuisineGrid';
+import AppBase from '../base_components/AppBase';
 
 const BaseLayout = styled.div`
   display: flex;
@@ -21,13 +22,12 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <div>
-        <StatusBar />
+      <AppBase>
         <BaseLayout>
           <CuisineGrid cuisineTypes={this.props.cuisineTypes} />
           <RestaurantGrid restaurants={this.props.restaurantList} />
         </BaseLayout>
-      </div>
+      </AppBase>
     );
   }
 }

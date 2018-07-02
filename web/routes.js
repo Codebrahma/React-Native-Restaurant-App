@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import RestaurantInfo from './screens/RestaurantInfoScreen';
+import CartDetails from './screens/CartScreen';
 
 const Routes = () => (
   <BrowserRouter>
@@ -10,6 +11,7 @@ const Routes = () => (
       <Route exact path="/" component={LoginScreen} />
       <Route path="/allCuisinesAndRestaurants" component={HomeScreen} />
       <Route path="/restaurantInfo/:id" component={RestaurantInfo} />
+      <Route path="/cart" component={CartDetails} />
     </Switch>
   </BrowserRouter>
 );

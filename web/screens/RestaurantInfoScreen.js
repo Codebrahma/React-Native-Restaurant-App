@@ -6,11 +6,8 @@ import { createSelector } from 'reselect';
 import { PrimaryText } from '../base_components/sharedComponents';
 import StatusBar from '../base_components/StatusBar';
 import FoodItem from '../base_components/FoodItem';
-
-const Container = styled.div`
-  position: absolute;
-  top: 8%;
-`;
+import { updateCartItems } from '../../src/actions/cart';
+import AppBase from '../base_components/AppBase';
 
 const ImageContainer = styled.div`
   display: flex;
@@ -36,13 +33,12 @@ const FoodContainer = styled.div`
 `;
 
 class RestaurantInfo extends React.Component {
-  abc = () => {};
-
   displayFoods = foods => foods.map(foodItem =>
     (foodItem.food != null ?
       <FoodItem
         item={foodItem}
         key={foodItem.food._id}
+        onClick={() => this.props.updateCartItems(foodItem, 1)}
       />
       : null))
 
@@ -50,21 +46,18 @@ class RestaurantInfo extends React.Component {
     const result = this.props.restaurant(this.props.match.params.id)[0];
     const source = '../../assets/images/food.jpeg';
     return (
-      <div>
-        <StatusBar />
-        <Container>
-          <ImageContainer>
-            <img src={source} alt={result.name} width="100%" style={{ resizeMode: 'contain' }} />
-          </ImageContainer>
-          <NameContainer>
-            <PrimaryText>{result.name}</PrimaryText>
-            <PrimaryText>{result.details}</PrimaryText>
-          </NameContainer>
-          <FoodContainer>
-            {this.displayFoods(result.foods)}
-          </FoodContainer>
-        </Container>
-      </div>
+      <AppBase>
+        <ImageContainer>
+          <img src={source} alt={result.name} width="100%" style={{ resizeMode: 'contain' }} />
+        </ImageContainer>
+        <NameContainer>
+          <PrimaryText>{result.name}</PrimaryText>
+          <PrimaryText>{result.details}</PrimaryText>
+        </NameContainer>
+        <FoodContainer>
+          {this.displayFoods(result.foods)}
+        </FoodContainer>
+      </AppBase>
     );
   }
 }
@@ -80,9 +73,14 @@ const mapStateToProps = state => ({
   restaurant: findRestaurant(state),
 });
 
+const mapDispatchToProps = {
+  updateCartItems,
+};
+
 RestaurantInfo.propTypes = {
   restaurant: PropTypes.func.isRequired,
   match: PropTypes.instanceOf(Object).isRequired,
+  updateCartItems: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, {})(RestaurantInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantInfo);

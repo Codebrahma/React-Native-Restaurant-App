@@ -38,9 +38,12 @@ const TypeContainer = styled.div`
 
 const AddContainer = styled.div`
   padding: 2%;
+  &:hover{
+    cursor: pointer
+  }
 `;
 
-const FoodItem = ({ image, item }) => {
+const FoodItem = ({ image, item, onClick }) => {
   const source = image || '../../assets/images/placeholder-food.png';
   return (
     <Container>
@@ -52,7 +55,7 @@ const FoodItem = ({ image, item }) => {
       <TypeContainer>
         <PrimaryText align="left" color={Colors.secondaryColor}>{item.food.type}</PrimaryText>
       </TypeContainer>
-      <AddContainer>
+      <AddContainer onClick={onClick}>
         <PrimaryText color={Colors.blue}>Add to cart</PrimaryText>
       </AddContainer>
     </Container>
@@ -62,6 +65,7 @@ const FoodItem = ({ image, item }) => {
 FoodItem.propTypes = {
   image: PropTypes.string,
   item: PropTypes.instanceOf(Object).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 FoodItem.defaultProps = {

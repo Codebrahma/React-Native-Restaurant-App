@@ -16,7 +16,7 @@ function* cartItemsAdd(action) {
     const currentCart = yield select(cartItemsSelector);
 
     const newCart = deDupeItems([...currentCart, ...[action.payload]]) || [];
-
+    console.log(newCart);
     yield call(storage.setItem, 'userCart', JSON.stringify(newCart));
 
     yield put({ type: 'SAVE_NEW_CART', payload: newCart });

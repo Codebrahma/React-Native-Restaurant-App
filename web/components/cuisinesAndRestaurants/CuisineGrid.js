@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import colors from '../../../src/constants/colors';
 import { PrimaryText } from '../../base_components/sharedComponents';
-import slugify from '../utils/slugify';
 
 const CuisineContainer = styled.div`
   padding: 1%;
