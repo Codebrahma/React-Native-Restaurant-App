@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { withRouter } from 'react-router-dom';
 
 import { fetchCartItems, deleteCartItem, updateCartItemQty } from '../../src/actions/cart';
+import { createOrder } from '../../src/actions';
 import CounterButton from '../base_components/checkout/CounterButton';
 import Colors from '../../src/constants/colors';
 import BillReceipt from '../base_components/checkout/BillReceipt';
@@ -38,6 +40,28 @@ const MainContainer = styled.div`
   width: 100vw;
 `;
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  margin: 2%;
+`;
+
+const Buttons = styled.button`
+  background-color: ${props => props.backgroundColor && props.backgroundColor};
+  display: flex;
+  flex: 0.5;
+  color: ${props => props.color && props.color};
+  justify-content: center;
+  height: 8vh;
+  font-weight: bold;
+  font-size: 1.2em;
+  &:hover{
+    cursor: pointer
+  }
+`;
+
 const customStyles = { backgroundColor: Colors.baseColor };
 
 class CartDetails extends React.Component {
@@ -45,7 +69,28 @@ class CartDetails extends React.Component {
     this.props.fetchCartItems();
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('*******************************', nextProps);
+    if (nextProps.orders.createdOrder !== null) {
+      this.props.history.push('/');
+    }
+  }
+
   calculatePrice = (quantity, price) => (quantity * price).toFixed(2);
+
+  handlePayment = (totalAmount) => {
+    const { cartData } = this.props;
+
+    if (cartData.length > 0) {
+      const postData = cartData.map(item => ({
+        id: item.food._id,
+        quantity: item.qty,
+        price: item.price,
+      }));
+
+      this.props.createOrder(postData, totalAmount);
+    }
+  }
 
   handleQuantity = (id, quantity) => {
     if (quantity === 0) {
@@ -72,6 +117,25 @@ class CartDetails extends React.Component {
       billInfo={billInfo}
       total={totalBill}
     />
+  )
+
+  renderPaymentButton = totalBill => (
+    <ButtonsContainer>
+      <Buttons
+        color={Colors.primaryColor}
+        backgroundColor={Colors.lightGrey}
+        disabled
+      >
+        {totalBill}
+      </Buttons>
+      <Buttons
+        color={Colors.white}
+        backgroundColor={Colors.green}
+        onClick={() => this.handlePayment(totalBill)}
+      >
+        Proceed To Pay
+      </Buttons>
+    </ButtonsContainer>
   )
 
   render() {
@@ -107,15 +171,18 @@ class CartDetails extends React.Component {
         <MainContainer>
           {this.displayItems()}
           {this.renderBillReceipt(billInfo, totalBill)}
+          {this.renderPaymentButton(totalBill)}
         </MainContainer>
       </AppBase >
     );
   }
 }
 
-const mapStateToProps = ({ cart }) => ({ cartData: cart.cartData });
+const mapStateToProps = ({ cart, orders }) => ({ cartData: cart.cartData, orders });
 
-const mapDispatchToProps = { fetchCartItems, updateCartItemQty, deleteCartItem };
+const mapDispatchToProps = {
+  fetchCartItems, updateCartItemQty, deleteCartItem, createOrder,
+};
 
 CartDetails.propTypes = {
   fetchCartItems: PropTypes.func.isRequired,
@@ -124,4 +191,4 @@ CartDetails.propTypes = {
   cartData: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CartDetails));

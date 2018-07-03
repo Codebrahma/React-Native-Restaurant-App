@@ -18,7 +18,7 @@ class StatusBar extends React.Component {
     return (
       <StatusBarView>
         <PrimaryText width="0%">RestaurantApp</PrimaryText>
-        <div style={{ padding: '1%' }} onClick={this.openCart}>
+        <div style={{ padding: '1%' }} onClick={this.openCart} role="button">{/*eslint-disable-line*/}
           <i className="material-icons md-24 md-light" >add_shopping_cart</i>
           {
           (quantity > 0) &&
