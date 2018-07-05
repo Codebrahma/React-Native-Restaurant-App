@@ -11,8 +11,9 @@ const AppBaseView = styled.div`
 `;
 
 const ComponentView = styled.div`
-  position: absolute;
-  top: 10%;
+  width: 100%;
+  margin-top: 5%;
+  background-color: ${Colors.white};
 `;
 
 const AppBase = ({ children }) => (

@@ -70,7 +70,7 @@ class StatusBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <AppBar position="fixed" color={Colors.white}>
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="title" color="inherit" className={classes.flex}>
             Restaurant App

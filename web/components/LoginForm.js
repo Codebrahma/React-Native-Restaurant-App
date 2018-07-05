@@ -91,6 +91,7 @@ class LoginForm extends React.Component {
     const disableLogin = (!email || email.length === 0 || !password || password.length === 0);
     const { classes } = this.props;
     if (this.props.loginLoading) { return <Loader />; }
+
     return (
       <div className={classes.container}>
         <FormControl className={classes.margin}>

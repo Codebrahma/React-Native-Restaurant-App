@@ -35,7 +35,7 @@ class CuisineGrid extends React.Component {
 
   displayCuisineList = () => this.props.cuisineTypes.map(cuisine =>
     (
-      <ListItem>
+      <ListItem key={cuisine}>
         <input
           type="checkbox"
           name="checkbox"
