@@ -2,13 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Route, Redirect, withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import styled from 'styled-components';
 import Colors from '../../src/constants/colors';
-import { PrimaryText, FormField, FormContainer, BR } from '../base_components/sharedComponents';
-import Button from '../base_components/Button';
+import { PrimaryText } from '../base_components/sharedComponents';
 import { authLogin } from '../../src/actions';
 import Loader from '../base_components/Loader';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  bootstrapRoot: {
+    padding: 0,
+    'label + &': {
+      marginTop: theme.spacing.unit * 3,
+    },
+  },
+  bootstrapInput: {
+    borderRadius: 4,
+    backgroundColor: theme.palette.common.white,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 12px',
+    width: 'calc(100% - 24px)',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+  bootstrapFormLabel: {
+    fontSize: 18,
+  },
+});
 
 class LoginForm extends React.Component {
   constructor() {
@@ -40,45 +89,63 @@ class LoginForm extends React.Component {
   render() {
     const { email, password } = this.state;
     const disableLogin = (!email || email.length === 0 || !password || password.length === 0);
-
+    const { classes } = this.props;
     if (this.props.loginLoading) { return <Loader />; }
     return (
-      <FormContainer>
-        <BR />
-        <FormField
-          type="text"
-          name="username"
-          placeholder="Test@example.com"
-          value={this.state.username}
-          onChange={event => this.setState({ email: event.target.value })}
-        />
-        <BR />
-        <FormField
-          type="text"
-          name="password"
-          placeholder="password"
-          value={this.state.password}
-          onChange={event => this.setState({ password: event.target.value })}
-        />
-        <BR />
-        <PrimaryText>Forgot Password?</PrimaryText>
-        <BR />
-        <Button
-          onClick={this.login}
-          disabled={disableLogin}
-          text="Sign In"
-          textColor={disableLogin ? '' : Colors.white}
-          buttonColor={Colors.primaryColor}
-        />
-        <BR />
-        <Button
-          text="Sign Up"
-          textColor={Colors.white}
-          buttonColor={Colors.blue}
-          disabled={false}
-        />
-        <BR />
-      </FormContainer>
+      <div className={classes.container}>
+        <FormControl className={classes.margin}>
+          <TextField
+            className={classes.margin}
+            label="Username"
+            id="bootstrap-input"
+            InputProps={{
+             disableUnderline: false,
+             classes: {
+               root: classes.bootstrapRoot,
+               input: classes.bootstrapInput,
+             },
+            }}
+            InputLabelProps={{
+              shrink: true,
+              className: classes.bootstrapFormLabel,
+            }}
+            onChange={event => this.setState({ email: event.target.value })}
+          />
+          <TextField
+            label="Password"
+            id="input"
+            className={classes.margin}
+            InputProps={{
+             disableUnderline: false,
+             classes: {
+               root: classes.bootstrapRoot,
+               input: classes.bootstrapInput,
+             },
+            }}
+            InputLabelProps={{
+              shrink: true,
+              className: classes.bootstrapFormLabel,
+            }}
+            onChange={event => this.setState({ password: event.target.value })}
+            type="password"
+          />
+          <PrimaryText>Forgot Password?</PrimaryText>
+          <Button
+            variant="contained"
+            disabled={disableLogin}
+            className={classes.margin}
+            color="primary"
+            onClick={this.login}
+          >Sign In
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.margin}
+            color="secondary"
+          >Sign Up
+          </Button>
+        </FormControl>
+      </div>
     );
   }
 }
@@ -98,10 +165,12 @@ LoginForm.propTypes = {
   loginLoading: PropTypes.bool.isRequired,
   loginMessage: PropTypes.instanceOf(Object),
   history: PropTypes.instanceOf(Object).isRequired,
+  classes: PropTypes.instanceOf(Object),
 };
 
 LoginForm.defaultProps = {
   loginMessage: null,
+  classes: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(LoginForm)));

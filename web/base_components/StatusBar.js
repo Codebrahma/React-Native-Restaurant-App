@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 
 import { StatusBarView, PrimaryText, CartQuantity } from './sharedComponents';
+import { authLogout } from '../../src/actions';
 import Colors from '../../src/constants/colors';
 import CartDetails from '../screens/CartScreen';
 
@@ -32,6 +33,12 @@ class StatusBar extends React.Component {
   state={
     anchorEl: null,
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loginMessage === null) {
+      this.props.history.push('/');
+    }
+  }
   openCart = () => {
     this.props.history.push('/cart');
   }
@@ -40,9 +47,20 @@ class StatusBar extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  handleClose = (type) => {
     this.setState({ anchorEl: null });
-    this.openCart();
+    switch (type) {
+      case 'cart':
+        this.openCart();
+        break;
+      case 'orders':
+        break;
+      case 'sign-out':
+        this.props.authLogout();
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
@@ -81,9 +99,15 @@ class StatusBar extends React.Component {
               open={open}
               onClose={this.handleClose}
             >
-              <MenuItem onClick={this.handleClose}>{`My cart (${quantity})`}</MenuItem>
-              <MenuItem onClick={this.handleClose}>My orders</MenuItem>
-              <MenuItem onClick={this.handleClose}>Sign Out</MenuItem>
+              <MenuItem onClick={() => this.handleClose('cart')}>
+                {`My cart (${quantity})`}
+              </MenuItem>
+              <MenuItem onClick={() => this.handleClose('orders')}>
+                My orders
+              </MenuItem>
+              <MenuItem onClick={() => this.handleClose('sign-out')}>
+                Sign Out
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>
@@ -95,15 +119,20 @@ class StatusBar extends React.Component {
 StatusBar.propTypes = {
   quantity: PropTypes.number,
   history: PropTypes.instanceOf(Object).isRequired,
+  classes: PropTypes.instanceOf(Object),
+  loginMessage: PropTypes.instanceOf(Object).isRequired,
+  authLogout: PropTypes.func.isRequired,
 };
 
 StatusBar.defaultProps = {
   quantity: 0,
+  classes: null,
 };
-// (cart.cartData).reduce((sum, current) => sum + current.qty, 0) ||
-const mapStateToProps = ({ cart }) =>
+
+const mapStateToProps = ({ cart, auth }) =>
   ({
     quantity: (cart.cartData).reduce((sum, current) => sum + current.qty, 0),
+    loginMessage: auth.loginMessage,
   });
 
-export default connect(mapStateToProps, {})(withRouter(withStyles(styles)(StatusBar)));
+export default connect(mapStateToProps, { authLogout })(withRouter(withStyles(styles)(StatusBar)));
