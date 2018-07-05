@@ -8,12 +8,12 @@ import Routes from './routes';
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <div className={styles.cb}>
-        <Routes />
-      </div>
+      <Routes />
     </PersistGate>
   </Provider>
 );
 
-
 export default App;
+
+// TODO: Improve cursor where there is link
+// TODO: Change name of payment success js

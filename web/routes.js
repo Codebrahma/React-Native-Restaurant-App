@@ -4,6 +4,8 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import RestaurantInfo from './screens/RestaurantInfoScreen';
 import CartDetails from './screens/CartScreen';
+import PaymentHome from './screens/payment/Home';
+import PaymentFailure from './screens/payment/Failure';
 
 const Routes = () => (
   <BrowserRouter>
@@ -12,6 +14,8 @@ const Routes = () => (
       <Route path="/allCuisinesAndRestaurants" component={HomeScreen} />
       <Route path="/restaurantInfo/:id" component={RestaurantInfo} />
       <Route path="/cart" component={CartDetails} />
+      <Route path="/paymentsuccess" component={PaymentHome} />
+      <Route path="/paymentfail" component={PaymentFailure} />
     </Switch>
   </BrowserRouter>
 );

@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { withRouter } from 'react-router-dom';
 
-import { fetchCartItems, deleteCartItem, updateCartItemQty } from '../../src/actions/cart';
+import { fetchCartItems, deleteCartItem, updateCartItemQty, cleanCart } from '../../src/actions/cart';
 import { createOrder } from '../../src/actions';
 import CounterButton from '../base_components/checkout/CounterButton';
 import Colors from '../../src/constants/colors';
 import BillReceipt from '../base_components/checkout/BillReceipt';
 import AppBase from '../base_components/AppBase';
+import displayPaymentModal from '../../src/utils/displayPaymentModal';
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +63,17 @@ const Buttons = styled.button`
   }
 `;
 
+const NoItemFoundText = styled.div`
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin: 4%;
+  color:${Colors.slateGrey};
+`;
+
 const customStyles = { backgroundColor: Colors.baseColor };
 
 class CartDetails extends React.Component {
@@ -70,13 +82,26 @@ class CartDetails extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('*******************************', nextProps);
     if (nextProps.orders.createdOrder !== null) {
-      this.props.history.push('/');
+      this.doPayment(nextProps.orders.createdOrder);
     }
+    // TODO: else condition
+  }
+
+  onSubmit = (token) => {
+    if (token.tokenId) {
+      this.props.history.push('/paymentsuccess');
+      // this.props.cleanCart();
+    }
+    // TODO: else condition
   }
 
   calculatePrice = (quantity, price) => (quantity * price).toFixed(2);
+
+  doPayment = (props) => {
+    const order = { orderTotal: props.totalCost, orderId: props._id };
+    displayPaymentModal(order, this.onSubmit);
+  }
 
   handlePayment = (totalAmount) => {
     const { cartData } = this.props;
@@ -100,7 +125,7 @@ class CartDetails extends React.Component {
     }
   }
 
-  displayItems = () => this.props.cartData.map(cartItem => (
+  displayItems = () => (this.props.cartData.map(cartItem => (
     <Container>
       <div>{cartItem.food.name}</div>
       <CounterButton
@@ -110,7 +135,7 @@ class CartDetails extends React.Component {
       />
       <div>{`Rs ${this.calculatePrice(cartItem.qty, cartItem.price)}`}</div>
     </Container>
-  ))
+  )))
 
   renderBillReceipt = (billInfo, totalBill) => (
     <BillReceipt
@@ -139,6 +164,13 @@ class CartDetails extends React.Component {
   )
 
   render() {
+    if (this.props.cartData.length === 0) {
+      return (
+        <AppBase>
+          <NoItemFoundText>No items found in cart.</NoItemFoundText>
+        </AppBase>
+      );
+    }
     let totalBill = parseFloat(this.props.cartData.reduce(
       (total, item) => total + (item.price * item.qty),
       0,
@@ -165,7 +197,6 @@ class CartDetails extends React.Component {
       },
     ];
     totalBill += (tax + 30) - 18;
-
     return (
       <AppBase>
         <MainContainer>
@@ -181,14 +212,20 @@ class CartDetails extends React.Component {
 const mapStateToProps = ({ cart, orders }) => ({ cartData: cart.cartData, orders });
 
 const mapDispatchToProps = {
-  fetchCartItems, updateCartItemQty, deleteCartItem, createOrder,
+  fetchCartItems, updateCartItemQty, deleteCartItem, createOrder, cleanCart,
 };
 
 CartDetails.propTypes = {
   fetchCartItems: PropTypes.func.isRequired,
   updateCartItemQty: PropTypes.func.isRequired,
   deleteCartItem: PropTypes.func.isRequired,
-  cartData: PropTypes.instanceOf(Object).isRequired,
+  cartData: PropTypes.oneOfType([PropTypes.instanceOf(Object), PropTypes.string]),
+  history: PropTypes.instanceOf(Object).isRequired,
+  createOrder: PropTypes.func.isRequired,
+  orders: PropTypes.instanceOf(Object).isRequired,
 };
 
+CartDetails.defaultProps = {
+  cartData: null,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CartDetails));

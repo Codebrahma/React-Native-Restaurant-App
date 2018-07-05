@@ -6,13 +6,6 @@ import { PrimaryText } from '../../base_components/sharedComponents';
 import RestaurantItem from '../../base_components/RestaurantItem';
 import RestaurantInfo from '../../screens/RestaurantInfoScreen';
 
-const Container = styled.div`
-  width: 80vw;
-  position: absolute;
-  left: 18vw;
-  top: 9%;
-`;
-
 const FoodContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,12 +25,12 @@ class RestaurantGrid extends React.Component {
 
   render() {
     return (
-      <Container>
+      <div>
         <PrimaryText size="20px" align="center">Restaurants</PrimaryText>
         <FoodContainer>
           {this.displayRestaurantList()}
         </FoodContainer>
-      </Container>
+      </div>
     );
   }
 }

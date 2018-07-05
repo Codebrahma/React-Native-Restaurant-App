@@ -12,7 +12,7 @@ const AppBaseView = styled.div`
 
 const ComponentView = styled.div`
   position: absolute;
-  top: 8%;
+  top: 10%;
 `;
 
 const AppBase = ({ children }) => (
