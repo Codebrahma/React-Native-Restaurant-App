@@ -91,7 +91,7 @@ class CartDetails extends React.Component {
   onSubmit = (token) => {
     if (token.tokenId) {
       this.props.history.push('/paymentsuccess');
-      // this.props.cleanCart();
+      this.props.cleanCart();
     }
     // TODO: else condition
   }
@@ -223,6 +223,7 @@ CartDetails.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   createOrder: PropTypes.func.isRequired,
   orders: PropTypes.instanceOf(Object).isRequired,
+  cleanCart: PropTypes.func.isRequired,
 };
 
 CartDetails.defaultProps = {

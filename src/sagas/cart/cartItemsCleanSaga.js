@@ -7,7 +7,7 @@ function* cartItemsClean(action) {
 
     yield call(storage.removeItem, 'userCart');
 
-    yield put({ type: 'SAVE_NEW_CART', payload: JSON.stringify(newCart) });
+    yield put({ type: 'SAVE_NEW_CART', payload: newCart });
   } catch (e) {
     console.log(e);
   }

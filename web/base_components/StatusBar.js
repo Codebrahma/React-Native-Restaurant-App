@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
@@ -80,10 +81,12 @@ class StatusBar extends React.Component {
               aria-haspopup="true"
               onClick={this.handleMenu}
               color="inherit"
-            >
-              <Badge color="primary" badgeContent={quantity}>
+            >{quantity !== 0 ?
+              <Badge color="primary" badgeContent={cartNotifications}>
                 <AccountCircle />
               </Badge>
+            :
+              <AccountCircle />}
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -131,7 +134,8 @@ StatusBar.defaultProps = {
 
 const mapStateToProps = ({ cart, auth }) =>
   ({
-    quantity: (cart.cartData).reduce((sum, current) => sum + current.qty, 0),
+    quantity: (isEmpty(cart.cartData) ? 0 :
+      (cart.cartData).reduce((sum, current) => sum + current.qty, 0)),
     loginMessage: auth.loginMessage,
   });
 
