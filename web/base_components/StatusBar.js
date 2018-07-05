@@ -70,7 +70,7 @@ class StatusBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="default">
         <Toolbar>
           <Typography variant="title" color="inherit" className={classes.flex}>
             Restaurant App
@@ -82,7 +82,7 @@ class StatusBar extends React.Component {
               onClick={this.handleMenu}
               color="inherit"
             >{quantity !== 0 ?
-              <Badge color="primary" badgeContent={cartNotifications}>
+              <Badge color="primary" badgeContent={quantity}>
                 <AccountCircle />
               </Badge>
             :

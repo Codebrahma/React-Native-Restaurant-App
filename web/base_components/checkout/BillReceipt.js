@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
 import Colors from '../../../src/constants/colors';
 import { PrimaryText } from '../sharedComponents';
 
 const Container = styled.div`
-  background-color: ${Colors.white};
   width: 100%;
   padding: 2%;
 `;
@@ -18,16 +18,9 @@ const BillTitle = styled.div`
 
 const MainContainer = styled.div`
   display: flex;
-  width: 80%;
-  border-style: solid;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 2%;
-  margin: 1%;
-  border-color: ${Colors.lightGrey};
-  border-width: 2px;
-  box-shadow: 2px 2px ${Colors.lightGrey};
-  background-color: ${Colors.white};
 `;
 
 const BillRow = styled.div`
@@ -51,10 +44,11 @@ class BillReceipt extends React.Component {
   }
   render() {
     return (
-      <MainContainer>
-        <Container>
-          <BillTitle>Bill Receipt</BillTitle>
-          {
+      <Paper elevation={2} style={{ width: '80vw', marginTop: '2%' }}>
+        <MainContainer>
+          <Container>
+            <BillTitle>Bill Receipt</BillTitle>
+            {
             this.props.billInfo.map(item => (
               <BillRow key={item.name}>
                 <div>{item.name}</div>
@@ -62,13 +56,14 @@ class BillReceipt extends React.Component {
               </BillRow>
             ))
           }
-          <HorizontalLine />
-          <BillRow>
-            <div>Total Pay</div>
-            <div>{parseFloat(this.props.total).toFixed(2)} ₹</div>
-          </BillRow>
-        </Container>
-      </MainContainer>
+            <HorizontalLine />
+            <BillRow>
+              <div>Total Pay</div>
+              <div>{parseFloat(this.props.total).toFixed(2)} ₹</div>
+            </BillRow>
+          </Container>
+        </MainContainer>
+      </Paper>
     );
   }
 }

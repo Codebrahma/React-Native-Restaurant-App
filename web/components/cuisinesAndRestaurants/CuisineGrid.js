@@ -26,11 +26,19 @@ class CuisineGrid extends React.Component {
   capitalise = data => data.charAt(0).toUpperCase() + data.slice(1);
 
   filter = (cuisine) => {
-    this.setState({
-      checked: cuisine,
-    }, () => {
-      this.props.fetchRestaurantByType(this.state.checked, true);
-    });
+    if (this.state.checked === '' || this.state.checked !== cuisine) {
+      this.setState({
+        checked: cuisine,
+      }, () => {
+        this.props.fetchRestaurantByType(this.state.checked, true);
+      });
+    } else {
+      this.setState({
+        checked: '',
+      }, () => {
+        this.props.onDelete();
+      });
+    }
   }
 
   displayCuisineList = () => this.props.cuisineTypes.map(cuisine =>
@@ -61,6 +69,7 @@ class CuisineGrid extends React.Component {
 CuisineGrid.propTypes = {
   cuisineTypes: PropTypes.instanceOf(Object).isRequired,
   fetchRestaurantByType: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(CuisineGrid);

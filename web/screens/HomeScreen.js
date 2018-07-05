@@ -56,10 +56,11 @@ class HomeScreen extends React.Component {
           <Grid item sm={3}>
             <CuisineGrid
               cuisineTypes={this.props.cuisineTypes}
-              fetchRestaurantByType={(cuisine, withfilter) => {
+              fetchRestaurantByType={(cuisine, bwithfilter) => {
                 this.setState({ cuisine });
-                this.props.fetchRestaurantByType(cuisine, withfilter);
-}}
+                this.props.fetchRestaurantByType(cuisine, bwithfilter);
+              }}
+              onDelete={this.onDelete}
             />
           </Grid>
           <Grid item sm={9}>

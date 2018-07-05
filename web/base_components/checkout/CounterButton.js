@@ -16,6 +16,7 @@ const Button = styled.div`
   padding: 2%;
   display: flex;
   align-items: center;
+  margin: 5px;
 `;
 
 const CounterText = styled.div`
@@ -47,14 +48,14 @@ class CounterButton extends React.Component {
   render() {
     return (
       <Container>
-        <Button onClick={this.increaseCount}>
-          <i className="material-icons">add</i>
+        <Button onClick={this.decreaseCount}>
+          <i className="material-icons">remove</i>
         </Button>
         <div>
           <CounterText>{this.state.counter}</CounterText>
         </div>
-        <Button onClick={this.decreaseCount}>
-          <i className="material-icons">remove</i>
+        <Button onClick={this.increaseCount}>
+          <i className="material-icons">add</i>
         </Button>
       </Container>
     );

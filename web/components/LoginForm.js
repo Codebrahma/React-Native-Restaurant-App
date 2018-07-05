@@ -38,16 +38,7 @@ const styles = theme => ({
     width: 'calc(100% - 24px)',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
       'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
       borderColor: '#80bdff',

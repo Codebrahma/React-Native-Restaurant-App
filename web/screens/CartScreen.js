@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { withRouter } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 import { fetchCartItems, deleteCartItem, updateCartItemQty, cleanCart } from '../../src/actions/cart';
 import { createOrder } from '../../src/actions';
@@ -18,13 +22,8 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   padding: 2%;
-  border-style: solid;
-  border-color: ${Colors.lightGrey};
-  border-width: 2px;
-  box-shadow: 2px 2px ${Colors.lightGrey};
   margin: 1%;
-  width: 80%;
-  background-color: ${Colors.white};
+  width: 100%;
 `;
 
 const PriceContainer = styled.div`
@@ -39,6 +38,7 @@ const MainContainer = styled.div`
   justify-content: center;
   flex: 1;
   width: 100vw;
+  background-color: ${Colors.baseColor}
 `;
 
 const ButtonsContainer = styled.div`
@@ -47,20 +47,6 @@ const ButtonsContainer = styled.div`
   align-items: center;
   width: 80%;
   margin: 2%;
-`;
-
-const Buttons = styled.button`
-  background-color: ${props => props.backgroundColor && props.backgroundColor};
-  display: flex;
-  flex: 0.5;
-  color: ${props => props.color && props.color};
-  justify-content: center;
-  height: 8vh;
-  font-weight: bold;
-  font-size: 1.2em;
-  &:hover{
-    cursor: pointer
-  }
 `;
 
 const NoItemFoundText = styled.div`
@@ -73,6 +59,15 @@ const NoItemFoundText = styled.div`
   margin: 4%;
   color:${Colors.slateGrey};
 `;
+
+const styles = {
+  button: {
+    width: '50%',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+};
 
 const customStyles = { backgroundColor: Colors.baseColor };
 
@@ -112,7 +107,6 @@ class CartDetails extends React.Component {
         quantity: item.qty,
         price: item.price,
       }));
-
       this.props.createOrder(postData, totalAmount);
     }
   }
@@ -126,15 +120,17 @@ class CartDetails extends React.Component {
   }
 
   displayItems = () => (this.props.cartData.map(cartItem => (
-    <Container>
-      <div>{cartItem.food.name}</div>
-      <CounterButton
-        quantity={cartItem.qty}
-        onClick={qty => this.handleQuantity(cartItem._id, qty)}
-        id={cartItem._id}
-      />
-      <div>{`Rs ${this.calculatePrice(cartItem.qty, cartItem.price)}`}</div>
-    </Container>
+    <Paper elevation={2} style={{ width: '80vw' }}>
+      <Container>
+        <div>{cartItem.food.name}</div>
+        <CounterButton
+          quantity={cartItem.qty}
+          onClick={qty => this.handleQuantity(cartItem._id, qty)}
+          id={cartItem._id}
+        />
+        <div>{`Rs ${this.calculatePrice(cartItem.qty, cartItem.price)}`}</div>
+      </Container>
+    </Paper>
   )))
 
   renderBillReceipt = (billInfo, totalBill) => (
@@ -146,20 +142,22 @@ class CartDetails extends React.Component {
 
   renderPaymentButton = totalBill => (
     <ButtonsContainer>
-      <Buttons
-        color={Colors.primaryColor}
-        backgroundColor={Colors.lightGrey}
+      <Button
+        variant="contained"
+        color="default"
+        style={styles.button}
         disabled
       >
         {totalBill}
-      </Buttons>
-      <Buttons
-        color={Colors.white}
-        backgroundColor={Colors.green}
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        style={styles.button}
         onClick={() => this.handlePayment(totalBill)}
       >
         Proceed To Pay
-      </Buttons>
+      </Button>
     </ButtonsContainer>
   )
 
