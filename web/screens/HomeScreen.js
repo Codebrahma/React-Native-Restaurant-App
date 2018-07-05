@@ -26,7 +26,6 @@ const styles = theme => ({
 class HomeScreen extends React.Component {
   state={
     restaurantList: this.props.restaurantList,
-    withFilter: false,
     cuisine: '',
   }
   componentWillMount() {
@@ -57,9 +56,9 @@ class HomeScreen extends React.Component {
           <Grid item sm={3}>
             <CuisineGrid
               cuisineTypes={this.props.cuisineTypes}
-              fetchRestaurantByType={(cuisine, bwithfilter) => {
+              fetchRestaurantByType={(cuisine, withfilter) => {
                 this.setState({ cuisine });
-                this.props.fetchRestaurantByType(cuisine, bwithfilter);
+                this.props.fetchRestaurantByType(cuisine, withfilter);
 }}
             />
           </Grid>
@@ -88,14 +87,14 @@ const mapDispatchToProps = {
   fetchRestaurantByType,
 };
 
-
-// restaurantList: PropTypes.arrayOf(React.PropTypes.instanceOf(Object)).isRequired,
-// cuisineRestaurants: PropTypes.arrayOf(React.PropTypes.instanceOf(Object))
-
 HomeScreen.propTypes = {
   fetchCuisineTypes: PropTypes.func.isRequired,
   fetchRestaurant: PropTypes.func.isRequired,
   cuisineTypes: PropTypes.instanceOf(Object).isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
+  restaurantList: PropTypes.instanceOf(Object).isRequired,
+  cuisineRestaurants: PropTypes.instanceOf(Object),
+  fetchRestaurantByType: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
