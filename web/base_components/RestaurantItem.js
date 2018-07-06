@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,22 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Colors from '../../src/constants/colors';
 import { PrimaryText } from './sharedComponents';
 
-const Container = styled.div`
-  display: flex;
-  width: 25%;
-  height: 250px;
-  background-color: ${Colors.lightGrey};
-  margin: 1%;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const CuisineDetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 2%;
-`;
-
 const styles = {
   card: {
     width: '100%',
@@ -33,7 +16,8 @@ const styles = {
   },
   image: {
     width: '100%',
-    height: '85%',
+    height: '80%',
+    resizeMode: 'contain',
   },
   container: {
     width: '25vw',
@@ -67,6 +51,7 @@ RestaurantItem.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
 };
 
 RestaurantItem.defaultProps = {

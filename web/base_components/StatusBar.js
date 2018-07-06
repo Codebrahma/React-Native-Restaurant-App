@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 
 import { StatusBarView, PrimaryText, CartQuantity } from './sharedComponents';
-import { authLogout } from '../../src/actions';
+import { authLogout, fetchOrders } from '../../src/actions';
 import Colors from '../../src/constants/colors';
 import CartDetails from '../screens/CartScreen';
 
@@ -39,6 +39,9 @@ class StatusBar extends React.Component {
     if (nextProps.loginMessage === null) {
       this.props.history.push('/');
     }
+    if (nextProps.ordersList.length !== 0) {
+      this.props.history.push('/allOrders');
+    }
   }
   openCart = () => {
     this.props.history.push('/cart');
@@ -55,6 +58,7 @@ class StatusBar extends React.Component {
         this.openCart();
         break;
       case 'orders':
+        this.props.fetchOrders();
         break;
       case 'sign-out':
         this.props.authLogout();
@@ -125,6 +129,8 @@ StatusBar.propTypes = {
   classes: PropTypes.instanceOf(Object),
   loginMessage: PropTypes.instanceOf(Object).isRequired,
   authLogout: PropTypes.func.isRequired,
+  fetchOrders: PropTypes.func.isRequired,
+  ordersList: PropTypes.arrayOf(React.PropTypes.Object).isRequired,
 };
 
 StatusBar.defaultProps = {
@@ -132,11 +138,15 @@ StatusBar.defaultProps = {
   classes: null,
 };
 
-const mapStateToProps = ({ cart, auth }) =>
+const mapStateToProps = ({ cart, auth, orders }) =>
   ({
     quantity: (isEmpty(cart.cartData) ? 0 :
       (cart.cartData).reduce((sum, current) => sum + current.qty, 0)),
     loginMessage: auth.loginMessage,
+    ordersList: orders.ordersList,
   });
 
-export default connect(mapStateToProps, { authLogout })(withRouter(withStyles(styles)(StatusBar)));
+export default connect(
+  mapStateToProps,
+  { authLogout, fetchOrders },
+)(withRouter(withStyles(styles)(StatusBar)));

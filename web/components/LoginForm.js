@@ -165,4 +165,4 @@ LoginForm.defaultProps = {
   classes: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(LoginForm)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(LoginForm)));//eslint-disable-line

@@ -4,6 +4,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import RestaurantInfo from './screens/RestaurantInfoScreen';
 import CartDetails from './screens/CartScreen';
+import OrdersList from './screens/OrdersList';
 import PaymentHome from './screens/payment/Home';
 import PaymentFailure from './screens/payment/Failure';
 
@@ -16,6 +17,7 @@ const Routes = () => (
       <Route path="/cart" component={CartDetails} />
       <Route path="/paymentsuccess" component={PaymentHome} />
       <Route path="/paymentfail" component={PaymentFailure} />
+      <Route path="/allOrders" component={OrdersList} />
     </Switch>
   </BrowserRouter>
 );

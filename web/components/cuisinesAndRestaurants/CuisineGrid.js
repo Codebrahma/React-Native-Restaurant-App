@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import colors from '../../../src/constants/colors';
-import { PrimaryText } from '../../base_components/sharedComponents';
 
 const styles = {
   cuisieContainer: {
@@ -57,8 +57,7 @@ class CuisineGrid extends React.Component {
   render() {
     return (
       <div style={styles.cuisieContainer}>
-        <PrimaryText size="20px" align="left">Cuisines</PrimaryText>
-        <List>
+        <List subheader={<ListSubheader style={{ color: colors.primaryColor, fontSize: '1.2em' }}>Cuisines</ListSubheader>}>
           {this.displayCuisineList()}
         </List>
       </div>

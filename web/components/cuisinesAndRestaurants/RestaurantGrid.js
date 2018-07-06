@@ -7,6 +7,7 @@ import styled, { consolidateStreamedStyles } from 'styled-components';
 import { PrimaryText } from '../../base_components/sharedComponents';
 import RestaurantItem from '../../base_components/RestaurantItem';
 import RestaurantInfo from '../../screens/RestaurantInfoScreen';
+import ImageSource from '../../../src/constants/images';
 
 const styles = theme => ({
   chip: {
@@ -21,12 +22,14 @@ const FoodContainer = styled.div`
   align-items: center;
 `;
 
+
 class RestaurantGrid extends React.Component {
-  displayRestaurantList = () => this.props.restaurants.map(restaurant => (
+  displayRestaurantList = () => this.props.restaurants.map((restaurant, index) => (
     <RestaurantItem
       name={restaurant.name}
       key={restaurant._id}
       onClick={() => this.props.history.push(`/restaurantInfo/${restaurant._id}`)}
+      image={ImageSource[index]}
     />
   ))
 
