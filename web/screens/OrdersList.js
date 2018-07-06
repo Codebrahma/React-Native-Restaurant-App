@@ -34,7 +34,7 @@ const styles = {
 
 class OrdersList extends React.Component {
    mapItems = items => items.map(item => (
-     <CardContent key={item}>
+     <CardContent key={item.id}>
        <div>
          <Typography>{`ItemId: ${item.id}`}</Typography>
          <Typography>{`Rs. ${item.price}`}</Typography>
@@ -45,7 +45,7 @@ class OrdersList extends React.Component {
   showAllOrders = () => {
     const { orders } = this.props.ordersList;
     return orders.map(order => (
-      <ListItem key={order}>
+      <ListItem key={order._id}>
         <Card style={styles.card}>
           <CardContent>
             <Typography component="h1" style={styles.orderHeading}>
@@ -70,6 +70,7 @@ class OrdersList extends React.Component {
     ));
   }
   render() {
+    if (!this.props.ordersList) { return (<div>No items found!</div>); }
     return (
       <div style={styles.list}>
         <List>
@@ -81,8 +82,11 @@ class OrdersList extends React.Component {
 }
 
 OrdersList.propTypes = {
-  orders: PropTypes.instanceOf(Object).isRequired,
-  ordersList: PropTypes.arrayOf(React.PropTypes.Object).isRequired,
+  ordersList: PropTypes.arrayOf(PropTypes.object),
+};
+
+OrdersList.defaultProps = {
+  ordersList: null,
 };
 
 const mapStateToProps = ({ orders }) => ({ ordersList: orders.ordersList });

@@ -80,7 +80,6 @@ class CartDetails extends React.Component {
     if (nextProps.orders.createdOrder !== null) {
       this.doPayment(nextProps.orders.createdOrder);
     }
-    // TODO: else condition
   }
 
   onSubmit = (token) => {
@@ -88,7 +87,6 @@ class CartDetails extends React.Component {
       this.props.history.push('/paymentsuccess');
       this.props.cleanCart();
     }
-    // TODO: else condition
   }
 
   calculatePrice = (quantity, price) => (quantity * price).toFixed(2);

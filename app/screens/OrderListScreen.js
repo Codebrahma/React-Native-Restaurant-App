@@ -37,7 +37,7 @@ class OrdersList extends React.Component {
   }
   mapItems = items => items.map(item => (
     <View>
-      <Text>{`OrderId: ${item.id}`}</Text>
+      <Text>{`ItemId: ${item.id}`}</Text>
       <Text>{`Price: Rs. ${item.price}`}</Text>
     </View>
   ))

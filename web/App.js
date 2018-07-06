@@ -15,5 +15,3 @@ const App = () => (
 
 export default App;
 
-// TODO: Improve cursor where there is link
-// TODO: Change name of payment success js

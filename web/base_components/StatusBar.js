@@ -130,7 +130,7 @@ StatusBar.propTypes = {
   loginMessage: PropTypes.instanceOf(Object).isRequired,
   authLogout: PropTypes.func.isRequired,
   fetchOrders: PropTypes.func.isRequired,
-  ordersList: PropTypes.arrayOf(React.PropTypes.Object).isRequired,
+  ordersList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 StatusBar.defaultProps = {
