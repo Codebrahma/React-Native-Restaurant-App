@@ -50,13 +50,17 @@ web and mobile apps with the logic and view separated.
         /actions            - all redux actions
         /constants          - colors and Assets
         /reducers           - all reducers
-        /sagas              - all redux sagas
-        /screen             - connected components which access the store (containers from react perspective)  
+        /sagas              - all redux sagas  
         /service            - API methods
         /store              - store config
         /utils              - some utility functions
 
     /web                    - react js web specific code
+        /screens            - connected to store components
+        /components         - react native components
+        /base_components    - reusable react native components
+        /App.js             - App Root component
+        /routes.js          - route config
     /webpack                - webpack config
     
 ```
