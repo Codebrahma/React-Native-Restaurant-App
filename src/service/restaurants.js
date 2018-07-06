@@ -1,5 +1,5 @@
 import request from './request';
-import { RESTAURANT_URL } from './api_constants';
+import { RESTAURANT_FILTER_URL, RESTAURANT_URL } from './api_constants';
 
 function getRestaurant(id = null, headers = null) {
   let params = {};
@@ -15,7 +15,7 @@ function getRestaurant(id = null, headers = null) {
 
 function getRestaurantByType(type, headers = null) {
   return request({
-    url: `${RESTAURANT_URL}/${type}`, method: 'GET', headers,
+    url: `${RESTAURANT_FILTER_URL}?type=${type}`, method: 'GET', headers,
   });
 }
 

@@ -1,5 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { AsyncStorage } from 'react-native';
+import storage from 'redux-persist/lib/storage';
 
 import { deDupeItems } from '../../utils/array';
 
@@ -16,8 +16,7 @@ function* cartItemsAdd(action) {
     const currentCart = yield select(cartItemsSelector);
 
     const newCart = deDupeItems([...currentCart, ...[action.payload]]) || [];
-
-    yield call(AsyncStorage.setItem, 'userCart', JSON.stringify(newCart));
+    yield call(storage.setItem, 'userCart', JSON.stringify(newCart));
 
     yield put({ type: 'SAVE_NEW_CART', payload: newCart });
   } catch (e) {

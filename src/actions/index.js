@@ -1,15 +1,3 @@
-export const myAction = () => ({
-  type: 'ACTION_CODE',
-  payload: 'aa',
-});
-
-export const authHydrateTokenFromStorage = token => ({
-  type: 'AUTH_HYDRATE_TOKEN',
-  payload: {
-    token,
-  },
-});
-
 export const authLogin = (email, password) => ({
   type: 'AUTH_LOGIN',
   payload: {
@@ -47,3 +35,20 @@ export const fetchRestaurantByType = (type = null, isFromCuisine = false) => ({
     isFromCuisine,
   },
 });
+
+export const fetchOrders = () => ({
+  type: 'FETCH_ORDERS',
+});
+
+export const doCancelOrder = () => ({
+  type: 'CANCEL_ORDER',
+});
+
+export const createOrder = (items, total) => ({
+  type: 'CREATE_ORDER',
+  payload: {
+    items,
+    total,
+  },
+});
+

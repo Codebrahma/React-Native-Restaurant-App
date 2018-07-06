@@ -9,12 +9,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         cuisineTypes: payload,
-        error: null,
+        cuisineTypesError: null,
       };
     case 'FETCH_CUISINE_TYPE_ERROR':
       return {
         ...state,
-        error: payload,
+        cuisineTypesError: payload,
       };
     default:
       return state;

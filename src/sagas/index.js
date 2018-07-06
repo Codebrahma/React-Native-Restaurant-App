@@ -1,5 +1,4 @@
 import { fork } from 'redux-saga/effects';
-import mySaga from './mySaga';
 import authSaga from './authSaga';
 import restaurantSaga from './restaurantSaga';
 import restaurantByTypeSaga from './restaurantByTypeSaga';
@@ -9,9 +8,9 @@ import cartItemsCleanSaga from './cart/cartItemsCleanSaga';
 import cartItemsDeleteSaga from './cart/cartItemsDeleteSaga';
 import cartItemsFetchSaga from './cart/cartItemsFetchSaga';
 import cartItemUpdateQtySaga from './cart/cartItemsUpdateQtySaga';
+import orderSaga from './orderSaga';
 
 function* rootSaga() {
-  yield fork(mySaga);
   yield fork(authSaga);
   yield fork(restaurantSaga);
   yield fork(restaurantByTypeSaga);
@@ -21,6 +20,7 @@ function* rootSaga() {
   yield fork(cartItemsDeleteSaga);
   yield fork(cartItemsFetchSaga);
   yield fork(cartItemUpdateQtySaga);
+  yield fork(orderSaga);
 }
 
 export default rootSaga;
