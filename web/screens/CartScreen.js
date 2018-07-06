@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import isEmpty from 'lodash/isEmpty';
 
 import { fetchCartItems, deleteCartItem, updateCartItemQty, cleanCart } from '../../src/actions/cart';
 import { createOrder } from '../../src/actions';
@@ -77,7 +78,7 @@ class CartDetails extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.orders.createdOrder !== null) {
+    if (!isEmpty(nextProps.orders.createdOrder)) {
       this.doPayment(nextProps.orders.createdOrder);
     }
   }
@@ -118,7 +119,7 @@ class CartDetails extends React.Component {
   }
 
   displayItems = () => (this.props.cartData.map(cartItem => (
-    <Paper elevation={2} style={{ width: '80vw' }}>
+    <Paper elevation={2} style={{ width: '80vw' }} key={cartItem._id}>
       <Container>
         <div>{cartItem.food.name}</div>
         <CounterButton

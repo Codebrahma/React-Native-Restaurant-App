@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import colors from '../../src/constants/colors';
+import { fetchOrders } from '../../src/actions';
+import AppBase from '../base_components/AppBase';
 
 const styles = {
   card: {
@@ -33,6 +35,9 @@ const styles = {
 };
 
 class OrdersList extends React.Component {
+  componentWillMount() {
+    this.props.fetchOrders();
+  }
    mapItems = items => items.map(item => (
      <CardContent key={item.id}>
        <div>
@@ -72,22 +77,25 @@ class OrdersList extends React.Component {
   render() {
     if (!this.props.ordersList) { return (<div>No items found!</div>); }
     return (
-      <div style={styles.list}>
-        <List>
-          {this.showAllOrders()}
-        </List>
-      </div>
+      <AppBase>
+        <div style={styles.list}>
+          <List>
+            {this.showAllOrders()}
+          </List>
+        </div>
+      </AppBase>
     );
   }
 }
 
 OrdersList.propTypes = {
   ordersList: PropTypes.arrayOf(PropTypes.object),
+  fetchOrders: PropTypes.func.isRequired,
 };
 
 OrdersList.defaultProps = {
-  ordersList: null,
+  ordersList: [],
 };
 
 const mapStateToProps = ({ orders }) => ({ ordersList: orders.ordersList });
-export default connect(mapStateToProps, {})(withStyles(styles)(OrdersList));
+export default connect(mapStateToProps, { fetchOrders })(withStyles(styles)(OrdersList));
