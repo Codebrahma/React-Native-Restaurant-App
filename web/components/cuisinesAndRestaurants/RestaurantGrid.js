@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { withRouter, Route } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+import styled, { consolidateStreamedStyles } from 'styled-components';
 import { PrimaryText } from '../../base_components/sharedComponents';
-import FoodItem from '../../base_components/FoodItem';
+import RestaurantItem from '../../base_components/RestaurantItem';
+import RestaurantInfo from '../../screens/RestaurantInfoScreen';
+import ImageSource from '../../../src/constants/images';
 
-const Container = styled.div`
-  width: 80vw;
-  position: absolute;
-  left: 18vw;
-  top: 9%;
-`;
-
+const styles = theme => ({
+  chip: {
+    margin: theme.spacing.unit,
+  },
+});
 const FoodContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -19,25 +22,47 @@ const FoodContainer = styled.div`
   align-items: center;
 `;
 
-export default class RestaurantGrid extends React.Component {
-  displayRestaurantList = () => this.props.restaurants.map(restaurant => (
-    <FoodItem name={restaurant.name} key={restaurant.id} />
+
+class RestaurantGrid extends React.Component {
+  displayRestaurantList = () => this.props.restaurants.map((restaurant, index) => (
+    <RestaurantItem
+      name={restaurant.name}
+      key={restaurant._id}
+      onClick={() => this.props.history.push(`/restaurantInfo/${restaurant._id}`)}
+      image={ImageSource[index]}
+    />
   ))
 
   render() {
-    console.log('**************************', this.props.restaurants);
+    const { classes } = this.props;
     return (
-      <Container>
+      <div>
         <PrimaryText size="20px" align="center">Restaurants</PrimaryText>
+        {this.props.cuisine && (
+        <Chip
+          key={this.props.cuisine}
+          label={this.props.cuisine}
+          onDelete={this.props.onDelete}
+          className={classes.chip}
+        />)}
         <FoodContainer>
           {this.displayRestaurantList()}
         </FoodContainer>
-      </Container>
+      </div>
     );
   }
 }
 
 RestaurantGrid.propTypes = {
   restaurants: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
+  cuisine: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
 };
 
+RestaurantGrid.defaultProps = {
+  cuisine: '',
+};
+
+export default withRouter(withStyles(styles)(RestaurantGrid));

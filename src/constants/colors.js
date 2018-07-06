@@ -8,4 +8,5 @@ export default {
   lightGrey: '#D3D3D3',
   white: '#FFFFFF',
   black: '#000000',
+  slateGrey: '#2F4F4F',
 };

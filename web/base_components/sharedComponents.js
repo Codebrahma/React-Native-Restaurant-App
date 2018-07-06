@@ -43,3 +43,43 @@ export const StatusBarView = styled.div`
   padding: 1%;
   align-items: center;
 `;
+
+export const CartQuantity = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: ${Color.white};
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const PaymentContainer = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  padding: 4%;
+  flex-direction: column;
+  
+`;
+
+export const PaymentImage = styled.img`
+  width: 10%;
+  height: 10%;
+`;
+
+export const PaymentText = styled.div`
+  width: 100%;
+  text-align: center;
+  margin: 2%;
+  font-family: 'Roboto Slab';
+  font-weight: bold;
+  color: ${Color.slateGrey};
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: ${Color.primaryColor};
+`;

@@ -14,6 +14,7 @@ import PaymentComplete from './screens/Payment/Complete';
 import PaymentFailed from './screens/Payment/Failed';
 import SideDrawer from './screens/SideDrawer';
 import DrawerImage from './components/DrawerImage';
+import OrdersList from './screens/OrderListScreen';
 
 
 const AppRouter = () => (
@@ -94,6 +95,11 @@ const AppRouter = () => (
           <Scene
             key="paymentFailed"
             component={PaymentFailed}
+          />
+          <Scene
+            key="showAllOrders"
+            component={OrdersList}
+            title="My Orders"
           />
         </Scene>
       </Drawer>

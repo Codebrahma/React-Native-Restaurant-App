@@ -95,8 +95,6 @@ class PaymentHome extends Component {
     const { totalAmount } = this.props;
     const { cardData: { values: cardValue } } = this.state;
 
-
-    console.log('cardData', cardValue);
     const apiKey = 'pk_test_rM2enW1rNROwx4ukBXGaIzhr';
     const client = new Stripe(apiKey);
     const expMonth = cardValue.expiry.split('/')[0];

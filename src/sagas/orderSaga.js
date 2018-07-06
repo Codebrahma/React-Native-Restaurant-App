@@ -15,7 +15,6 @@ function* orderFetchTask(action) {
       Authorization: `Bearer ${authToken}`,
     });
 
-
     if (res.status === 200) {
       yield put({
         type: 'FETCH_ORDERS_SUCCESS',
@@ -46,7 +45,6 @@ function* orderTask(action) {
     const res = yield call(API.createOrder, userId, payload.items, payload.total, {
       Authorization: `Bearer ${authToken}`,
     });
-
 
     if (res.status === 200) {
       yield put({

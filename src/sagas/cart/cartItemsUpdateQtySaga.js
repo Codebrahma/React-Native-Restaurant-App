@@ -20,7 +20,6 @@ function* cartItemUpdateQty(action) {
     });
 
     yield call(storage.setItem, 'userCart', JSON.stringify(newCart));
-
     yield put({ type: 'SAVE_NEW_CART', payload: newCart });
   } catch (e) {
     console.log(e);

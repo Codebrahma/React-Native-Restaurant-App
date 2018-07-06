@@ -1,67 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { fetchRestaurant, fetchCuisineTypes } from '../../../src/actions';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import colors from '../../../src/constants/colors';
-import { PrimaryText } from '../../base_components/sharedComponents';
-import StatusBar from '../../base_components/StatusBar';
-import RestaurantGrid from './RestaurantGrid';
 
-const BaseLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const CuisineContainer = styled.div`
-  padding: 1%;
-  width: 15vw;
-  border-color: ${colors.lightGrey};
-  border-style: solid;
-  text-align: left;
-  position: fixed;
-  top: 8%;
-  height: -webkit-fill-available;
-`;
-
-const ListStyle = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const KeyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding: 2%;
-  align-items: center;
-`;
-
-const Heading = styled.div`
-  font-family: Roboto Slab;
-  font-size: ${props => (props.size ? props.size : '16px')};
-`;
+const styles = {
+  cuisieContainer: {
+    padding: '1%',
+    borderColor: colors.lightGrey,
+    borderStyle: 'solid',
+    textAlign: 'left',
+    height: '100vh',
+  },
+  cuisine: {
+    textAlign: 'left',
+  },
+};
 
 class CuisineGrid extends React.Component {
+  state={ checked: '' }
+  capitalise = data => data.charAt(0).toUpperCase() + data.slice(1);
+
+  filter = (cuisine) => {
+    if (this.state.checked === '' || this.state.checked !== cuisine) {
+      this.setState({
+        checked: cuisine,
+      }, () => {
+        this.props.fetchRestaurantByType(this.state.checked, true);
+      });
+    } else {
+      this.setState({
+        checked: '',
+      }, () => {
+        this.props.onDelete();
+      });
+    }
+  }
+
   displayCuisineList = () => this.props.cuisineTypes.map(cuisine =>
     (
-      <KeyContainer>
-        <input type="checkbox" name="checkbox" />
-        <li key={cuisine}>
-          <PrimaryText color={colors.black}>{cuisine}</PrimaryText>
-        </li>
-      </KeyContainer>
+      <ListItem key={cuisine}>
+        <input
+          type="checkbox"
+          name="checkbox"
+          checked={this.state.checked === cuisine}
+          onClick={() => this.filter(cuisine)}
+        />
+        <div style={styles.cuisine}>{this.capitalise(cuisine)}</div>
+      </ListItem>
     ))
 
   render() {
     return (
-      <div>
-        <StatusBar />
-        <BaseLayout>
-          <CuisineContainer>
-            <PrimaryText size="20px" align="left">Cuisines</PrimaryText>
-            <ListStyle>{this.displayCuisineList()}</ListStyle>
-          </CuisineContainer>
-        </BaseLayout>
+      <div style={styles.cuisieContainer}>
+        <List subheader={<ListSubheader style={{ color: colors.primaryColor, fontSize: '1.2em' }}>Cuisines</ListSubheader>}>
+          {this.displayCuisineList()}
+        </List>
       </div>
     );
   }
@@ -69,6 +67,8 @@ class CuisineGrid extends React.Component {
 
 CuisineGrid.propTypes = {
   cuisineTypes: PropTypes.instanceOf(Object).isRequired,
+  fetchRestaurantByType: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
-export default CuisineGrid;
+export default withStyles(styles)(CuisineGrid);

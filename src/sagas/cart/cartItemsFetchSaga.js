@@ -8,7 +8,6 @@ function* cartItemsFetch(action) {
 
   try {
     const response = yield call(storage.getItem, 'userCart');
-
     yield put({
       type: 'SAVE_NEW_CART',
       payload: JSON.parse(response) || [],
