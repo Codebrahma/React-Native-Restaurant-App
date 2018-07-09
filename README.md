@@ -1,30 +1,81 @@
-# React Native Boilerplate
+# Restaurant App
 
-## Packages included and configured
-- `eslint` -> follows airbnb styling guide
-- `redux` -> store configured with reducers and actions and sagas
-- `redux-saga` -> redux saga integrate in store
-- `styled-components` -> for styling components
-- `react-native-permissions` -> cross platform permission request library
-- `react-native-vector-icons` -> icons library
-
-## Can be used
-
-- `react-native-router-flux` or `react-navigation` for routing in app (*not included*)
-
-## Steps
-
-### Setup
-
-- run `react-native init <project name> --package=<package identifier>` in your directory
-- let react native install and setup the code
-- delete `package.json`, `App.js` files & delete `src/*` folder in your generated project
-- copy all the files from repo folder (`/*` & `/src/*`) to your project
-- change `name` in package.json file to your own
-- run `npm install` or `yarn install` to install dependencies
-- run `react-native link react-native-vector-icons` to install vector icons library
+BoilerPlate Used React Native [https://github.com/kaushiknishchay/React-Native-Boilerplate](https://github.com/kaushiknishchay/React-Native-Boilerplate)
 
 
-### Run
+BoilerPlate Used React.JS [https://github.com/Codebrahma/Codebrahma-React-Boilerplate](https://github.com/Codebrahma/Codebrahma-React-Boilerplate)
 
-- `yarn android` or `yarn ios` to run on a device
+## Setup
+
+## Prerequisites
+
+- Install and  setup the backend server
+ 
+[https://github.com/Codebrahma/RestaurantApp-Express](https://github.com/Codebrahma/RestaurantApp-Express)
+
+### Installation
+
+- run `npm install` or `yarn install`
+
+### Run on Device
+
+- run `yarn android` or `yarn ios` to run on device or emulator
+
+### Start the web version
+
+- run `yarn start:web`
+
+### Project info
+
+
+Main objective of this project was to have a single code base for both 
+web and mobile apps with the logic and view separated.
+
+#### Project Structure
+
+```
+    /android                - React native android source code
+    
+    /app                    - React native specific code
+        /base_components    - reusable react native components
+        /components         - react native components
+        /screens            - connected to store components
+        /App.js             - App Root component
+        /router.js          - route config
+        
+    /assets                 - contains image and fonts
+    /ios                    - React native ios source code
+    
+    /src
+        /actions            - all redux actions
+        /constants          - colors and Assets
+        /reducers           - all reducers
+        /sagas              - all redux sagas  
+        /service            - API methods
+        /store              - store config
+        /utils              - some utility functions
+
+    /web                    - react js web specific code
+        /screens            - connected to store components
+        /components         - react components
+        /base_components    - reusable react components
+        /App.js             - App Root component
+        /routes.js          - route config
+    /webpack                - webpack config
+    
+```
+
+
+
+#### ScreenShots - Native App
+
+<img src="screenshots/1.png" data-canonical-src="screenshots/1.png" width="250" />
+<img src="screenshots/2.png" data-canonical-src="screenshots/2.png" width="250" />
+<img src="screenshots/3.png" data-canonical-src="screenshots/3.png" width="250" />
+<img src="screenshots/4.png" data-canonical-src="screenshots/4.png" width="250" />
+<img src="screenshots/5.png" data-canonical-src="screenshots/5.png" width="250" />
+<img src="screenshots/6.png" data-canonical-src="screenshots/6.png" width="250" />
+<img src="screenshots/7.png" data-canonical-src="./screenshots/7.png" width="250" />
+<img src="screenshots/8.png" data-canonical-src="./screenshots/8.png" width="250" />
+
+
