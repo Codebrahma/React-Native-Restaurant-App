@@ -57,8 +57,8 @@ web and mobile apps with the logic and view separated.
 
     /web                    - react js web specific code
         /screens            - connected to store components
-        /components         - react native components
-        /base_components    - reusable react native components
+        /components         - react components
+        /base_components    - reusable react components
         /App.js             - App Root component
         /routes.js          - route config
     /webpack                - webpack config
