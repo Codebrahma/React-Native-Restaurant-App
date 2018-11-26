@@ -74,7 +74,7 @@ class OrdersList extends React.Component {
 }
 
 OrdersList.propTypes = {
-  ordersList: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  ordersList: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchOrders: PropTypes.func.isRequired,
 };
 
