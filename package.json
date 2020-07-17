@@ -23,7 +23,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-credit-cards": "^0.7.0",
